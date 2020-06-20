@@ -16,10 +16,10 @@ Canvas2D.prototype.fill = function (color) {
     this.canvasContext.fillRect(0, 0, this.width, this.height);
 }
 
-Canvas2D.prototype.drawImage = function (fileName, upLeft, downRight) {
+Canvas2D.prototype.drawImage = function (fileName, center, width, height) {
     image = new Image();
     image.src = "./assets/sprites/" + fileName + ".png";
-    this.canvasContext.drawImage(image, upCenter.xScreen, upLeft.yScreen, downRight.xScreen - upLeft.xScreen, downRight.yScreen - upLeft.yScreen);
+    this.canvasContext.drawImage(image, center.xScreen - width / 2, center.yScreen - height, width, height);
 }
 
 Canvas2D.prototype.drawShape = function (point1, point2, point3, point4, color) {

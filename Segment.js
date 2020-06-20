@@ -11,6 +11,9 @@ function Segment(prevSegment, curve, hill, index) {
     this.line4 = new Tile(prevSegment.line4, this.highCenter, asphaltWidth * 3 / 10, lineWidth, index % (2 * invisSegment) < invisSegment ? darkAsphaltColor : whiteColor);
     this.leftSide = new Tile(prevSegment.leftSide, this.highCenter, -asphaltWidth / 2, sideLineWidth, index % (2 * invisSegment) < invisSegment ? redColor : whiteColor);
     this.rightSide = new Tile(prevSegment.rightSide, this.highCenter, asphaltWidth / 2, sideLineWidth, index % (2 * invisSegment) < invisSegment ? redColor : whiteColor);
+    if (index % objectDistance == 0) {
+        this.rightObject = new WorldObject(new Vector3(this.highCenter.x + asphaltWidth / 2 + 400, this.highCenter.y, this.highCenter.z), 4000, 5474, 'environment/tree');
+    }
 }
 
 let invisSegment = 8;
@@ -20,6 +23,7 @@ let asphaltWidth = 9000 + lineWidth * 2;
 let laneWidth = (asphaltWidth - lineWidth * 2) / 5;
 let offroadWidth = 50000;
 let segmentDepth = 100;
+let objectDistance = 50;
 
 Segment.prototype.project = function () {
     this.highCenter.x = this.lowCenter.x + (this.curve - Driver.curve);
@@ -37,4 +41,8 @@ Segment.prototype.project = function () {
     this.line3.calculate(-relSpace, relWidth);
     this.leftSide.project(measure2);
     this.rightSide.project(measure2);
+    if (this.rightObject != undefined) {
+        this.rightObject.center.x = this.highCenter.x + asphaltWidth / 2 + 400;
+        this.rightObject.project(measure2);
+    }
 }

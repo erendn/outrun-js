@@ -86,7 +86,13 @@ Road.prototype.addSegments = function (canCurve) {
         if (Math.random() < 0.5) { // CURVE
             var direction = Math.random() < 0.5 ? -1 : 1;
             for (var j = 0; j < curveLength; j++) {
-                this.segments.push(new Segment(this.segments[this.segments.length - 1], MAX_CURVE * (-Math.abs(2 * j / curveLength - 1) + 1) * direction, 0, this.segments.length));
+                this.segments.push(new Segment(this.segments[this.segments.length - 1], MAX_CURVE * (j / curveLength) * direction, 0, this.segments.length));
+            }
+            for (var j = 0; j < curveLength; j++) {
+                this.segments.push(new Segment(this.segments[this.segments.length - 1], MAX_CURVE * direction, 0, this.segments.length));
+            }
+            for (var j = 0; j < curveLength; j++) {
+                this.segments.push(new Segment(this.segments[this.segments.length - 1], MAX_CURVE * (1 - j / curveLength) * direction, 0, this.segments.length));
             }
         } else { // HILL
             for (var j = 0; j < curveLength; j++) {

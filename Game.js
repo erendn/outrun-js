@@ -3,6 +3,8 @@ function Game() {
     this.renderSize = 300;
 }
 
+var controlCount = 0;
+
 let MENU_SCENE = 'menu';
 let IN_GAME_SCENE = 'drive';
 

@@ -33,10 +33,15 @@ GameWorld.prototype.draw = function () {
         Canvas.drawShape(segment.line4.upLeft, segment.line4.upRight, segment.line4.downRight, segment.line4.downLeft, segment.line4.color);
         Canvas.drawShape(segment.leftSide.upLeft, segment.leftSide.upRight, segment.leftSide.downRight, segment.leftSide.downLeft, segment.leftSide.color);
         Canvas.drawShape(segment.rightSide.upLeft, segment.rightSide.upRight, segment.rightSide.downRight, segment.rightSide.downLeft, segment.rightSide.color);
+        var object = segment.rightObject;
+        if (object != undefined)
+            Canvas.drawImage(object.filePath, object.center, object.relWidth, object.relHeight);
+    }
+    for (var i = maxRendered; i >= currentIndex; i--) {
     }
     //Canvas.drawImage("player/straight", {xScreen: 500, yScreen: 500}, {xScreen: 1000, yScreen: 832});
 
-    Canvas.pixelize(3);
+    //Canvas.pixelize(3);
     if (this.road.segments.length - currentIndex < Outrun.renderSize) {
         this.road.addSegments(true);
     }
