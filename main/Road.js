@@ -73,8 +73,8 @@ let darkAsphaltColor = '#949494';
 let lightAsphaltColor = '#9C9C9C';
 let whiteColor = '#F7F7F7';
 let redColor = '#FF0000';
-let darkOffroadColor = '#348018';
-let lightOffroadColor = '#3CA714';
+let darkOffroadColor = '#076348';
+let lightOffroadColor = '#1d963f';
 
 let MAX_CURVE = 0.3;
 let MAX_HILL = 10;

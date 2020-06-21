@@ -1,8 +1,8 @@
-function WorldObject(center, width, height, filePath) {
+function WorldObject(center, width, height, fileName) {
     this.center = center;
     this.width = width;
     this.height = height;
-    this.filePath = filePath;
+    this.fileName = fileName;
     this.relHeight = 0;
     this.relWidth = 0;
 }

@@ -15,6 +15,7 @@ var currentTime = null;
 
 Game.prototype.init = function () {
     time = new Date().getTime();
+    loadAssets();
     this.eventListener = new EventListener();
     this.gameWorld = new GameWorld();
 }

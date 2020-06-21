@@ -1,7 +1,15 @@
 function GameWorld() {
     this.road = new Road();
     this.objects = [];
+    this.cloudParallax = 0;
+    this.mountainParallax = 0;
+    this.forestParallax = 0;
+
 }
+
+let cloudSpeed = 0.001;
+let mountainSpeed = 0.002;
+let forestSpeed = 0.003;
 
 GameWorld.prototype.play = function () {
     Driver.play();
@@ -14,10 +22,35 @@ GameWorld.prototype.update = function () {
     for (var i = currentIndex, size = Math.min(this.road.segments.length, currentIndex + Outrun.renderSize); i < size; i++) {
         this.road.segments[i].project();
     }
+    if (currentIndex != 0) {
+        var curveDirection = Math.sign(this.road.segments[currentIndex].curve - this.road.segments[currentIndex - 1].curve);
+        this.cloudParallax -= cloudSpeed * curveDirection;
+        this.mountainParallax -= mountainSpeed * curveDirection;
+        this.forestParallax -= forestSpeed * curveDirection;
+        if (Math.abs(this.cloudParallax) > 1) {
+            this.cloudParallax = 0;
+        }
+        if (Math.abs(this.mountainParallax) > 1) {
+            this.mountainParallax = 0;
+        }
+        if (Math.abs(this.forestParallax) > 1) {
+            this.forestParallax = 0;
+        }
+    }
 }
 
 GameWorld.prototype.draw = function () {
-    Canvas.fill(skyColor);
+    Canvas.fill('#FFFFFF');
+    Canvas.drawStaticImage(sprites['sky'], 0, 0, Canvas.width, Canvas.height);
+    Canvas.drawStaticImage(sprites['cloud'], Canvas.width * (this.cloudParallax - 1), 0, Canvas.width, Canvas.height);
+    Canvas.drawStaticImage(sprites['cloud'], Canvas.width * this.cloudParallax, 0, Canvas.width, Canvas.height);
+    Canvas.drawStaticImage(sprites['cloud'], Canvas.width * (this.cloudParallax + 1), 0, Canvas.width, Canvas.height);
+    Canvas.drawStaticImage(sprites['mountain'], Canvas.width * (this.mountainParallax - 1), 0, Canvas.width, Canvas.height);
+    Canvas.drawStaticImage(sprites['mountain'], Canvas.width * this.mountainParallax, 0, Canvas.width, Canvas.height);
+    Canvas.drawStaticImage(sprites['mountain'], Canvas.width * (this.mountainParallax + 1), 0, Canvas.width, Canvas.height);
+    Canvas.drawStaticImage(sprites['forest'], Canvas.width * (this.forestParallax - 1), 0, Canvas.width, Canvas.height);
+    Canvas.drawStaticImage(sprites['forest'], Canvas.width * this.forestParallax, 0, Canvas.width, Canvas.height);
+    Canvas.drawStaticImage(sprites['forest'], Canvas.width * (this.forestParallax + 1), 0, Canvas.width, Canvas.height);
     var currentIndex = this.road.findIndex(Driver.position.z);
     var maxRendered = Math.min(this.road.segments.length, currentIndex + Outrun.renderSize) - 1;
     for (var i = maxRendered; i >= currentIndex; i--) {
@@ -35,13 +68,13 @@ GameWorld.prototype.draw = function () {
         Canvas.drawShape(segment.rightSide.upLeft, segment.rightSide.upRight, segment.rightSide.downRight, segment.rightSide.downLeft, segment.rightSide.color);
         var object = segment.rightObject;
         if (object != undefined)
-            Canvas.drawImage(object.filePath, object.center, object.relWidth, object.relHeight);
+            Canvas.drawImage(sprites[object.fileName], object.center, object.relWidth, object.relHeight);
     }
     for (var i = maxRendered; i >= currentIndex; i--) {
     }
     //Canvas.drawImage("player/straight", {xScreen: 500, yScreen: 500}, {xScreen: 1000, yScreen: 832});
 
-    //Canvas.pixelize(3);
+    Canvas.pixelize(4);
     if (this.road.segments.length - currentIndex < Outrun.renderSize) {
         this.road.addSegments(true);
     }
