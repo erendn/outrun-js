@@ -2,12 +2,12 @@
 ## Features
 * Pseudo 3D racing game
 
-## Features To Be Added
-* Main menu
-* Map
+## To-Do List
+* Racing car animations
+* Other cars
+* Map algorithm
 * In-game UI
-* World objects
-* Turning and climbing animations
+* More world objects
 
 ## What I Learned
 * Canvas in HTML
