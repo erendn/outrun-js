@@ -24,8 +24,11 @@ Player.prototype.play = function () {
     }
     this.speed = this.speed < 0 ? this.speed = 0 : this.speed > maxSpeed ? maxSpeed : this.speed;
 
+    var carIndex = Outrun.gameWorld.road.findIndex(this.car.center.z);
+    var curve = Outrun.gameWorld.road.segments[carIndex].curve - Outrun.gameWorld.road.segments[carIndex - 1].curve;
+
     zMove = this.speed * (this.steerLeft | this.steerRight ? 0.83 : 1);
-    xMove = this.speed * (this.steerLeft ? -0.17 : this.steerRight ? 0.17 : 0);
+    xMove = this.speed * ((this.steerLeft ? -0.17 : this.steerRight ? 0.17 : 0) - curve / 2);
 
     this.camera.position.z += zMove;
     this.camera.position.x += xMove;

@@ -7,9 +7,9 @@ function GameWorld() {
 
 }
 
-let cloudSpeed = 0.001;
-let mountainSpeed = 0.002;
-let forestSpeed = 0.003;
+let cloudSpeed = 0.000001;
+let mountainSpeed = 0.000002;
+let forestSpeed = 0.000003;
 
 GameWorld.prototype.play = function () {
     Driver.play();
@@ -24,9 +24,9 @@ GameWorld.prototype.update = function () {
     }
     if (currentIndex != 0) {
         var curveDirection = Math.sign(this.road.segments[currentIndex].curve - this.road.segments[currentIndex - 1].curve);
-        this.cloudParallax -= cloudSpeed * curveDirection;
-        this.mountainParallax -= mountainSpeed * curveDirection;
-        this.forestParallax -= forestSpeed * curveDirection;
+        this.cloudParallax -= cloudSpeed * Driver.speed * curveDirection;
+        this.mountainParallax -= mountainSpeed * Driver.speed * curveDirection;
+        this.forestParallax -= forestSpeed * Driver.speed * curveDirection;
         if (Math.abs(this.cloudParallax) > 1) {
             this.cloudParallax = 0;
         }
