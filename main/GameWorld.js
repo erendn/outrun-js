@@ -16,7 +16,7 @@ GameWorld.prototype.play = function () {
 }
 
 GameWorld.prototype.update = function () {
-    var currentIndex = this.road.findIndex(Driver.position.z);
+    var currentIndex = this.road.findIndex(Driver.camera.position.z);
     Driver.curve = this.road.segments[currentIndex].curve;
     Driver.hill = this.road.segments[currentIndex].hill;
     for (var i = currentIndex, size = Math.min(this.road.segments.length, currentIndex + Outrun.renderSize); i < size; i++) {
@@ -37,6 +37,7 @@ GameWorld.prototype.update = function () {
             this.forestParallax = 0;
         }
     }
+    Driver.project();
 }
 
 GameWorld.prototype.draw = function () {
@@ -51,7 +52,7 @@ GameWorld.prototype.draw = function () {
     Canvas.drawStaticImage(sprites['forest'], Canvas.width * (this.forestParallax - 1), 0, Canvas.width, Canvas.height);
     Canvas.drawStaticImage(sprites['forest'], Canvas.width * this.forestParallax, 0, Canvas.width, Canvas.height);
     Canvas.drawStaticImage(sprites['forest'], Canvas.width * (this.forestParallax + 1), 0, Canvas.width, Canvas.height);
-    var currentIndex = this.road.findIndex(Driver.position.z);
+    var currentIndex = this.road.findIndex(Driver.camera.position.z);
     var maxRendered = Math.min(this.road.segments.length, currentIndex + Outrun.renderSize) - 1;
     for (var i = maxRendered; i >= currentIndex; i--) {
         var segment = this.road.segments[i];
@@ -70,9 +71,7 @@ GameWorld.prototype.draw = function () {
         if (object != undefined)
             Canvas.drawImage(sprites[object.fileName], object.center, object.relWidth, object.relHeight);
     }
-    for (var i = maxRendered; i >= currentIndex; i--) {
-    }
-    //Canvas.drawImage("player/straight", {xScreen: 500, yScreen: 500}, {xScreen: 1000, yScreen: 832});
+    Canvas.drawImage(sprites[Driver.car.fileName], Driver.car.center, Driver.car.relWidth, Driver.car.relHeight);
 
     Canvas.pixelize(4);
     if (this.road.segments.length - currentIndex < Outrun.renderSize) {

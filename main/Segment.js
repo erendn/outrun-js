@@ -21,7 +21,7 @@ let sideLineWidth = 300;
 let lineWidth = 150;
 let asphaltWidth = 9000 + lineWidth * 2;
 let laneWidth = (asphaltWidth - lineWidth * 2) / 5;
-let offroadWidth = 50000;
+let offroadWidth = 70000;
 let segmentDepth = 100;
 let objectDistance = 50;
 
