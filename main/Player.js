@@ -1,6 +1,6 @@
 function Player() {
-    this.camera = new Camera(window.innerWidth, window.innerHeight, 200, 90);
-    this.car = new WorldObject(new Vector3(0, 0, carDistance), 700, 394, 'straight');
+    this.camera = new Camera(window.innerWidth, window.innerHeight, 500, 90);
+    this.car = new WorldObject(new Vector3(0, 0, carDistance), 800, 450, 'straight');
     this.curve = 0;
     this.hill = 0;
     this.speed = 0;
@@ -12,7 +12,9 @@ function Player() {
 
 let maxSpeed = 600;
 
-let carDistance = 2000;
+let carDistance = 2200;
+
+let curveSense = 0.1;
 
 Player.prototype.play = function () {
     if (this.accelerate) {
@@ -28,7 +30,7 @@ Player.prototype.play = function () {
     var curve = Outrun.gameWorld.road.segments[carIndex].curve - Outrun.gameWorld.road.segments[carIndex - 1].curve;
 
     zMove = this.speed * (this.steerLeft | this.steerRight ? 0.83 : 1);
-    xMove = this.speed * ((this.steerLeft ? -0.17 : this.steerRight ? 0.17 : 0) - curve / 2);
+    xMove = this.speed * ((this.steerLeft ? -0.17 : this.steerRight ? 0.17 : 0) - curve / 5);
 
     this.camera.position.z += zMove;
     this.camera.position.x += xMove;
@@ -44,14 +46,14 @@ Player.prototype.project = function () {
     var curveDirection = Outrun.gameWorld.road.segments[carIndex].curve - Outrun.gameWorld.road.segments[carIndex - 1].curve;
     var hillDirection = Outrun.gameWorld.road.segments[carIndex].hill - Outrun.gameWorld.road.segments[carIndex - 1].hill;
     this.car.fileName = hillDirection > 12 ? 'hill-' : '';
-    if (curveDirection < 0) {
+    if (curveDirection < -curveSense) {
         if (this.steerLeft)
             this.car.fileName += 'left-hard';
         else if (this.steerRight)
             this.car.fileName += 'straight';
         else
             this.car.fileName += 'left';
-    } else if (curveDirection > 0) {
+    } else if (curveDirection > curveSense) {
         if (this.steerLeft)
             this.car.fileName += 'straight';
         else if (this.steerRight)

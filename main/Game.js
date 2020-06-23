@@ -1,6 +1,6 @@
 function Game() {
     this.scene = IN_GAME_SCENE;
-    this.renderSize = 300;
+    this.renderSize = 200;
 }
 
 var controlCount = 0;

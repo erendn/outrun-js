@@ -1,9 +1,8 @@
-function Tile(prevTile, highCenter, space, width, color) {
-    this.prevTile = prevTile;
+function Tile(prevTile, highCenter, color) {
     this.lowCenter = prevTile.highCenter;
     this.highCenter = highCenter;
-    this.space = space;
-    this.width = width;
+    this.space = prevTile.space;
+    this.width = prevTile.width;
     this.downLeft = prevTile.upLeft;
     this.downRight = prevTile.upRight;
     this.upLeft = new Vector3();
