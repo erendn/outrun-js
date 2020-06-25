@@ -5,10 +5,10 @@ function Game() {
 
 var controlCount = 0;
 
-let MENU_SCENE = 'menu';
-let IN_GAME_SCENE = 'drive';
+const MENU_SCENE = 'menu';
+const IN_GAME_SCENE = 'drive';
 
-let FPS = 60;
+const FPS = 60;
 
 var time = null;
 var currentTime = null;

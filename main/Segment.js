@@ -1,5 +1,6 @@
-function Segment(prevSegment, curve, hill, index) {
+function Segment(prevSegment, curve, hill, index, isInitial) {
     this.numLanes = prevSegment.numLanes;
+    this.isInitial = isInitial;
     this.curve = prevSegment.curve + curve;
     this.hill = prevSegment.hill + hill;
     this.lowCenter = prevSegment.highCenter;
@@ -13,22 +14,36 @@ function Segment(prevSegment, curve, hill, index) {
         this.lines.push(new Tile(prevSegment.lines[i], this.highCenter, index % (2 * invisSegment) < invisSegment ? darkAsphaltColor : whiteColor));
     }
     if (!(index % objectDistance)) {
-        this.rightObject = new WorldObject(new Vector3(this.highCenter.x + this.asphaltWidth / 2 + 600, this.highCenter.y, this.highCenter.z), 1741, 4000, 'tree');
+        //this.rightObject = new WorldObject(new Vector3(this.highCenter.x + this.asphaltWidth / 2 + 600, this.highCenter.y, this.highCenter.z), 1741, 4000, 'tree');
     }
 }
 
-let invisSegment = 2;
-let sideLineWidth = 300;
-let lineWidth = 150;
-let laneWidth = 1500;
-let offroadWidth = 70000;
-let segmentDepth = 250;
-let objectDistance = 20;
+const invisSegment = 2;
+const sideLineWidth = 300;
+const lineWidth = 150;
+const laneWidth = 1500;
+const offroadWidth = 70000;
+const segmentDepth = 250;
+const objectDistance = 30;
 
 Segment.prototype.project = function () {
+    if (this.isInitial) {
+        this.offroad.downLeft.project();
+        this.offroad.downRight.project();
+        this.asphalt.downLeft.project();
+        this.asphalt.downRight.project();
+        this.leftSide.downLeft.project();
+        this.leftSide.downRight.project();
+        this.rightSide.downLeft.project();
+        this.rightSide.downRight.project();
+        for (var i = 0; i < this.numLanes - 1; i++) {
+            this.lines[i].downLeft.project();
+            this.lines[i].downRight.project();
+        }
+    }
     this.highCenter.x = this.lowCenter.x + (this.curve - Driver.curve);
     this.highCenter.project();
-    var measure2 = this.lowCenter.z - Driver.camera.position.z;
+    var measure2 = this.highCenter.z - Driver.camera.position.z;
     this.offroad.project(measure2);
     this.asphalt.project(measure2);
     this.leftSide.project(measure2);
@@ -39,8 +54,9 @@ Segment.prototype.project = function () {
         this.lines[i].calculate(relSpace, relWidth);
         this.lines[this.numLanes - 2 - i].calculate(-relSpace, relWidth);
     }
-    if (this.numLanes % 2 == 0)
+    if (this.numLanes % 2 == 0) {
         this.lines[this.numLanes / 2 + 1].project(measure2);
+    }
     if (this.rightObject != undefined) {
         this.rightObject.center.x = this.highCenter.x + this.asphalt.width / 2 + 600;
         this.rightObject.project(measure2);
