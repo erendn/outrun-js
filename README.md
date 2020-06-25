@@ -6,7 +6,6 @@ Most of the original sprites are not used in this project because of copyright c
 ## To-Do List
 * Transmission algorithm
 * Other cars
-* Map algorithm
 * In-game UI
 * More world objects
 * Main menu
@@ -16,7 +15,7 @@ Most of the original sprites are not used in this project because of copyright c
 * JavaScript
 * Basic game engine
 
-## [Demo](https://biarmic.github.io/outrun-js/)
+## [Play](https://biarmic.github.io/outrun-js/)
 
 ## Credits
 * Artwork used for parallax background: Luis Zuno (@ansimuz)
