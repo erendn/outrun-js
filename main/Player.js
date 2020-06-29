@@ -1,6 +1,6 @@
 function Player() {
     this.camera = new Camera(window.innerWidth, window.innerHeight, 300, 120);
-    this.car = new WorldObject(new Vector3(0, 0, carDistance), 0, 800, 450, 'straight');
+    this.car = new WorldObject(new Vector3(0, 0, carDistance), 0, 81, 46, 'straight');
     this.lastSegment = null;
     this.curve = 0;
     this.hill = 0;
@@ -18,14 +18,16 @@ const maxSpeed = 900;
 const carDistance = 5000;
 
 const curveSense = 0.1;
+const hillSense = 12;
+const speedSense = 200
 
 Player.prototype.play = function () {
     if (this.accelerate) {
-        this.speed += 2;
+        this.speed += 4;
     } else if (this.decelerate) {
-        this.speed -= 8;
+        this.speed -= 16;
     } else {
-        this.speed -= 1;
+        this.speed -= 2;
     }
     this.speed = this.speed < 0 ? this.speed = 0 : this.speed > maxSpeed ? maxSpeed : this.speed;
 
@@ -83,28 +85,40 @@ Player.prototype.project = function () {
     this.car.center.y = this.hill;
     this.car.project(this.car.center.z - this.camera.position.z);
 
-    this.car.fileName = this.hillDirection > 12 ? 'hill-' : '';
+    this.car.fileName = '';
+    if (this.hillDirection > hillSense) {
+        this.car.fileName = 'up-';
+    } else if (this.hillDirection < -hillSense) {
+        this.car.fileName = 'down-';
+    }
     if (this.curveDirection < -curveSense) {
-        if (this.steerLeft)
-            this.car.fileName += 'left-hard';
-        else if (this.steerRight)
-            this.car.fileName += 'straight';
+        if (this.steerLeft & this.speed != 0)
+            this.car.fileName += 'hardleft-';
+        else if (this.steerRight & this.speed != 0)
+            this.car.fileName += 'straight-';
         else
-            this.car.fileName += 'left';
+            this.car.fileName += 'left-';
     } else if (this.curveDirection > curveSense) {
-        if (this.steerLeft)
-            this.car.fileName += 'straight';
-        else if (this.steerRight)
-            this.car.fileName += 'right-hard';
+        if (this.steerLeft & this.speed != 0)
+            this.car.fileName += 'straight-';
+        else if (this.steerRight & this.speed != 0)
+            this.car.fileName += 'hardright-';
         else
-            this.car.fileName += 'right';
+            this.car.fileName += 'right-';
     } else {
-        if (this.steerLeft)
-            this.car.fileName += 'left';
-        else if (this.steerRight)
-            this.car.fileName += 'right';
+        if (this.steerLeft & this.speed != 0)
+            this.car.fileName += 'left-';
+        else if (this.steerRight & this.speed != 0)
+            this.car.fileName += 'right-';
         else
-            this.car.fileName += 'straight';
-
+            this.car.fileName += 'straight-';
+    }
+    if(this.decelerate){
+        this.car.fileName += 'brake-';
+    }
+    if (this.speed > speedSense) {
+        this.car.fileName += Math.floor(Math.random() * 2);
+    } else {
+        this.car.fileName += '0';
     }
 }

@@ -10,7 +10,6 @@ This project is an imitation of Sega's arcade racing game <a href="https://en.wi
 * Other cars
 * In-game UI
 * More world objects
-* Main menu
 
 ## What I Learned
 * Canvas in HTML

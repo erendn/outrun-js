@@ -2,7 +2,7 @@ let sprites = {};
 let sounds = {};
 
 function loadAssets() {
-   //\\//\\ MENU ASSETS //\\//\\
+  //\\//\\ MENU ASSETS //\\//\\
   // LOADING MENU SPRITES
   sprites['logo-bg-0'] = loadSprite('menu/logo-bg-0');
   sprites['logo-bg-1'] = loadSprite('menu/logo-bg-1');
@@ -39,16 +39,45 @@ function loadAssets() {
   sprites['forest'] = loadSprite('background/forest');
   sprites['tree'] = loadSprite('environment/tree');
   sprites['tunnel'] = loadSprite('environment/tunnel');
-  sprites['straight'] = loadSprite('player/straight');
-  sprites['left'] = loadSprite('player/left');
-  sprites['right'] = loadSprite('player/right');
-  sprites['left-hard'] = loadSprite('player/left-hard');
-  sprites['right-hard'] = loadSprite('player/right-hard');
-  sprites['hill-straight'] = loadSprite('player/hill-straight');
-  sprites['hill-left'] = loadSprite('player/hill-left');
-  sprites['hill-right'] = loadSprite('player/hill-right');
-  sprites['hill-left-hard'] = loadSprite('player/hill-left-hard');
-  sprites['hill-right-hard'] = loadSprite('player/hill-right-hard');
+  // LOADING FERRARI SPRITES
+  for (var i = 0; i < 2; i++) {
+    sprites['down-hardleft-' + i] = loadSprite('ferrari/down-hardleft-' + i);
+    sprites['down-hardright-' + i] = loadSprite('ferrari/down-hardright-' + i);
+    sprites['down-left-' + i] = loadSprite('ferrari/down-left-' + i);
+    sprites['down-right-' + i] = loadSprite('ferrari/down-right-' + i);
+    sprites['down-straight-' + i] = loadSprite('ferrari/down-straight-' + i);
+
+    sprites['hardleft-' + i] = loadSprite('ferrari/hardleft-' + i);
+    sprites['hardright-' + i] = loadSprite('ferrari/hardright-' + i);
+    sprites['left-' + i] = loadSprite('ferrari/left-' + i);
+    sprites['right-' + i] = loadSprite('ferrari/right-' + i);
+    sprites['straight-' + i] = loadSprite('ferrari/straight-' + i);
+
+    sprites['up-hardleft-' + i] = loadSprite('ferrari/up-hardleft-' + i);
+    sprites['up-hardright-' + i] = loadSprite('ferrari/up-hardright-' + i);
+    sprites['up-left-' + i] = loadSprite('ferrari/up-left-' + i);
+    sprites['up-right-' + i] = loadSprite('ferrari/up-right-' + i);
+    sprites['up-straight-' + i] = loadSprite('ferrari/up-straight-' + i);
+
+
+    sprites['down-hardleft-brake-' + i] = loadSprite('ferrari/down-hardleft-brake-' + i);
+    sprites['down-hardright-brake-' + i] = loadSprite('ferrari/down-hardright-brake-' + i);
+    sprites['down-left-brake-' + i] = loadSprite('ferrari/down-left-brake-' + i);
+    sprites['down-right-brake-' + i] = loadSprite('ferrari/down-right-brake-' + i);
+    sprites['down-straight-brake-' + i] = loadSprite('ferrari/down-straight-brake-' + i);
+
+    sprites['hardleft-brake-' + i] = loadSprite('ferrari/hardleft-brake-' + i);
+    sprites['hardright-brake-' + i] = loadSprite('ferrari/hardright-brake-' + i);
+    sprites['left-brake-' + i] = loadSprite('ferrari/left-brake-' + i);
+    sprites['right-brake-' + i] = loadSprite('ferrari/right-brake-' + i);
+    sprites['straight-brake-' + i] = loadSprite('ferrari/straight-brake-' + i);
+
+    sprites['up-hardleft-brake-' + i] = loadSprite('ferrari/up-hardleft-brake-' + i);
+    sprites['up-hardright-brake-' + i] = loadSprite('ferrari/up-hardright-brake-' + i);
+    sprites['up-left-brake-' + i] = loadSprite('ferrari/up-left-brake-' + i);
+    sprites['up-right-brake-' + i] = loadSprite('ferrari/up-right-brake-' + i);
+    sprites['up-straight-brake-' + i] = loadSprite('ferrari/up-straight-brake-' + i);
+  }
   // LOADING IN-GAME MUSIC
   sounds['music-0'] = loadSound('music/music-0');
   sounds['music-1'] = loadSound('music/music-1');
