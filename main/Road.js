@@ -2,7 +2,7 @@ function Road(center, curve, hill, numLanes) {
     this.trackRemain = trackLength - 1;
     this.chosenPath = [];
     this.trackCount = 0;
-    this.segments = [new Segment(Road.prepareInitial(center, curve, hill, numLanes), curve, hill, 0, false)];
+    this.segments = [new Segment(Road.prepareInitial(center, curve, hill, numLanes), curve, hill, 0, true)];
     this.addSegments(false);
     this.segments[0].offroad.downLeft.project();
     this.segments[0].offroad.downRight.project();

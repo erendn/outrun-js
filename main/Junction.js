@@ -1,7 +1,7 @@
 function Junction(prevJunction, curve, hill, index, isInitial) {
     this.numLanes = prevJunction.numLanes;
-    this.leftJunction = new Segment(prevJunction.leftJunction, -curve, hill, index, isInitial);
-    this.rightJunction = new Segment(prevJunction.rightJunction, curve, hill, index, isInitial);
+    this.leftJunction = new Segment(prevJunction.leftJunction, -curve, hill, index, isInitial, true);
+    this.rightJunction = new Segment(prevJunction.rightJunction, curve, hill, index, isInitial, true);
     this.isInitial = isInitial;
 }
 

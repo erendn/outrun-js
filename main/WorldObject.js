@@ -1,5 +1,6 @@
-function WorldObject(center, width, height, fileName) {
+function WorldObject(center, offset, width, height, fileName) {
     this.center = center;
+    this.offset = offset;
     this.width = width;
     this.height = height;
     this.fileName = fileName;

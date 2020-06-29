@@ -11,7 +11,24 @@ let KEY_ENTER = 13;
 let KEY_SPACE = 32;
 
 function keyDown(event) {
-    if (Outrun.scene == IN_GAME_SCENE) {
+    if (Outrun.scene == MENU_SCENE) {
+        if(event.which == KEY_ENTER){
+            Outrun.scene = RADIO_SCENE;
+            sounds['coin'].play();
+        }
+    } else if (Outrun.scene == RADIO_SCENE) {
+        if (event.which == KEY_A) {
+            if (Radio.music != 0)
+                Radio.music--;
+        } else if (event.which == KEY_D) {
+            if (Radio.music != 2)
+                Radio.music++;
+        } else if (event.which == KEY_ENTER) {
+            sounds['wave'].pause();
+            Outrun.newGame();
+            Outrun.scene = IN_GAME_SCENE;
+        }
+    } else if (Outrun.scene == IN_GAME_SCENE) {
         if (event.which == KEY_W) {
             Driver.accelerate = true;
         } else if (event.which == KEY_S) {

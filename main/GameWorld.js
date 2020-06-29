@@ -97,7 +97,6 @@ GameWorld.prototype.draw = function () {
     }
     Canvas.drawImage(sprites[Driver.car.fileName], Driver.car.center, Driver.car.relWidth, Driver.car.relHeight);
 
-    Canvas.pixelize(4);
     if (this.road.segments.length - currentIndex < Outrun.renderSize) {
         this.road.addSegments(true);
     }

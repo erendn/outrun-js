@@ -1,6 +1,6 @@
 function Player() {
-    this.camera = new Camera(window.innerWidth, window.innerHeight, 500, 90);
-    this.car = new WorldObject(new Vector3(0, 0, carDistance), 800, 450, 'straight');
+    this.camera = new Camera(window.innerWidth, window.innerHeight, 300, 120);
+    this.car = new WorldObject(new Vector3(0, 0, carDistance), 0, 800, 450, 'straight');
     this.lastSegment = null;
     this.curve = 0;
     this.hill = 0;
@@ -13,9 +13,9 @@ function Player() {
     this.steerRight = false;
 }
 
-const maxSpeed = 600;
+const maxSpeed = 900;
 
-const carDistance = 2200;
+const carDistance = 5000;
 
 const curveSense = 0.1;
 

@@ -1,4 +1,4 @@
-function Segment(prevSegment, curve, hill, index, isInitial) {
+function Segment(prevSegment, curve, hill, index, isInitial, isTunnel) {
     this.numLanes = prevSegment.numLanes;
     this.isInitial = isInitial;
     this.curve = prevSegment.curve + curve;
@@ -13,21 +13,24 @@ function Segment(prevSegment, curve, hill, index, isInitial) {
     for (var i = 0; i < this.numLanes - 1; i++) {
         this.lines.push(new Tile(prevSegment.lines[i], this.highCenter, index % (2 * invisSegment) < invisSegment ? darkAsphaltColor : whiteColor));
     }
-    if (!(index % objectDistance)) {
-        //this.rightObject = new WorldObject(new Vector3(this.highCenter.x + this.asphaltWidth / 2 + 600, this.highCenter.y, this.highCenter.z), 1741, 4000, 'tree');
+    if (!isTunnel & !(index % objectDistance)) {
+        //this.rightObject = new WorldObject(new Vector3(this.highCenter.x, this.highCenter.y, this.highCenter.z), this.asphalt.width / 2 + 600, 1741, 4000, 'tree');
     }
+    if(isTunnel & !(index % tunnelDistance))
+        this.rightObject = new WorldObject(new Vector3(this.highCenter.x, this.highCenter.y, this.highCenter.z), 0, 5600, 2000, 'tunnel');
 }
 
-const invisSegment = 2;
+const invisSegment = 6;
 const sideLineWidth = 300;
 const lineWidth = 150;
-const laneWidth = 1500;
+const laneWidth = 1200;
 const offroadWidth = 70000;
-const segmentDepth = 250;
-const objectDistance = 30;
+const segmentDepth = 200;
+const objectDistance = 10;
+const tunnelDistance = 12;
 
 Segment.prototype.project = function () {
-    if (this.isInitial) {
+    if (this.isInitial & this.lowCenter.z > Driver.camera.position.z) {
         this.offroad.downLeft.project();
         this.offroad.downRight.project();
         this.asphalt.downLeft.project();
@@ -58,7 +61,7 @@ Segment.prototype.project = function () {
         this.lines[this.numLanes / 2 + 1].project(measure2);
     }
     if (this.rightObject != undefined) {
-        this.rightObject.center.x = this.highCenter.x + this.asphalt.width / 2 + 600;
+        this.rightObject.center.x = this.highCenter.x + this.rightObject.offset;
         this.rightObject.project(measure2);
     }
 }
