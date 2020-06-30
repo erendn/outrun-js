@@ -5,19 +5,33 @@ function Segment(prevSegment, curve, hill, index, isInitial, isTunnel) {
     this.hill = prevSegment.hill + hill;
     this.lowCenter = prevSegment.highCenter;
     this.highCenter = new Vector3(this.lowCenter.x + curve, this.lowCenter.y + hill, this.lowCenter.z + segmentDepth);
-    this.offroad = new Tile(prevSegment.offroad, this.highCenter, index % (2 * invisSegment) < invisSegment ? darkOffroadColor : lightOffroadColor);
-    this.asphalt = new Tile(prevSegment.asphalt, this.highCenter, index % (2 * invisSegment) < invisSegment ? darkAsphaltColor : lightAsphaltColor);
-    this.leftSide = new Tile(prevSegment.leftSide, this.highCenter, index % (2 * invisSegment) < invisSegment ? redColor : whiteColor);
-    this.rightSide = new Tile(prevSegment.rightSide, this.highCenter, index % (2 * invisSegment) < invisSegment ? redColor : whiteColor);
+    this.isDark = index % (2 * invisSegment) < invisSegment;
+    this.offroad = new Tile(prevSegment.offroad, this.highCenter);
+    this.asphalt = new Tile(prevSegment.asphalt, this.highCenter);
+    this.leftSide = new Tile(prevSegment.leftSide, this.highCenter);
+    this.rightSide = new Tile(prevSegment.rightSide, this.highCenter);
     this.lines = [];
     for (var i = 0; i < this.numLanes - 1; i++) {
-        this.lines.push(new Tile(prevSegment.lines[i], this.highCenter, index % (2 * invisSegment) < invisSegment ? darkAsphaltColor : whiteColor));
+        this.lines.push(new Tile(prevSegment.lines[i], this.highCenter));
     }
-    if (!isTunnel & !(index % objectDistance)) {
-        //this.rightObject = new WorldObject(new Vector3(this.highCenter.x, this.highCenter.y, this.highCenter.z), this.asphalt.width / 2 + 600, 1741, 4000, 'tree');
+    this.objects = [];
+    if (!isTunnel) {
+        if (!(index % (objectDistance / 4))) {
+            this.objects.push(new WorldObject(new Vector3(this.highCenter.x, this.highCenter.y, this.highCenter.z), -this.asphalt.width / 2 - 9760 / 2, 9760, 320, 'terrain'));
+            if (Math.random() < 0.1) {
+                this.objects.push(new WorldObject(new Vector3(this.highCenter.x, this.highCenter.y + 200, this.highCenter.z), -this.asphalt.width / 2 - 2500, 510, 860, 'sail'));
+            }
+        }
+        if (!(index % objectDistance)) {
+            if (Math.random() < 0.5) {
+                this.objects.push(new WorldObject(new Vector3(this.highCenter.x, this.highCenter.y, this.highCenter.z), this.asphalt.width / 2 + 600, 1170, 2520, 'tree'));
+            } else {
+                this.objects.push(new WorldObject(new Vector3(this.highCenter.x, this.highCenter.y, this.highCenter.z), this.asphalt.width / 2 + 600, 1280, 790, 'bush'));
+            }
+        }
+    } else if (!(index % tunnelDistance)) {
+        this.objects.push(new WorldObject(new Vector3(this.highCenter.x, this.highCenter.y, this.highCenter.z), 0, 4800, 2000, 'tunnel'));
     }
-    if(isTunnel & !(index % tunnelDistance))
-        this.rightObject = new WorldObject(new Vector3(this.highCenter.x, this.highCenter.y, this.highCenter.z), 0, 5600, 2000, 'tunnel');
 }
 
 const invisSegment = 6;
@@ -26,7 +40,7 @@ const lineWidth = 150;
 const laneWidth = 1200;
 const offroadWidth = 70000;
 const segmentDepth = 200;
-const objectDistance = 10;
+const objectDistance = 20;
 const tunnelDistance = 12;
 
 Segment.prototype.project = function () {
@@ -60,8 +74,9 @@ Segment.prototype.project = function () {
     if (this.numLanes % 2 == 0) {
         this.lines[this.numLanes / 2 + 1].project(measure2);
     }
-    if (this.rightObject != undefined) {
-        this.rightObject.center.x = this.highCenter.x + this.rightObject.offset;
-        this.rightObject.project(measure2);
+    for (var i = 0; i < this.objects.length; i++) {
+        this.objects[i].center.x = this.highCenter.x + this.objects[i].offset;
+        this.objects[i].project(measure2);
+
     }
 }

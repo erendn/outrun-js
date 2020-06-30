@@ -18,15 +18,7 @@ function Road(center, curve, hill, numLanes) {
     }
 }
 
-const skyColor = '#0094FF';
-const darkAsphaltColor = '#949494';
-const lightAsphaltColor = '#9C9C9C';
-const whiteColor = '#F7F7F7';
-const redColor = '#FF0000';
-const darkOffroadColor = '#076348';
-const lightOffroadColor = '#1d963f';
-
-const trackLength = 400;
+const trackLength = 2000;
 const junctionLength = 400;
 
 const trackNumLanes = 6;
@@ -36,23 +28,23 @@ const MAX_CURVE = 0.7;
 const MAX_HILL = 10;
 
 Road.prototype.addSegments = function (canCurve) {
-    var curved = canCurve & Math.random() < 0.3;
+    var curved = canCurve & Math.random() < 0.4;
     if (this.segments[this.segments.length - 1] instanceof Segment) {
-        if (curved & this.trackRemain > 200) {
-            var curveLength = Math.random() < 0.5 ? 100 : 200;
-            if (Math.random() < 0.7) { // CURVE
+        if (curved & this.trackRemain > 400 + Outrun.renderSize) {
+            var curveLength = Math.random() < 0.5 ? 200 : 400;
+            if (Math.random() < 0.7) {
                 this.addCurves(curveLength);
-            } else { // HILL
+            } else {
                 this.addHills(curveLength);
             }
             this.trackRemain -= curveLength;
-        } else if (this.trackRemain != 0) { // STRAIGHT
+        } else if (this.trackRemain != 0) {
             var length = Math.min(this.trackRemain, Outrun.renderSize);
             this.addStraights(length);
             this.trackRemain -= length;
         } else {
             this.addJunctions(junctionLength);
-            this.trackRemain = trackNumLanes;
+            this.trackRemain = trackLength;
         }
     } else {
         var lastJunction = null;

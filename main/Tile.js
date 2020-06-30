@@ -1,4 +1,4 @@
-function Tile(prevTile, highCenter, color) {
+function Tile(prevTile, highCenter) {
     this.lowCenter = prevTile.highCenter;
     this.highCenter = highCenter;
     this.space = prevTile.space;
@@ -7,7 +7,6 @@ function Tile(prevTile, highCenter, color) {
     this.downRight = prevTile.upRight;
     this.upLeft = new Vector3();
     this.upRight = new Vector3();
-    this.color = color;
 }
 
 Tile.prototype.project = function (measure2) {

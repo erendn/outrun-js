@@ -19,7 +19,7 @@ const carDistance = 5000;
 
 const curveSense = 0.1;
 const hillSense = 12;
-const speedSense = 200
+const speedSense = 250
 
 Player.prototype.play = function () {
     if (this.accelerate) {
@@ -113,7 +113,7 @@ Player.prototype.project = function () {
         else
             this.car.fileName += 'straight-';
     }
-    if(this.decelerate){
+    if (this.decelerate) {
         this.car.fileName += 'brake-';
     }
     if (this.speed > speedSense) {

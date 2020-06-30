@@ -1,5 +1,6 @@
 let sprites = {};
 let sounds = {};
+let colors = {};
 
 function loadAssets() {
   //\\//\\ MENU ASSETS //\\//\\
@@ -33,12 +34,15 @@ function loadAssets() {
   sounds['coin'] = loadSound('sample/coin');
   //\\//\\ IN-GAME ASSETS //\\//\\
   // LOADING IN-GAME SPRITES
-  sprites['sky'] = loadSprite('background/sky');
-  sprites['cloud'] = loadSprite('background/cloud');
-  sprites['mountain'] = loadSprite('background/mountain');
-  sprites['forest'] = loadSprite('background/forest');
-  sprites['tree'] = loadSprite('environment/tree');
-  sprites['tunnel'] = loadSprite('environment/tunnel');
+  sprites['coconut-beach'] = {
+    back: loadSprite('background/coconut-beach/back'),
+    front: loadSprite('background/coconut-beach/front'),
+    tunnel: loadSprite('environment/coconut-beach/tunnel'),
+    terrain: loadSprite('environment/coconut-beach/terrain'),
+    tree: loadSprite('environment/coconut-beach/tree'),
+    bush: loadSprite('environment/coconut-beach/bush'),
+    sail: loadSprite('environment/coconut-beach/sail')
+  };
   // LOADING FERRARI SPRITES
   for (var i = 0; i < 2; i++) {
     sprites['down-hardleft-' + i] = loadSprite('ferrari/down-hardleft-' + i);
@@ -88,6 +92,18 @@ function loadAssets() {
   sprites['music-0'] = loadSprite('text/music-0');
   sprites['music-1'] = loadSprite('text/music-1');
   sprites['music-2'] = loadSprite('text/music-2');
+  //\\//\\ COLORS //\\//\\
+  colors['coconut-beach'] = {
+    skyColor: '#008BFF',
+    darkOffroadColor: '#D9C7B9',
+    lightOffroadColor: '#E0CCBF',
+    darkAsphaltColor: '#777576',
+    lightAsphaltColor: '#797778',
+    darkSideColor: '#FF0000',
+    lightSideColor: '#F7F7F7',
+    darkLineColor: '#777576',
+    lightLineColor: '#F7F7F7'
+  };
 }
 
 function loadSprite(fileName) {
