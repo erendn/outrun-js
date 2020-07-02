@@ -15,6 +15,7 @@ function Segment(prevSegment, curve, hill, index, isInitial, isTunnel) {
         this.lines.push(new Tile(prevSegment.lines[i], this.highCenter));
     }
     this.objects = [];
+    /*
     if (!isTunnel) {
         if (!(index % (objectDistance / 4))) {
             this.objects.push(new WorldObject(new Vector3(this.highCenter.x, this.highCenter.y, this.highCenter.z), -this.asphalt.width / 2 - 9760 / 2, 9760, 320, 'terrain'));
@@ -32,6 +33,7 @@ function Segment(prevSegment, curve, hill, index, isInitial, isTunnel) {
     } else if (!(index % tunnelDistance)) {
         this.objects.push(new WorldObject(new Vector3(this.highCenter.x, this.highCenter.y, this.highCenter.z), 0, 4800, 2000, 'tunnel'));
     }
+    */
 }
 
 const invisSegment = 6;

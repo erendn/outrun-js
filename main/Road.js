@@ -49,12 +49,12 @@ Road.prototype.addSegments = function (canCurve) {
     } else {
         var lastJunction = null;
         if (this.chosenPath[this.chosenPath.length - 1]) {
-            lastJunction = this.segments[this.segments.length - 1].leftJunction;
-            var newCenter = new Vector3(lastJunction.highCenter.x - (laneWidth * 1.5 + sideLineWidth / 2 + lineWidth / 2), lastJunction.highCenter.y, lastJunction.highCenter.z);
-            this.segments.push(new Segment(Road.prepareInitial(newCenter, lastJunction.curve, lastJunction.hill, trackNumLanes), 0, 0, this.segments.length, true));
-        } else {
             lastJunction = this.segments[this.segments.length - 1].rightJunction;
             var newCenter = new Vector3(lastJunction.highCenter.x + (laneWidth * 1.5 + sideLineWidth / 2 + lineWidth / 2), lastJunction.highCenter.y, lastJunction.highCenter.z);
+            this.segments.push(new Segment(Road.prepareInitial(newCenter, lastJunction.curve, lastJunction.hill, trackNumLanes), 0, 0, this.segments.length, true));
+        } else {
+            lastJunction = this.segments[this.segments.length - 1].leftJunction;
+            var newCenter = new Vector3(lastJunction.highCenter.x - (laneWidth * 1.5 + sideLineWidth / 2 + lineWidth / 2), lastJunction.highCenter.y, lastJunction.highCenter.z);
             this.segments.push(new Segment(Road.prepareInitial(newCenter, lastJunction.curve, lastJunction.hill, trackNumLanes), 0, 0, this.segments.length, true));
         }
         this.addStraights(Outrun.renderSize);
@@ -172,4 +172,38 @@ Road.prepareInitial = function (center, curve, hill, numLanes) {
         );
     }
     return initial;
+}
+
+Road.prototype.findRoute = function () {
+    var length = this.chosenPath.length;
+    var sum = this.chosenPath.reduce((a, b) => a + b, 0);
+    switch (length) {
+        case 0: return 'coconut-beach';
+        case 1:
+            switch (sum) {
+                case 0: return 'gateaway';
+                case 1: return 'devils-canyon';
+            }
+        case 2:
+            switch(sum){
+                case 0: return 'desert';
+                case 1: return 'alps';
+                case 2: return 'cloudy-mountain';
+            }
+        case 3:
+            switch(sum){
+                case 0: return 'wilderness';
+                case 1: return 'old-capital';
+                case 2: return 'wheat-field';
+                case 3: return 'seaside-town';
+            }
+        case 4:
+            switch(sum){
+                case 0: return 'vineyard';
+                case 1: return 'death-valley';
+                case 2: return 'desolation-hill';
+                case 3: return 'autobahn';
+                case 4: return 'lakeside';
+            }
+    }
 }

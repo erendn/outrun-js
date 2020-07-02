@@ -46,24 +46,24 @@ Player.prototype.play = function () {
         }
     } else {
         if (Outrun.gameWorld.road.trackCount > Outrun.gameWorld.road.chosenPath.length) {
-            Outrun.gameWorld.road.chosenPath.push(this.car.center.x < this.lastSegment.highCenter.x);
+            Outrun.gameWorld.road.chosenPath.push(this.car.center.x >= this.lastSegment.highCenter.x);
         }
         if (Outrun.gameWorld.road.chosenPath[Outrun.gameWorld.road.chosenPath.length - 1]) {
-            this.curve = segment.leftJunction.curve;
-            this.hill = segment.leftJunction.hill;
-            if (Outrun.gameWorld.road.segments[carIndex - 1] instanceof Junction) {
-                this.curveDirection = this.curve - Outrun.gameWorld.road.segments[carIndex - 1].leftJunction.curve;
-                this.hillDirection = this.hill - Outrun.gameWorld.road.segments[carIndex - 1].leftJunction.hill;
-            } else {
-                this.curveDirection = 0;
-                this.hillDirection = 0;
-            }
-        } else {
             this.curve = segment.rightJunction.curve;
             this.hill = segment.rightJunction.hill;
             if (Outrun.gameWorld.road.segments[carIndex - 1] instanceof Junction) {
                 this.curveDirection = this.curve - Outrun.gameWorld.road.segments[carIndex - 1].rightJunction.curve;
                 this.hillDirection = this.hill - Outrun.gameWorld.road.segments[carIndex - 1].rightJunction.hill;
+            } else {
+                this.curveDirection = 0;
+                this.hillDirection = 0;
+            }
+        } else {
+            this.curve = segment.leftJunction.curve;
+            this.hill = segment.leftJunction.hill;
+            if (Outrun.gameWorld.road.segments[carIndex - 1] instanceof Junction) {
+                this.curveDirection = this.curve - Outrun.gameWorld.road.segments[carIndex - 1].leftJunction.curve;
+                this.hillDirection = this.hill - Outrun.gameWorld.road.segments[carIndex - 1].leftJunction.hill;
             } else {
                 this.curveDirection = 0;
                 this.hillDirection = 0;

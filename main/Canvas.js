@@ -12,6 +12,8 @@ function Canvas2D() {
     }
     this.width = 320;
     this.height = 224;
+    this.gradient = this.canvasContext.createLinearGradient(0, 0, 0, 200);
+    this.gradient.addColorStop(1, "white");
 }
 
 const canvasRatio = 1.42857142857;
@@ -22,6 +24,12 @@ Canvas2D.prototype.clear = function () {
 
 Canvas2D.prototype.fill = function (color) {
     this.canvasContext.fillStyle = color;
+    this.canvasContext.fillRect(0, 0, this.width, this.height);
+}
+
+Canvas2D.prototype.fillGradient = function (color) {
+    this.gradient.addColorStop(0, color);
+    this.canvasContext.fillStyle = this.gradient;
     this.canvasContext.fillRect(0, 0, this.width, this.height);
 }
 
@@ -59,6 +67,23 @@ Canvas2D.prototype.fix = function () {
     this.canvasContext.mozImageSmoothingEnabled = false;
     this.canvasContext.imageSmoothingEnabled = false;
     this.canvasContext.drawImage(this.canvas, 0, 0, this.width, this.height, 0, 0, this.canvas.width, this.canvas.height);
+}
+
+Canvas2D.prototype.mix = function (base, target, step) {
+    if (base == target)
+        return base;
+    var resHex = '#';
+    for (var i = 1; i <= 5; i += 2) {
+        var diff = parseInt(target.substring(i, i + 2), 16) - parseInt(base.substring(i, i + 2), 16);
+        var add = null;
+        if (Math.abs(diff) >= step) {
+            add = (parseInt(base.substring(i, i + 2), 16) + step * Math.sign(diff)).toString(16).toUpperCase();
+        } else {
+            add = target.substring(i, i + 2);
+        }
+        resHex += (add.length == 1 ? '0' : '') + add;
+    }
+    return resHex;
 }
 
 let Canvas = new Canvas2D();

@@ -1,6 +1,17 @@
 function GameWorld() {
     this.road = new Road(new Vector3(0, 0, 0), 0, 0, trackNumLanes);
     this.route = 'coconut-beach';
+    this.currentColor = {
+        skyColor: '#008BFF',
+        darkOffroadColor: '#D9C7B9',
+        lightOffroadColor: '#E0CCBF',
+        darkAsphaltColor: '#777576',
+        lightAsphaltColor: '#797778',
+        darkSideColor: '#FF0000',
+        lightSideColor: '#F7F7F7',
+        darkLineColor: '#777576',
+        lightLineColor: '#F7F7F7'
+    };
     this.backParallax = 0;
     this.frontParallax = 0;
 }
@@ -21,6 +32,13 @@ GameWorld.prototype.update = function () {
     for (var i = currentIndex, size = Math.min(this.road.segments.length, currentIndex + Outrun.renderSize); i < size; i++) {
         this.road.segments[i].project();
     }
+    Driver.project();
+    this.route = this.road.findRoute();
+    console.log(this.route);
+    for (var i = 0; i < 9; i++) {
+        var key = Object.keys(this.currentColor)[i];
+        this.currentColor[key] = Canvas.mix(this.currentColor[key], colors[this.route][key], 1);
+    }
     var parallaxAmount = Driver.speed * Math.sign(Driver.curveDirection);
     this.backParallax -= backSpeed * parallaxAmount;
     this.frontParallax -= frontSpeed * parallaxAmount;
@@ -30,11 +48,10 @@ GameWorld.prototype.update = function () {
     if (Math.abs(this.frontParallax) > 1) {
         this.frontParallax = 0;
     }
-    Driver.project();
 }
 
 GameWorld.prototype.draw = function () {
-    Canvas.fill(colors[this.route].skyColor);
+    Canvas.fillGradient(this.currentColor.skyColor);
     Canvas.drawStaticImage(sprites[this.route].back, backWidth * (this.backParallax - 1), backgroundOffset, backWidth, backgroundHeight);
     Canvas.drawStaticImage(sprites[this.route].back, backWidth * (this.backParallax), backgroundOffset, backWidth, backgroundHeight);
     Canvas.drawStaticImage(sprites[this.route].back, backWidth * (this.backParallax + 1), backgroundOffset, backWidth, backgroundHeight);
@@ -45,7 +62,7 @@ GameWorld.prototype.draw = function () {
     var maxRendered = Math.min(this.road.segments.length, currentIndex + Outrun.renderSize) - 1;
     for (var i = maxRendered; i >= currentIndex; i--) {
         var segment = this.road.segments[i];
-        var color = segment.isDark ? colors[this.route].darkOffroadColor : colors[this.route].lightOffroadColor;
+        var color = segment.isDark ? this.currentColor.darkOffroadColor : this.currentColor.lightOffroadColor;
         if (segment instanceof Segment) {
             Canvas.drawShape(segment.offroad.upLeft, segment.offroad.upRight, segment.offroad.downRight, segment.offroad.downLeft, color);
         } else {
@@ -57,9 +74,9 @@ GameWorld.prototype.draw = function () {
     }
     for (var i = maxRendered; i >= currentIndex; i--) {
         var segment = this.road.segments[i];
-        var asphaltColor = segment.isDark ? colors[this.route].darkAsphaltColor : colors[this.route].lightAsphaltColor;
-        var sideColor = segment.isDark ? colors[this.route].darkSideColor : colors[this.route].lightSideColor;
-        var lineColor = segment.isDark ? colors[this.route].darkLineColor : colors[this.route].lightLineColor;
+        var asphaltColor = segment.isDark ? this.currentColor.darkAsphaltColor : this.currentColor.lightAsphaltColor;
+        var sideColor = segment.isDark ? this.currentColor.darkSideColor : this.currentColor.lightSideColor;
+        var lineColor = segment.isDark ? this.currentColor.darkLineColor : this.currentColor.lightLineColor;
         if (segment instanceof Segment) {
             Canvas.drawShape(segment.asphalt.upLeft, segment.asphalt.upRight, segment.asphalt.downRight, segment.asphalt.downLeft, asphaltColor);
             Canvas.drawShape(segment.leftSide.upLeft, segment.leftSide.upRight, segment.leftSide.downRight, segment.leftSide.downLeft, sideColor);
