@@ -34,7 +34,6 @@ GameWorld.prototype.update = function () {
     }
     Driver.project();
     this.route = this.road.findRoute();
-    console.log(this.route);
     for (var i = 0; i < 9; i++) {
         var key = Object.keys(this.currentColor)[i];
         this.currentColor[key] = Canvas.mix(this.currentColor[key], colors[this.route][key], 1);
@@ -86,7 +85,8 @@ GameWorld.prototype.draw = function () {
             }
             for (var j = 0; j < segment.objects.length; j++) {
                 var object = segment.objects[j];
-                Canvas.drawImage(sprites[this.route][object.fileName], object.center, object.relWidth, object.relHeight);
+                if (sprites[this.route][object.fileName] != undefined)
+                    Canvas.drawImage(sprites[this.route][object.fileName], object.center, object.relWidth, object.relHeight);
             }
         } else {
             var subSegment = segment.leftJunction;
@@ -98,7 +98,8 @@ GameWorld.prototype.draw = function () {
             }
             for (var j = 0; j < subSegment.objects.length; j++) {
                 var object = subSegment.objects[j];
-                Canvas.drawImage(sprites[this.route][object.fileName], object.center, object.relWidth, object.relHeight);
+                if (sprites[this.route][object.fileName] != undefined)
+                    Canvas.drawImage(sprites[this.route][object.fileName], object.center, object.relWidth, object.relHeight);
             }
             subSegment = segment.rightJunction;
             Canvas.drawShape(subSegment.asphalt.upLeft, subSegment.asphalt.upRight, subSegment.asphalt.downRight, subSegment.asphalt.downLeft, asphaltColor);
@@ -109,11 +110,12 @@ GameWorld.prototype.draw = function () {
             }
             for (var j = 0; j < subSegment.objects.length; j++) {
                 var object = subSegment.objects[j];
-                Canvas.drawImage(sprites[this.route][object.fileName], object.center, object.relWidth, object.relHeight);
+                if (sprites[this.route][object.fileName] != undefined)
+                    Canvas.drawImage(sprites[this.route][object.fileName], object.center, object.relWidth, object.relHeight);
             }
         }
     }
-    Canvas.drawImage(sprites[Driver.car.fileName], Driver.car.center, Driver.car.width, Driver.car.height);
+    Canvas.drawImage(sprites[Driver.car.fileName], Driver.car.center, Driver.car.relWidth, Driver.car.relHeight);
 
     if (this.road.segments.length - currentIndex < Outrun.renderSize) {
         this.road.addSegments(true);

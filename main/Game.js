@@ -32,7 +32,7 @@ Game.prototype.start = function () {
 Game.prototype.mainLoop = function () {
     currentTime = new Date().getTime();
     var milliseconds = currentTime - time;
-    if (milliseconds >= 1000 / FPS) {
+    if (milliseconds >= 1000 / FPS & !loading) {
         time = currentTime;
         Radio.update();
         if (Outrun.scene == MENU_SCENE | Outrun.scene == RADIO_SCENE) {

@@ -1,6 +1,13 @@
 function Player() {
     this.camera = new Camera(window.innerWidth, window.innerHeight, 300, 120);
-    this.car = new WorldObject(new Vector3(0, 0, carDistance), 0, 81, 46, 'straight');
+    this.car = new WorldObject(new Vector3(0, 0, carDistance), 'straight');
+    this.car.width = 810;
+    this.car.height = 460;
+    this.car.project = function (measure2) {
+        this.center.project();
+        this.relWidth = Vector3.calculate(this.width, Driver.camera.gap, measure2);
+        this.relHeight = Vector3.calculate(this.height, Driver.camera.gap, measure2);
+    }
     this.lastSegment = null;
     this.curve = 0;
     this.hill = 0;

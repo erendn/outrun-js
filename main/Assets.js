@@ -1,6 +1,9 @@
 let sprites = {};
 let sounds = {};
 let colors = {};
+let dimensions = {};
+
+var loading = 0;
 
 function loadAssets() {
   //\\//\\ MENU ASSETS //\\//\\
@@ -37,67 +40,232 @@ function loadAssets() {
   sprites['coconut-beach'] = {
     back: loadSprite('background/coconut-beach/back'),
     front: loadSprite('background/coconut-beach/front'),
-    tunnel: loadSprite('environment/coconut-beach/tunnel'),
+    tunnel: loadSprite('environment/tunnel'),
     terrain: loadSprite('environment/coconut-beach/terrain'),
-    tree: loadSprite('environment/coconut-beach/tree'),
-    bush: loadSprite('environment/coconut-beach/bush'),
-    sail: loadSprite('environment/coconut-beach/sail')
+    left1: loadSprite('environment/coconut-beach/sail-1'),
+    left2: loadSprite('environment/coconut-beach/sail-2'),
+    right1: loadSprite('environment/coconut-beach/tree'),
+    right2: loadSprite('environment/coconut-beach/bush')
+  };
+  dimensions['coconut-beach'] = {
+    tunnel: createDimension(4800, 2000, 0),
+    terrain: createDimension(9760, 320, -9500),
+    left1: createDimension(765, 1290, -8000),
+    left2: createDimension(765, 1290, -9000),
+    right1: createDimension(1170, 2520, 5000),
+    right2: createDimension(1280, 790, 5000)
   };
   sprites['gateaway'] = {
     back: loadSprite('background/gateaway/back'),
     front: loadSprite('background/gateaway/front'),
+    tunnel: loadSprite('environment/tunnel'),
+    terrain: loadSprite('environment/gateaway/terrain'),
+    left1: loadSprite('environment/gateaway/arcade-sign'),
+    left2: loadSprite('environment/gateaway/motorcycle-sign'),
+    right1: loadSprite('environment/gateaway/castle'),
+    right2: loadSprite('environment/gateaway/castle')
+  };
+  dimensions['gateaway'] = {
+    tunnel: createDimension(4800, 2000, 0),
+    terrain: createDimension(9760, 320, -9500),
+    left1: createDimension(1250, 1690, -6000),
+    left2: createDimension(1080, 1030, -6000),
+    right1: createDimension(1230, 1830, 5000),
+    right2: createDimension(1230, 1830, 5000)
   };
   sprites['devils-canyon'] = {
     back: loadSprite('background/devils-canyon/back'),
     front: loadSprite('background/devils-canyon/front'),
+    tunnel: loadSprite('environment/tunnel'),
+    terrain: loadSprite('environment/devils-canyon/terrain'),
+    left1: loadSprite('environment/devils-canyon/sega-sign'),
+    left2: loadSprite('environment/devils-canyon/diving-sign'),
+    right1: loadSprite('environment/devils-canyon/rock'),
+    right2: loadSprite('environment/devils-canyon/rock')
+  };
+  dimensions['devils-canyon'] = {
+    tunnel: createDimension(4800, 2000, 0),
+    terrain: createDimension(9760, 320, -9500),
+    left1: createDimension(1440, 920, -6000),
+    left2: createDimension(1160, 800, -6000),
+    right1: createDimension(1720, 1780, 5000),
+    right2: createDimension(1720, 1780, 5000)
   };
   sprites['desert'] = {
     back: loadSprite('background/desert/back'),
     front: loadSprite('background/desert/front'),
+    tunnel: loadSprite('environment/tunnel'),
+    left1: loadSprite('environment/desert/dry-tree'),
+    left2: loadSprite('environment/desert/dry-tree'),
+    right1: loadSprite('environment/desert/terrain'),
+    right2: loadSprite('environment/desert/terrain')
+  };
+  dimensions['desert'] = {
+    tunnel: createDimension(4800, 2000, 0),
+    left1: createDimension(440, 760, -5000),
+    left2: createDimension(440, 760, 5000),
+    right1: createDimension(9760, 320, -9500),
+    right2: createDimension(9760, 320, 9500)
   };
   sprites['alps'] = {
     back: loadSprite('background/alps/back'),
     front: loadSprite('background/alps/front'),
+    tunnel: loadSprite('environment/tunnel'),
+    left1: loadSprite('environment/alps/mill-1'),
+    left2: loadSprite('environment/alps/mill-2'),
+    right1: loadSprite('environment/alps/terrain-1'),
+    right2: loadSprite('environment/alps/terrain-2')
+  };
+  dimensions['alps'] = {
+    tunnel: createDimension(4800, 2000, 0),
+    left1: createDimension(1080, 1400, 6000),
+    left2: createDimension(1080, 1400, -6000),
+    right1: createDimension(9760, 320, -9500),
+    right2: createDimension(9760, 320, 9500)
   };
   sprites['cloudy-mountain'] = {
     back: loadSprite('background/cloudy-mountain/back'),
     front: loadSprite('background/cloudy-mountain/front'),
+    tunnel: loadSprite('environment/tunnel'),
+    terrain: loadSprite('environment/cloudy-mountain/clouds'),
+    right1: loadSprite('environment/cloudy-mountain/tree'),
+    right2: loadSprite('environment/cloudy-mountain/tree')
+  };
+  dimensions['cloudy-mountain'] = {
+    tunnel: createDimension(4800, 2000, 0),
+    terrain: createDimension(19250, 3000, 0),
+    right1: createDimension(2480, 2480, -6000),
+    right2: createDimension(2480, 2480, 6000)
   };
   sprites['wilderness'] = {
     back: loadSprite('background/wilderness/back'),
     front: loadSprite('background/wilderness/front'),
+    tunnel: loadSprite('environment/tunnel'),
+    left1: loadSprite('environment/wilderness/rock-1'),
+    left2: loadSprite('environment/wilderness/rock-2'),
+    right1: loadSprite('environment/wilderness/cut-tree'),
+    right2: loadSprite('environment/wilderness/dry-tree')
+  };
+  dimensions['wilderness'] = {
+    tunnel: createDimension(4800, 2000, 0),
+    left1: createDimension(1160, 420, 6000),
+    left2: createDimension(1160, 550, -6000),
+    right1: createDimension(885, 660, 6000),
+    right2: createDimension(880, 1530, -5000)
   };
   sprites['old-capital'] = {
     back: loadSprite('background/old-capital/back'),
     front: loadSprite('background/old-capital/front'),
+    tunnel: loadSprite('environment/tunnel'),
+    left1: loadSprite('environment/old-capital/tower'),
+    left2: loadSprite('environment/old-capital/hut'),
+    right1: loadSprite('environment/old-capital/tree-1'),
+    right2: loadSprite('environment/old-capital/tree-2')
+  };
+  dimensions['old-capital'] = {
+    tunnel: createDimension(4800, 2000, 0),
+    left1: createDimension(720, 1640, -5000),
+    left2: createDimension(1200, 860, -6000),
+    right1: createDimension(945, 2400, 5500),
+    right2: createDimension(1740, 1980, 6000)
   };
   sprites['wheat-field'] = {
     back: loadSprite('background/wheat-field/back'),
     front: loadSprite('background/wheat-field/front'),
+    tunnel: loadSprite('environment/tunnel'),
+    left1: loadSprite('environment/wheat-field/motorcycle-sign'),
+    left2: loadSprite('environment/wheat-field/tree'),
+    right1: loadSprite('environment/wheat-field/terrain'),
+    right2: loadSprite('environment/wheat-field/terrain'),
+  };
+  dimensions['wheat-field'] = {
+    tunnel: createDimension(4800, 2000, 0),
+    left1: createDimension(1080, 1030, -6000),
+    left2: createDimension(1740, 1980, -6000),
+    right1: createDimension(9760, 320, 9500),
+    right2: createDimension(9760, 320, 9500)
   };
   sprites['seaside-town'] = {
     back: loadSprite('background/seaside-town/back'),
     front: loadSprite('background/seaside-town/front'),
+    tunnel: loadSprite('environment/tunnel'),
+    terrain: loadSprite('environment/seaside-town/terrain'),
+    right1: loadSprite('environment/seaside-town/tower'),
+    right2: loadSprite('environment/seaside-town/hut')
+  };
+  dimensions['seaside-town'] = {
+    tunnel: createDimension(4800, 2000, 0),
+    terrain: createDimension(9760, 320, -9500),
+    right1: createDimension(720, 1640, 5000),
+    right2: createDimension(1200, 860, 5500)
   };
   sprites['vineyard'] = {
     back: loadSprite('background/vineyard/back'),
     front: loadSprite('background/vineyard/front'),
+    tunnel: loadSprite('environment/tunnel'),
+    right1: loadSprite('environment/vineyard/terrain'),
+    right2: loadSprite('environment/vineyard/terrain')
+  };
+  dimensions['vineyard'] = {
+    tunnel: createDimension(4800, 2000, 0),
+    right1: createDimension(6600, 650, 7700),
+    right2: createDimension(6600, 650, -7700)
   };
   sprites['death-valley'] = {
     back: loadSprite('background/death-valley/back'),
     front: loadSprite('background/death-valley/front'),
+    tunnel: loadSprite('environment/tunnel'),
+    left1: loadSprite('environment/death-valley/danke-sign'),
+    left2: loadSprite('environment/death-valley/rock'),
+    right1: loadSprite('environment/death-valley/pebbles'),
+    right2: loadSprite('environment/death-valley/pebbles')
+  };
+  dimensions['death-valley'] = {
+    tunnel: createDimension(4800, 2000, 0),
+    left1: createDimension(1120, 730, -6000),
+    left2: createDimension(440, 970, -5000),
+    right1: createDimension(2420, 160, 7000),
+    right2: createDimension(2420, 160, -7000)
   };
   sprites['desolation-hill'] = {
     back: loadSprite('background/desolation-hill/back'),
     front: loadSprite('background/desolation-hill/front'),
+    tunnel: loadSprite('environment/tunnel'),
+    right1: loadSprite('environment/desolation-hill/rock-1'),
+    right2: loadSprite('environment/desolation-hill/rock-2')
+  };
+  dimensions['desolation-hill'] = {
+    tunnel: createDimension(4800, 2000, 0),
+    right1: createDimension(1160, 420, 6000),
+    right2: createDimension(1160, 420, -6000)
   };
   sprites['autobahn'] = {
     back: loadSprite('background/autobahn/back'),
     front: loadSprite('background/autobahn/front'),
+    tunnel: loadSprite('environment/tunnel'),
+    left1: loadSprite('environment/autobahn/bush-1'),
+    left2: loadSprite('environment/autobahn/bush-2'),
+    right1: loadSprite('environment/autobahn/tree'),
+    right2: loadSprite('environment/autobahn/tree'),
+  };
+  dimensions['autobahn'] = {
+    tunnel: createDimension(4800, 2000, 0),
+    left1: createDimension(840, 560, -5000),
+    left2: createDimension(1260, 530, -5500),
+    right1: createDimension(2480, 2480, 6000),
+    right2: createDimension(2480, 2480, 6000)
   };
   sprites['lakeside'] = {
     back: loadSprite('background/lakeside/back'),
     front: loadSprite('background/lakeside/front'),
+    tunnel: loadSprite('environment/tunnel'),
+    right1: loadSprite('environment/lakeside/tree'),
+    right2: loadSprite('environment/lakeside/tree')
+  };
+  dimensions['lakeside'] = {
+    tunnel: createDimension(4800, 2000, 0),
+    right1: createDimension(1800, 1890, 6000),
+    right2: createDimension(1800, 1890, -6000)
   };
   // LOADING FERRARI SPRITES
   for (var i = 0; i < 2; i++) {
@@ -151,25 +319,25 @@ function loadAssets() {
   //\\//\\ COLORS //\\//\\
   colors['coconut-beach'] = {
     skyColor: '#008BFF',
-    darkOffroadColor: '#D9C7B9',
-    lightOffroadColor: '#E0CCBF',
-    darkAsphaltColor: '#777576',
-    lightAsphaltColor: '#797778',
-    darkSideColor: '#FF0000',
-    lightSideColor: '#F7F7F7',
-    darkLineColor: '#777576',
-    lightLineColor: '#F7F7F7'
+    darkOffroadColor: '#D3C0B2',
+    lightOffroadColor: '#E1CDBF',
+    darkAsphaltColor: '#7F7D7D',
+    lightAsphaltColor: '#8B898A',
+    darkSideColor: '#7F7D7D',
+    lightSideColor: '#E5DCDD',
+    darkLineColor: '#7F7D7D',
+    lightLineColor: '#E5DCDD'
   };
   colors['gateaway'] = {
     skyColor: '#00BEDA',
-    darkOffroadColor: '#8F9766',
-    lightOffroadColor: '#9AA270',
-    darkAsphaltColor: '#777576',
-    lightAsphaltColor: '#797778',
-    darkSideColor: '#FF0000',
-    lightSideColor: '#F7F7F7',
-    darkLineColor: '#777576',
-    lightLineColor: '#F7F7F7'
+    darkOffroadColor: '#959E6B',
+    lightOffroadColor: '#A2AA75',
+    darkAsphaltColor: '#767475',
+    lightAsphaltColor: '#838081',
+    darkSideColor: '#767475',
+    lightSideColor: '#CECACD',
+    darkLineColor: '#767475',
+    lightLineColor: '#CECACD'
   };
   colors['devils-canyon'] = {
     skyColor: '#FFC25E',
@@ -317,13 +485,25 @@ function loadAssets() {
 }
 
 function loadSprite(fileName) {
+  loading++;
   var sprite = new Image();
+  sprite.onload = function () {
+    loading--;
+  }
   sprite.src = "./assets/sprites/" + fileName + ".png";
   return sprite;
 }
 
 function loadSound(fileName) {
+  loading++;
   var sample = new Audio();
+  sample.oncanplay = function () {
+    loading--;
+  }
   sample.src = "./assets/sounds/" + fileName + ".wav";
   return sample;
+}
+
+function createDimension(width, height, offset) {
+  return { width: width, height: height, offset: offset };
 }

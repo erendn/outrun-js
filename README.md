@@ -3,7 +3,7 @@
 <img src="./readme-images/logo.gif" >
 </div>
 
-This project is an imitation of Sega's arcade racing game <a href="https://en.wikipedia.org/wiki/Out_Run">Out Run</a>. While some parts of the project are directly imitated from the original game, some parts do not exist in the original game.
+This project is an imitation of Sega's arcade racing game <a href="https://en.wikipedia.org/wiki/Out_Run">Out Run</a>. While some parts of the project are directly imitated from the original game, some parts are different.
 
 ## [Play](https://biarmic.github.io/outrun-js/)
 
@@ -11,7 +11,6 @@ This project is an imitation of Sega's arcade racing game <a href="https://en.wi
 * Transmission algorithm
 * Other cars
 * In-game HUD
-* More world objects
 * In-game live map
 * Difficulty
 * "How to" screen

@@ -15,28 +15,22 @@ function Segment(prevSegment, curve, hill, index, isInitial, isTunnel) {
         this.lines.push(new Tile(prevSegment.lines[i], this.highCenter));
     }
     this.objects = [];
-    /*
     if (!isTunnel) {
         if (!(index % (objectDistance / 4))) {
-            this.objects.push(new WorldObject(new Vector3(this.highCenter.x, this.highCenter.y, this.highCenter.z), -this.asphalt.width / 2 - 9760 / 2, 9760, 320, 'terrain'));
+            this.objects.push(new WorldObject(new Vector3(this.highCenter.x, this.highCenter.y, this.highCenter.z), 'terrain'));
             if (Math.random() < 0.1) {
-                this.objects.push(new WorldObject(new Vector3(this.highCenter.x, this.highCenter.y + 200, this.highCenter.z), -this.asphalt.width / 2 - 2500, 510, 860, 'sail'));
+                this.objects.push(new WorldObject(new Vector3(this.highCenter.x, this.highCenter.y + 200, this.highCenter.z), 'left' + (Math.random() < 0.5 ? '1' : '2')));
             }
         }
         if (!(index % objectDistance)) {
-            if (Math.random() < 0.5) {
-                this.objects.push(new WorldObject(new Vector3(this.highCenter.x, this.highCenter.y, this.highCenter.z), this.asphalt.width / 2 + 600, 1170, 2520, 'tree'));
-            } else {
-                this.objects.push(new WorldObject(new Vector3(this.highCenter.x, this.highCenter.y, this.highCenter.z), this.asphalt.width / 2 + 600, 1280, 790, 'bush'));
-            }
+            this.objects.push(new WorldObject(new Vector3(this.highCenter.x, this.highCenter.y, this.highCenter.z), 'right' + (Math.random() < 0.5 ? '1' : '2')));
         }
     } else if (!(index % tunnelDistance)) {
-        this.objects.push(new WorldObject(new Vector3(this.highCenter.x, this.highCenter.y, this.highCenter.z), 0, 4800, 2000, 'tunnel'));
+        this.objects.push(new WorldObject(new Vector3(this.highCenter.x, this.highCenter.y, this.highCenter.z), 'tunnel'));
     }
-    */
 }
 
-const invisSegment = 6;
+const invisSegment = 15;
 const sideLineWidth = 300;
 const lineWidth = 150;
 const laneWidth = 1200;
@@ -77,8 +71,10 @@ Segment.prototype.project = function () {
         this.lines[this.numLanes / 2 + 1].project(measure2);
     }
     for (var i = 0; i < this.objects.length; i++) {
-        this.objects[i].center.x = this.highCenter.x + this.objects[i].offset;
-        this.objects[i].project(measure2);
+        if (dimensions[Outrun.gameWorld.route][this.objects[i].fileName] != undefined) {
+            this.objects[i].center.x = this.highCenter.x + dimensions[Outrun.gameWorld.route][this.objects[i].fileName].offset;
+            this.objects[i].project(measure2);
+        }
 
     }
 }

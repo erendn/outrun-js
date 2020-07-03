@@ -185,20 +185,20 @@ Road.prototype.findRoute = function () {
                 case 1: return 'devils-canyon';
             }
         case 2:
-            switch(sum){
+            switch (sum) {
                 case 0: return 'desert';
                 case 1: return 'alps';
                 case 2: return 'cloudy-mountain';
             }
         case 3:
-            switch(sum){
+            switch (sum) {
                 case 0: return 'wilderness';
                 case 1: return 'old-capital';
                 case 2: return 'wheat-field';
                 case 3: return 'seaside-town';
             }
         case 4:
-            switch(sum){
+            switch (sum) {
                 case 0: return 'vineyard';
                 case 1: return 'death-valley';
                 case 2: return 'desolation-hill';
