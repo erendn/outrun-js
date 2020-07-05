@@ -19,7 +19,7 @@ function Segment(prevSegment, curve, hill, index, isInitial, isTunnel) {
         if (!(index % (objectDistance / 4))) {
             this.objects.push(new WorldObject(new Vector3(this.highCenter.x, this.highCenter.y, this.highCenter.z), 'terrain'));
             if (Math.random() < 0.1) {
-                this.objects.push(new WorldObject(new Vector3(this.highCenter.x, this.highCenter.y + 200, this.highCenter.z), 'left' + (Math.random() < 0.5 ? '1' : '2')));
+                this.objects.push(new WorldObject(new Vector3(this.highCenter.x, this.highCenter.y, this.highCenter.z), 'left' + (Math.random() < 0.5 ? '1' : '2')));
             }
         }
         if (!(index % objectDistance)) {
@@ -30,12 +30,12 @@ function Segment(prevSegment, curve, hill, index, isInitial, isTunnel) {
     }
 }
 
-const invisSegment = 15;
+const invisSegment = 5;
 const sideLineWidth = 300;
 const lineWidth = 150;
 const laneWidth = 1200;
 const offroadWidth = 70000;
-const segmentDepth = 200;
+const segmentDepth = 600;
 const objectDistance = 20;
 const tunnelDistance = 12;
 

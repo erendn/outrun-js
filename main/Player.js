@@ -24,9 +24,9 @@ const maxSpeed = 900;
 
 const carDistance = 5000;
 
-const curveSense = 0.1;
-const hillSense = 12;
-const speedSense = 250
+const curveSense = 0.2;
+const hillSense = 10;
+const speedSense = 250;
 
 Player.prototype.play = function () {
     if (this.accelerate) {
@@ -36,7 +36,7 @@ Player.prototype.play = function () {
     } else {
         this.speed -= 2;
     }
-    this.speed = this.speed < 0 ? this.speed = 0 : this.speed > maxSpeed ? maxSpeed : this.speed;
+    this.speed = this.speed < 0 ? 0 : this.speed > maxSpeed ? maxSpeed : this.speed;
 
     var carIndex = Outrun.gameWorld.road.findIndex(this.car.center.z);
     var segment = Outrun.gameWorld.road.segments[carIndex];
@@ -78,8 +78,8 @@ Player.prototype.play = function () {
         }
     }
 
-    zMove = this.speed * (this.steerLeft | this.steerRight ? 0.83 : 1);
-    xMove = this.speed * ((this.steerLeft ? -0.17 : this.steerRight ? 0.17 : 0) - this.curveDirection / 5);
+    zMove = this.speed * (this.steerLeft | this.steerRight ? 0.99 : 1);
+    xMove = this.speed * ((this.steerLeft ? -0.08 : this.steerRight ? 0.08 : 0) - this.curveDirection / 25);
 
     this.camera.position.z += zMove;
     this.camera.position.x += xMove;

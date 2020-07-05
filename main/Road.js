@@ -1,6 +1,7 @@
 function Road(center, curve, hill, numLanes) {
     this.trackRemain = trackLength - 1;
     this.chosenPath = [];
+    this.vehicles = [];
     this.trackCount = 0;
     this.segments = [new Segment(Road.prepareInitial(center, curve, hill, numLanes), curve, hill, 0, true)];
     this.addSegments(false);
@@ -16,6 +17,7 @@ function Road(center, curve, hill, numLanes) {
         this.segments[0].lines[i].downLeft.project();
         this.segments[0].lines[i].downRight.project();
     }
+    this.addVehicles(this.segments[20]);
 }
 
 const trackLength = 2000;
@@ -24,7 +26,9 @@ const junctionLength = 400;
 const trackNumLanes = 6;
 const junctNumLanes = 3;
 
-const MAX_CURVE = 0.7;
+const vehicleSpawn = 5;
+
+const MAX_CURVE = 1;
 const MAX_HILL = 10;
 
 Road.prototype.addSegments = function (canCurve) {
@@ -64,33 +68,64 @@ Road.prototype.addSegments = function (canCurve) {
 Road.prototype.addCurves = function (length) {
     var direction = Math.random() < 0.5 ? -1 : 1;
     var part = length / 3;
+    var vehicle = 0;
     for (var i = 0; i < part; i++) {
         this.segments.push(new Segment(this.segments[this.segments.length - 1], MAX_CURVE * (i / part) * direction, 0, this.segments.length, false));
+        if (vehicle < vehicleSpawn & Math.random() < 0.01) {
+            vehicle++;
+            this.addVehicles(this.segments[this.segments.length - 1]);
+        }
     }
     for (var i = 0; i < part; i++) {
         this.segments.push(new Segment(this.segments[this.segments.length - 1], MAX_CURVE * direction, 0, this.segments.length, false));
+        if (vehicle < vehicleSpawn & Math.random() < 0.01) {
+            vehicle++;
+            this.addVehicles(this.segments[this.segments.length - 1]);
+        }
     }
     for (var i = 0; i < part; i++) {
         this.segments.push(new Segment(this.segments[this.segments.length - 1], MAX_CURVE * (1 - i / part) * direction, 0, this.segments.length, false));
+        if (vehicle < vehicleSpawn & Math.random() < 0.01) {
+            vehicle++;
+            this.addVehicles(this.segments[this.segments.length - 1]);
+        }
     }
 }
 
 Road.prototype.addHills = function (length) {
     var part = length / 3;
+    var vehicle = 0;
     for (var i = 0; i < part; i++) {
         this.segments.push(new Segment(this.segments[this.segments.length - 1], 0, MAX_HILL * (Math.cos((2 * i / part - 1) * Math.PI) + 1), this.segments.length, false));
+        if (vehicle < vehicleSpawn & Math.random() < 0.01) {
+            vehicle++;
+            this.addVehicles(this.segments[this.segments.length - 1]);
+        }
     }
     for (var i = 0; i < part; i++) {
         this.segments.push(new Segment(this.segments[this.segments.length - 1], 0, 0, this.segments.length, false));
+        if (vehicle < vehicleSpawn & Math.random() < 0.01) {
+            vehicle++;
+            this.addVehicles(this.segments[this.segments.length - 1]);
+        }
     }
     for (var i = 0; i < part; i++) {
         this.segments.push(new Segment(this.segments[this.segments.length - 1], 0, MAX_HILL * (-Math.cos((2 * i / part - 1) * Math.PI) - 1), this.segments.length, false));
+        if (vehicle < vehicleSpawn & Math.random() < 0.01) {
+            vehicle++;
+            this.addVehicles(this.segments[this.segments.length - 1]);
+        }
     }
 }
 
 Road.prototype.addStraights = function (length) {
+    var vehicle = 0;
     for (var i = 0; i < length; i++) {
         this.segments.push(new Segment(this.segments[this.segments.length - 1], 0, 0, this.segments.length, false));
+        if (vehicle < vehicleSpawn & Math.random() < 0.01) {
+            vehicle++;
+            this.addVehicles(this.segments[this.segments.length - 1]);
+        }
     }
 }
 
@@ -116,6 +151,11 @@ Road.prototype.addJunctions = function (length) {
     for (var i = 0; i < Outrun.renderSize; i++) {
         this.segments.push(new Junction(this.segments[this.segments.length - 1], 0, 0, this.segments.length, false));
     }
+}
+
+Road.prototype.addVehicles = function (segment) {
+    var shift = (Math.floor(Math.random() * (segment.numLanes / 2)) + (segment.numLanes % 2 == 0 ? 1 : 0) - 0.5) * (Math.random() < 0.5 ? 1 : -1);
+    this.vehicles.push(new Vehicle(new Vector3(segment.highCenter.x, segment.highCenter.y, segment.highCenter.z), shift, 'vehicle-' + Math.floor(Math.random() * 11)));
 }
 
 Road.prototype.findIndex = function (position) {

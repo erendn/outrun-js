@@ -4,8 +4,12 @@ let colors = {};
 let dimensions = {};
 
 var loading = 0;
+var maxLoading = 0;
 
 function loadAssets() {
+  //\\//\\ LOADING //\\//\\
+  sprites['loading-text'] = loadSprite('loading/loading-text');
+  sprites['loading-box'] = loadSprite('loading/loading-box');
   //\\//\\ MENU ASSETS //\\//\\
   // LOADING MENU SPRITES
   sprites['logo-bg-0'] = loadSprite('menu/logo-bg-0');
@@ -37,10 +41,11 @@ function loadAssets() {
   sounds['coin'] = loadSound('sample/coin');
   //\\//\\ IN-GAME ASSETS //\\//\\
   // LOADING IN-GAME SPRITES
+  var tunnel = loadSprite('environment/tunnel');
   sprites['coconut-beach'] = {
     back: loadSprite('background/coconut-beach/back'),
     front: loadSprite('background/coconut-beach/front'),
-    tunnel: loadSprite('environment/tunnel'),
+    tunnel: tunnel,
     terrain: loadSprite('environment/coconut-beach/terrain'),
     left1: loadSprite('environment/coconut-beach/sail-1'),
     left2: loadSprite('environment/coconut-beach/sail-2'),
@@ -50,15 +55,15 @@ function loadAssets() {
   dimensions['coconut-beach'] = {
     tunnel: createDimension(4800, 2000, 0),
     terrain: createDimension(9760, 320, -9500),
-    left1: createDimension(765, 1290, -8000),
-    left2: createDimension(765, 1290, -9000),
+    left1: createDimension(765, 1500, -8000),
+    left2: createDimension(765, 1500, -9000),
     right1: createDimension(1170, 2520, 5000),
     right2: createDimension(1280, 790, 5000)
   };
   sprites['gateaway'] = {
     back: loadSprite('background/gateaway/back'),
     front: loadSprite('background/gateaway/front'),
-    tunnel: loadSprite('environment/tunnel'),
+    tunnel: tunnel,
     terrain: loadSprite('environment/gateaway/terrain'),
     left1: loadSprite('environment/gateaway/arcade-sign'),
     left2: loadSprite('environment/gateaway/motorcycle-sign'),
@@ -76,7 +81,7 @@ function loadAssets() {
   sprites['devils-canyon'] = {
     back: loadSprite('background/devils-canyon/back'),
     front: loadSprite('background/devils-canyon/front'),
-    tunnel: loadSprite('environment/tunnel'),
+    tunnel: tunnel,
     terrain: loadSprite('environment/devils-canyon/terrain'),
     left1: loadSprite('environment/devils-canyon/sega-sign'),
     left2: loadSprite('environment/devils-canyon/diving-sign'),
@@ -94,7 +99,7 @@ function loadAssets() {
   sprites['desert'] = {
     back: loadSprite('background/desert/back'),
     front: loadSprite('background/desert/front'),
-    tunnel: loadSprite('environment/tunnel'),
+    tunnel: tunnel,
     left1: loadSprite('environment/desert/dry-tree'),
     left2: loadSprite('environment/desert/dry-tree'),
     right1: loadSprite('environment/desert/terrain'),
@@ -110,7 +115,7 @@ function loadAssets() {
   sprites['alps'] = {
     back: loadSprite('background/alps/back'),
     front: loadSprite('background/alps/front'),
-    tunnel: loadSprite('environment/tunnel'),
+    tunnel: tunnel,
     left1: loadSprite('environment/alps/mill-1'),
     left2: loadSprite('environment/alps/mill-2'),
     right1: loadSprite('environment/alps/terrain-1'),
@@ -126,7 +131,7 @@ function loadAssets() {
   sprites['cloudy-mountain'] = {
     back: loadSprite('background/cloudy-mountain/back'),
     front: loadSprite('background/cloudy-mountain/front'),
-    tunnel: loadSprite('environment/tunnel'),
+    tunnel: tunnel,
     terrain: loadSprite('environment/cloudy-mountain/clouds'),
     right1: loadSprite('environment/cloudy-mountain/tree'),
     right2: loadSprite('environment/cloudy-mountain/tree')
@@ -140,7 +145,7 @@ function loadAssets() {
   sprites['wilderness'] = {
     back: loadSprite('background/wilderness/back'),
     front: loadSprite('background/wilderness/front'),
-    tunnel: loadSprite('environment/tunnel'),
+    tunnel: tunnel,
     left1: loadSprite('environment/wilderness/rock-1'),
     left2: loadSprite('environment/wilderness/rock-2'),
     right1: loadSprite('environment/wilderness/cut-tree'),
@@ -156,7 +161,7 @@ function loadAssets() {
   sprites['old-capital'] = {
     back: loadSprite('background/old-capital/back'),
     front: loadSprite('background/old-capital/front'),
-    tunnel: loadSprite('environment/tunnel'),
+    tunnel: tunnel,
     left1: loadSprite('environment/old-capital/tower'),
     left2: loadSprite('environment/old-capital/hut'),
     right1: loadSprite('environment/old-capital/tree-1'),
@@ -172,7 +177,7 @@ function loadAssets() {
   sprites['wheat-field'] = {
     back: loadSprite('background/wheat-field/back'),
     front: loadSprite('background/wheat-field/front'),
-    tunnel: loadSprite('environment/tunnel'),
+    tunnel: tunnel,
     left1: loadSprite('environment/wheat-field/motorcycle-sign'),
     left2: loadSprite('environment/wheat-field/tree'),
     right1: loadSprite('environment/wheat-field/terrain'),
@@ -188,7 +193,7 @@ function loadAssets() {
   sprites['seaside-town'] = {
     back: loadSprite('background/seaside-town/back'),
     front: loadSprite('background/seaside-town/front'),
-    tunnel: loadSprite('environment/tunnel'),
+    tunnel: tunnel,
     terrain: loadSprite('environment/seaside-town/terrain'),
     right1: loadSprite('environment/seaside-town/tower'),
     right2: loadSprite('environment/seaside-town/hut')
@@ -202,7 +207,7 @@ function loadAssets() {
   sprites['vineyard'] = {
     back: loadSprite('background/vineyard/back'),
     front: loadSprite('background/vineyard/front'),
-    tunnel: loadSprite('environment/tunnel'),
+    tunnel: tunnel,
     right1: loadSprite('environment/vineyard/terrain'),
     right2: loadSprite('environment/vineyard/terrain')
   };
@@ -214,7 +219,7 @@ function loadAssets() {
   sprites['death-valley'] = {
     back: loadSprite('background/death-valley/back'),
     front: loadSprite('background/death-valley/front'),
-    tunnel: loadSprite('environment/tunnel'),
+    tunnel: tunnel,
     left1: loadSprite('environment/death-valley/danke-sign'),
     left2: loadSprite('environment/death-valley/rock'),
     right1: loadSprite('environment/death-valley/pebbles'),
@@ -230,7 +235,7 @@ function loadAssets() {
   sprites['desolation-hill'] = {
     back: loadSprite('background/desolation-hill/back'),
     front: loadSprite('background/desolation-hill/front'),
-    tunnel: loadSprite('environment/tunnel'),
+    tunnel: tunnel,
     right1: loadSprite('environment/desolation-hill/rock-1'),
     right2: loadSprite('environment/desolation-hill/rock-2')
   };
@@ -242,7 +247,7 @@ function loadAssets() {
   sprites['autobahn'] = {
     back: loadSprite('background/autobahn/back'),
     front: loadSprite('background/autobahn/front'),
-    tunnel: loadSprite('environment/tunnel'),
+    tunnel: tunnel,
     left1: loadSprite('environment/autobahn/bush-1'),
     left2: loadSprite('environment/autobahn/bush-2'),
     right1: loadSprite('environment/autobahn/tree'),
@@ -258,7 +263,7 @@ function loadAssets() {
   sprites['lakeside'] = {
     back: loadSprite('background/lakeside/back'),
     front: loadSprite('background/lakeside/front'),
-    tunnel: loadSprite('environment/tunnel'),
+    tunnel: tunnel,
     right1: loadSprite('environment/lakeside/tree'),
     right2: loadSprite('environment/lakeside/tree')
   };
@@ -316,6 +321,26 @@ function loadAssets() {
   sprites['music-0'] = loadSprite('text/music-0');
   sprites['music-1'] = loadSprite('text/music-1');
   sprites['music-2'] = loadSprite('text/music-2');
+  //\\//\\ VEHICLES //\\//\\
+  for (var i = 0; i < 11; i++) {
+    sprites['vehicle-' + i] = {
+      right0: loadSprite('vehicles/vehicle-' + i + '/right-0'),
+      right1: loadSprite('vehicles/vehicle-' + i + '/right-1'),
+      left0: loadSprite('vehicles/vehicle-' + i + '/left-0'),
+      left1: loadSprite('vehicles/vehicle-' + i + '/left-1')
+    };
+  }
+  dimensions['vehicle-0'] = createDimension(945, 525);
+  dimensions['vehicle-1'] = dimensions['vehicle-0'];
+  dimensions['vehicle-2'] = dimensions['vehicle-0'];
+  dimensions['vehicle-3'] = createDimension(1420, 620);
+  dimensions['vehicle-4'] = dimensions['vehicle-3'];
+  dimensions['vehicle-5'] = createDimension(570, 600);
+  dimensions['vehicle-6'] = createDimension(1460, 1100);
+  dimensions['vehicle-7'] = dimensions['vehicle-6'];
+  dimensions['vehicle-8'] = dimensions['vehicle-6'];
+  dimensions['vehicle-9'] = createDimension(920, 450);
+  dimensions['vehicle-10'] = dimensions['vehicle-9'];
   //\\//\\ COLORS //\\//\\
   colors['coconut-beach'] = {
     skyColor: '#008BFF',
@@ -486,6 +511,7 @@ function loadAssets() {
 
 function loadSprite(fileName) {
   loading++;
+  maxLoading++;
   var sprite = new Image();
   sprite.onload = function () {
     loading--;
@@ -496,6 +522,7 @@ function loadSprite(fileName) {
 
 function loadSound(fileName) {
   loading++;
+  maxLoading++;
   var sample = new Audio();
   sample.oncanplay = function () {
     loading--;

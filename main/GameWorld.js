@@ -1,17 +1,7 @@
 function GameWorld() {
     this.road = new Road(new Vector3(0, 0, 0), 0, 0, trackNumLanes);
     this.route = 'coconut-beach';
-    this.currentColor = {
-        skyColor: '#008BFF',
-        darkOffroadColor: '#D9C7B9',
-        lightOffroadColor: '#E0CCBF',
-        darkAsphaltColor: '#777576',
-        lightAsphaltColor: '#797778',
-        darkSideColor: '#FF0000',
-        lightSideColor: '#F7F7F7',
-        darkLineColor: '#777576',
-        lightLineColor: '#F7F7F7'
-    };
+    this.currentColor = colors['coconut-beach'];
     this.backParallax = 0;
     this.frontParallax = 0;
 }
@@ -21,10 +11,13 @@ const frontSpeed = 0.000002;
 const backWidth = 1536;
 const frontWidth = 2048;
 const backgroundHeight = 256;
-const backgroundOffset = -130;
+const backgroundOffset = -135;
 
 GameWorld.prototype.play = function () {
     Driver.play();
+    for (var i = 0; i < this.road.vehicles.length; i++) {
+        this.road.vehicles[i].play();
+    }
 }
 
 GameWorld.prototype.update = function () {
@@ -33,6 +26,9 @@ GameWorld.prototype.update = function () {
         this.road.segments[i].project();
     }
     Driver.project();
+    for (var i = 0; i < this.road.vehicles.length; i++) {
+        this.road.vehicles[i].project();
+    }
     this.route = this.road.findRoute();
     for (var i = 0; i < 9; i++) {
         var key = Object.keys(this.currentColor)[i];
@@ -114,6 +110,11 @@ GameWorld.prototype.draw = function () {
                     Canvas.drawImage(sprites[this.route][object.fileName], object.center, object.relWidth, object.relHeight);
             }
         }
+    }
+    for (var i = 0; i < this.road.vehicles.length; i++) {
+        var vehicle = this.road.vehicles[i];
+        if (vehicle.car.center.z > Driver.camera.position.z)
+            Canvas.drawImage(sprites[vehicle.vehicleType][vehicle.car.fileName], vehicle.car.center, vehicle.car.relWidth, vehicle.car.relHeight);
     }
     Canvas.drawImage(sprites[Driver.car.fileName], Driver.car.center, Driver.car.relWidth, Driver.car.relHeight);
 
