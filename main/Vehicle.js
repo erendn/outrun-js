@@ -37,9 +37,7 @@ Vehicle.prototype.play = function () {
         this.hasStopped = false;
         if (Outrun.gameWorld.road.trackCount > this.chosenPath.length) {
             this.chosenPath.push(this.car.center.x >= this.lastSegment.highCenter.x);
-            console.log(this.shift);
             this.shift += 1.5 * (this.chosenPath[this.chosenPath.length - 1] ? -1 : 1);
-            console.log(this.shift);
         }
         if (this.chosenPath[this.chosenPath.length - 1]) {
             segment = segment.rightJunction;

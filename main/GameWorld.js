@@ -14,7 +14,10 @@ const backgroundHeight = 256;
 const backgroundOffset = -135;
 
 GameWorld.prototype.play = function () {
-    Driver.play();
+    if (this.road.endSegment != null && this.road.findIndex(this.road.endSegment.highCenter.z) < this.road.findIndex(Driver.camera.position.z))
+        Outrun.playable = false;
+    if (Outrun.playable)
+        Driver.play();
     for (var i = 0; i < this.road.vehicles.length; i++) {
         this.road.vehicles[i].play();
     }
@@ -111,9 +114,10 @@ GameWorld.prototype.draw = function () {
             }
         }
     }
-    for (var i = 0; i < this.road.vehicles.length; i++) {
+    for (var i = this.road.vehicles.length - 1; i >= 0; i--) {
         var vehicle = this.road.vehicles[i];
-        if (vehicle.car.center.z > Driver.camera.position.z)
+        var position = this.road.findIndex(vehicle.car.center.z);
+        if (position > currentIndex & position < maxRendered)
             Canvas.drawImage(sprites[vehicle.vehicleType][vehicle.car.fileName], vehicle.car.center, vehicle.car.relWidth, vehicle.car.relHeight);
     }
     Canvas.drawImage(sprites[Driver.car.fileName], Driver.car.center, Driver.car.relWidth, Driver.car.relHeight);

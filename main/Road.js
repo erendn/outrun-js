@@ -17,7 +17,9 @@ function Road(center, curve, hill, numLanes) {
         this.segments[0].lines[i].downLeft.project();
         this.segments[0].lines[i].downRight.project();
     }
-    this.addVehicles(this.segments[20]);
+    this.startSegment = this.segments[13];
+    this.endSegment = null;
+    this.startSegment.objects.push(new WorldObject(new Vector3(this.startSegment.highCenter.x, this.startSegment.highCenter.y, this.startSegment.highCenter.z), 'start0'));
 }
 
 const trackLength = 2000;
@@ -47,8 +49,15 @@ Road.prototype.addSegments = function (canCurve) {
             this.addStraights(length);
             this.trackRemain -= length;
         } else {
-            this.addJunctions(junctionLength);
-            this.trackRemain = trackLength;
+            if (this.chosenPath.length < 4) {
+                this.addJunctions(junctionLength);
+                this.trackRemain = trackLength;
+            } else {
+                Outrun.finished = true;
+                this.endSegment = this.segments[this.segments.length - 1];
+                this.endSegment.objects.push(new WorldObject(new Vector3(this.endSegment.highCenter.x, this.endSegment.highCenter.y, this.endSegment.highCenter.z), 'goal'));
+                this.addStraights(Outrun.renderSize * 2);
+            }
         }
     } else {
         var lastJunction = null;
@@ -154,8 +163,24 @@ Road.prototype.addJunctions = function (length) {
 }
 
 Road.prototype.addVehicles = function (segment) {
-    var shift = (Math.floor(Math.random() * (segment.numLanes / 2)) + (segment.numLanes % 2 == 0 ? 1 : 0) - 0.5) * (Math.random() < 0.5 ? 1 : -1);
+    var shift = (Math.floor(Math.random() * (segment.numLanes / 2)) + 0.5) * (Math.random() < 0.5 ? 1 : -1);
     this.vehicles.push(new Vehicle(new Vector3(segment.highCenter.x, segment.highCenter.y, segment.highCenter.z), shift, 'vehicle-' + Math.floor(Math.random() * 11)));
+}
+
+Road.prototype.nextLight = function () {
+    var currentFile = this.startSegment.objects[this.startSegment.objects.length - 1].fileName;
+    if (currentFile == 'start0')
+        this.startSegment.objects[this.startSegment.objects.length - 1].fileName = 'start1';
+    else if (currentFile == 'start1')
+        this.startSegment.objects[this.startSegment.objects.length - 1].fileName = 'start2';
+    else if (currentFile == 'start2')
+        this.startSegment.objects[this.startSegment.objects.length - 1].fileName = 'start3';
+    if (currentFile == 'start2') {
+        sounds['signal-1'].play();
+        Outrun.playable = true;
+    }
+    else
+        sounds['signal-0'].play();
 }
 
 Road.prototype.findIndex = function (position) {

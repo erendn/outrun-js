@@ -37,7 +37,7 @@ const laneWidth = 1200;
 const offroadWidth = 70000;
 const segmentDepth = 600;
 const objectDistance = 20;
-const tunnelDistance = 12;
+const tunnelDistance = 6;
 
 Segment.prototype.project = function () {
     if (this.isInitial & this.lowCenter.z > Driver.camera.position.z) {
@@ -75,6 +75,5 @@ Segment.prototype.project = function () {
             this.objects[i].center.x = this.highCenter.x + dimensions[Outrun.gameWorld.route][this.objects[i].fileName].offset;
             this.objects[i].project(measure2);
         }
-
     }
 }
