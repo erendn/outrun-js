@@ -10,7 +10,6 @@ This project is an imitation of Sega's arcade racing game <a href="https://en.wi
 ## To-Do List
 * Transmission algorithm
 * Collision
-* In-game HUD
 * In-game live map
 * Difficulty
 * "How to" screen
