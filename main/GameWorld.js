@@ -122,6 +122,10 @@ GameWorld.prototype.draw = function () {
     }
     Canvas.drawImage(sprites[Driver.car.fileName], Driver.car.center, Driver.car.relWidth, Driver.car.relHeight);
 
+    Canvas.drawStaticImage(sprites['hud-' + this.route], 301, 210, 16, 11);
+    Canvas.drawStaticImage(sprites['hud-kmh'], 27, 210, 18, 13);
+    Canvas.drawText(Math.floor(Driver.speed / 3).toString());
+
     if (this.road.segments.length - currentIndex < Outrun.renderSize) {
         this.road.addSegments(true);
     }

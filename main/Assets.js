@@ -368,6 +368,26 @@ function loadAssets() {
   dimensions['vehicle-9'] = createDimension(920, 450);
   dimensions['vehicle-10'] = dimensions['vehicle-9'];
   Outrun.drawLoading();
+  //\\//\\ HUD //\\//\\
+  for(var i = 0; i < 10; i++){
+    sprites['hud-'+i] = loadSprite('hud/digits/'+i);
+  }
+  sprites['hud-kmh'] = loadSprite('hud/kmh');
+  sprites['hud-coconut-beach'] = loadSprite('hud/map/coconut-beach');
+  sprites['hud-gateaway'] = loadSprite('hud/map/gateaway');
+  sprites['hud-devils-canyon'] = loadSprite('hud/map/devils-canyon');
+  sprites['hud-desert'] = loadSprite('hud/map/desert');
+  sprites['hud-alps'] = loadSprite('hud/map/alps');
+  sprites['hud-cloudy-mountain'] = loadSprite('hud/map/cloudy-mountain');
+  sprites['hud-wilderness'] = loadSprite('hud/map/wilderness');
+  sprites['hud-old-capital'] = loadSprite('hud/map/old-capital');
+  sprites['hud-wheat-field'] = loadSprite('hud/map/wheat-field');
+  sprites['hud-seaside-town'] = loadSprite('hud/map/seaside-town');
+  sprites['hud-vineyard'] = loadSprite('hud/map/vineyard');
+  sprites['hud-death-valley'] = loadSprite('hud/map/death-valley');
+  sprites['hud-desolation-hill'] = loadSprite('hud/map/desolation-hill');
+  sprites['hud-autobahn'] = loadSprite('hud/map/autobahn');
+  sprites['hud-lakeside'] = loadSprite('hud/map/lakeside');
   //\\//\\ COLORS //\\//\\
   colors['coconut-beach'] = {
     skyColor: '#008BFF',
