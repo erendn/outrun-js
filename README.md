@@ -6,7 +6,7 @@
 This project is an imitation of Sega's arcade racing game <a href="https://en.wikipedia.org/wiki/Out_Run">Out Run</a>. While some parts of the project are directly imitated from the original game, some parts are different.
 
 <div align="center">
-    <a href="https://erendo.github.io/outrun-js/">
+    <a href="https://erendn.github.io/outrun-js/">
         <img src="./readme-images/play.png" >
     </a>
 </div>
