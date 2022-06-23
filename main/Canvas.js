@@ -55,7 +55,6 @@ Canvas2D.prototype.drawShape = function (point1, point2, point3, point4, color) 
 
 Canvas2D.prototype.drawText = function (text) {
     for (var i = 0; i < text.length; i++) {
-        console.log(text.charAt(text.length - i - 1));
         this.drawStaticImage(sprites['hud-' + text.charAt(text.length - i - 1)], 19 - i * 8, 209, 7, 12);
     }
 
