@@ -562,7 +562,7 @@ function loadSprite(fileName) {
   sprite.onload = function () {
     loading++;
   }
-  sprite.src = "./assets/sprites/" + fileName + ".png";
+  sprite.src = "./src/assets/sprites/" + fileName + ".png";
   return sprite;
 }
 
@@ -576,7 +576,7 @@ function loadSound(fileName) {
       loading++;
     }
   }
-  sample.src = "./assets/sounds/" + fileName + ".wav";
+  sample.src = "./src/assets/sounds/" + fileName + ".wav";
   return sample;
 }
 
