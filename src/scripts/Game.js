@@ -51,22 +51,22 @@ class Game {
     }
 
     drawLoading() {
-        Canvas.fill('#008BFF');
+        Canvas.fill("#008BFF");
         Canvas.canvasContext.fillStyle = "#000000";
         Canvas.canvasContext.fillRect(99, 126, 121, 12);
         Canvas.canvasContext.fillStyle = "#F7F700";
         Canvas.canvasContext.fillRect(99, 126, 121 * (loading / maxLoading), 12);
-        Canvas.drawStaticImage(sprites['loading-box'], 98, 125, 124, 15);
-        Canvas.drawStaticImage(sprites['loading-text'], 106, 84, 109, 28);
+        Canvas.drawStaticImage(sprites["loading-box"], 98, 125, 124, 15);
+        Canvas.drawStaticImage(sprites["loading-text"], 106, 84, 109, 28);
     }
 
 }
 
 var controlCount = 0;
 
-const MENU_SCENE = 'menu';
-const RADIO_SCENE = 'radio';
-const IN_GAME_SCENE = 'drive';
+const MENU_SCENE = "menu";
+const RADIO_SCENE = "radio";
+const IN_GAME_SCENE = "drive";
 
 const FPS = 60;
 

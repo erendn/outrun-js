@@ -1,8 +1,8 @@
 class Canvas2D {
 
     constructor() {
-        this.canvas = document.getElementById('screen');
-        this.canvasContext = this.canvas.getContext('2d');
+        this.canvas = document.getElementById("screen");
+        this.canvasContext = this.canvas.getContext("2d");
         this.canvas.width = 320;
         this.canvas.height = 224;
         if (window.innerWidth / window.innerHeight <= canvasRatio) {
@@ -55,7 +55,7 @@ class Canvas2D {
 
     drawText(text) {
         for (var i = 0; i < text.length; i++) {
-            this.drawStaticImage(sprites['hud-' + text.charAt(text.length - i - 1)], 19 - i * 8, 209, 7, 12);
+            this.drawStaticImage(sprites["hud-" + text.charAt(text.length - i - 1)], 19 - i * 8, 209, 7, 12);
         }
 
     }
@@ -69,7 +69,7 @@ class Canvas2D {
     mix(base, target, step) {
         if (base == target)
             return base;
-        var resHex = '#';
+        var resHex = "#";
         for (var i = 1; i <= 5; i += 2) {
             var diff = parseInt(target.substring(i, i + 2), 16) - parseInt(base.substring(i, i + 2), 16);
             var add = null;
@@ -78,7 +78,7 @@ class Canvas2D {
             } else {
                 add = target.substring(i, i + 2);
             }
-            resHex += (add.length == 1 ? '0' : '') + add;
+            resHex += (add.length == 1 ? "0" : "") + add;
         }
         return resHex;
     }

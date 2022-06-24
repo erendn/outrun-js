@@ -21,7 +21,7 @@ class Road {
         }
         this.startSegment = this.segments[13];
         this.endSegment = null;
-        this.startSegment.objects.push(new WorldObject(new Vector3(this.startSegment.highCenter.x, this.startSegment.highCenter.y, this.startSegment.highCenter.z), 'start0'));
+        this.startSegment.objects.push(new WorldObject(new Vector3(this.startSegment.highCenter.x, this.startSegment.highCenter.y, this.startSegment.highCenter.z), "start0"));
     }
 
     static prepareInitial(center, curve, hill, numLanes) {
@@ -98,7 +98,7 @@ class Road {
                 } else {
                     Outrun.finished = true;
                     this.endSegment = this.segments[this.segments.length - 1];
-                    this.endSegment.objects.push(new WorldObject(new Vector3(this.endSegment.highCenter.x, this.endSegment.highCenter.y, this.endSegment.highCenter.z), 'goal'));
+                    this.endSegment.objects.push(new WorldObject(new Vector3(this.endSegment.highCenter.x, this.endSegment.highCenter.y, this.endSegment.highCenter.z), "goal"));
                     this.addStraights(Outrun.renderSize * 2);
                 }
             }
@@ -207,24 +207,24 @@ class Road {
 
     addVehicles(segment) {
         var shift = (Math.floor(Math.random() * (segment.numLanes / 2)) + 0.5) * (Math.random() < 0.5 ? 1 : -1);
-        this.vehicles.push(new Vehicle(new Vector3(segment.highCenter.x, segment.highCenter.y, segment.highCenter.z), shift, 'vehicle-' + Math.floor(Math.random() * 11)));
+        this.vehicles.push(new Vehicle(new Vector3(segment.highCenter.x, segment.highCenter.y, segment.highCenter.z), shift, "vehicle-" + Math.floor(Math.random() * 11)));
     }
 
     nextLight() {
         var currentFile = this.startSegment.objects[this.startSegment.objects.length - 1].fileName;
-        if (currentFile == 'start0')
-            this.startSegment.objects[this.startSegment.objects.length - 1].fileName = 'start1';
-        else if (currentFile == 'start1')
-            this.startSegment.objects[this.startSegment.objects.length - 1].fileName = 'start2';
-        else if (currentFile == 'start2')
-            this.startSegment.objects[this.startSegment.objects.length - 1].fileName = 'start3';
-        if (currentFile == 'start2') {
-            sounds['signal-1'].play();
+        if (currentFile == "start0")
+            this.startSegment.objects[this.startSegment.objects.length - 1].fileName = "start1";
+        else if (currentFile == "start1")
+            this.startSegment.objects[this.startSegment.objects.length - 1].fileName = "start2";
+        else if (currentFile == "start2")
+            this.startSegment.objects[this.startSegment.objects.length - 1].fileName = "start3";
+        if (currentFile == "start2") {
+            sounds["signal-1"].play();
             Outrun.playable = true;
         }
 
         else
-            sounds['signal-0'].play();
+            sounds["signal-0"].play();
     }
 
     findIndex(position) {
@@ -235,32 +235,32 @@ class Road {
         var length = this.chosenPath.length;
         var sum = this.chosenPath.reduce((a, b) => a + b, 0);
         switch (length) {
-            case 0: return 'coconut-beach';
+            case 0: return "coconut-beach";
             case 1:
                 switch (sum) {
-                    case 0: return 'gateaway';
-                    case 1: return 'devils-canyon';
+                    case 0: return "gateaway";
+                    case 1: return "devils-canyon";
                 }
             case 2:
                 switch (sum) {
-                    case 0: return 'desert';
-                    case 1: return 'alps';
-                    case 2: return 'cloudy-mountain';
+                    case 0: return "desert";
+                    case 1: return "alps";
+                    case 2: return "cloudy-mountain";
                 }
             case 3:
                 switch (sum) {
-                    case 0: return 'wilderness';
-                    case 1: return 'old-capital';
-                    case 2: return 'wheat-field';
-                    case 3: return 'seaside-town';
+                    case 0: return "wilderness";
+                    case 1: return "old-capital";
+                    case 2: return "wheat-field";
+                    case 3: return "seaside-town";
                 }
             case 4:
                 switch (sum) {
-                    case 0: return 'vineyard';
-                    case 1: return 'death-valley';
-                    case 2: return 'desolation-hill';
-                    case 3: return 'autobahn';
-                    case 4: return 'lakeside';
+                    case 0: return "vineyard";
+                    case 1: return "death-valley";
+                    case 2: return "desolation-hill";
+                    case 3: return "autobahn";
+                    case 4: return "lakeside";
                 }
         }
     }

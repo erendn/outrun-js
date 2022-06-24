@@ -3,7 +3,7 @@ class Vehicle {
     constructor(center, shift, vehicleType) {
         this.vehicleType = vehicleType;
         this.shift = shift;
-        this.car = new WorldObject(center, 'right0');
+        this.car = new WorldObject(center, "right0");
         this.car.width = 810;
         this.car.height = 460;
         this.car.project = function (measure2, dimension) {
@@ -67,21 +67,21 @@ class Vehicle {
 
         if (this.curveDirection < 0) {
             if (this.car.center.x < Driver.car.center.x)
-                this.car.fileName = 'left1';
+                this.car.fileName = "left1";
 
             else
-                this.car.fileName = 'left0';
+                this.car.fileName = "left0";
         } else if (this.curveDirection > 0) {
             if (this.car.center.x > Driver.car.center.x)
-                this.car.fileName = 'right1';
+                this.car.fileName = "right1";
 
             else
-                this.car.fileName = 'right0';
+                this.car.fileName = "right0";
         } else {
             if (this.car.center.x < Driver.car.center.x) {
-                this.car.fileName = 'right0';
+                this.car.fileName = "right0";
             } else {
-                this.car.fileName = 'left0';
+                this.car.fileName = "left0";
             }
         }
     }

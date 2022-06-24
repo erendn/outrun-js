@@ -2,7 +2,7 @@ class Player {
 
     constructor() {
         this.camera = new Camera(window.innerWidth, window.innerHeight, 300, 120);
-        this.car = new WorldObject(new Vector3(0, 0, carDistance), 'straight');
+        this.car = new WorldObject(new Vector3(0, 0, carDistance), "straight");
         this.car.width = 810;
         this.car.height = 460;
         this.car.project = function (measure2) {
@@ -86,44 +86,44 @@ class Player {
         this.car.center.y = this.hill;
         this.car.project(this.car.center.z - this.camera.position.z);
 
-        this.car.fileName = '';
+        this.car.fileName = "";
         if (this.hillDirection > hillSense) {
-            this.car.fileName = 'up-';
+            this.car.fileName = "up-";
         } else if (this.hillDirection < -hillSense) {
-            this.car.fileName = 'down-';
+            this.car.fileName = "down-";
         }
         if (this.curveDirection < -curveSense) {
             if (this.steerLeft & this.speed != 0)
-                this.car.fileName += 'hardleft-';
+                this.car.fileName += "hardleft-";
             else if (this.steerRight & this.speed != 0)
-                this.car.fileName += 'straight-';
+                this.car.fileName += "straight-";
 
             else
-                this.car.fileName += 'left-';
+                this.car.fileName += "left-";
         } else if (this.curveDirection > curveSense) {
             if (this.steerLeft & this.speed != 0)
-                this.car.fileName += 'straight-';
+                this.car.fileName += "straight-";
             else if (this.steerRight & this.speed != 0)
-                this.car.fileName += 'hardright-';
+                this.car.fileName += "hardright-";
 
             else
-                this.car.fileName += 'right-';
+                this.car.fileName += "right-";
         } else {
             if (this.steerLeft & this.speed != 0)
-                this.car.fileName += 'left-';
+                this.car.fileName += "left-";
             else if (this.steerRight & this.speed != 0)
-                this.car.fileName += 'right-';
+                this.car.fileName += "right-";
 
             else
-                this.car.fileName += 'straight-';
+                this.car.fileName += "straight-";
         }
         if (this.decelerate) {
-            this.car.fileName += 'brake-';
+            this.car.fileName += "brake-";
         }
         if (this.speed > speedSense) {
             this.car.fileName += Math.floor(Math.random() * 2);
         } else {
-            this.car.fileName += '0';
+            this.car.fileName += "0";
         }
     }
 

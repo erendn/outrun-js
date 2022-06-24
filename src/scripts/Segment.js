@@ -19,16 +19,16 @@ class Segment {
         this.objects = [];
         if (!isTunnel) {
             if (!(index % (objectDistance / 4))) {
-                this.objects.push(new WorldObject(new Vector3(this.highCenter.x, this.highCenter.y, this.highCenter.z), 'terrain'));
+                this.objects.push(new WorldObject(new Vector3(this.highCenter.x, this.highCenter.y, this.highCenter.z), "terrain"));
                 if (Math.random() < 0.1) {
-                    this.objects.push(new WorldObject(new Vector3(this.highCenter.x, this.highCenter.y, this.highCenter.z), 'left' + (Math.random() < 0.5 ? '1' : '2')));
+                    this.objects.push(new WorldObject(new Vector3(this.highCenter.x, this.highCenter.y, this.highCenter.z), "left" + (Math.random() < 0.5 ? "1" : "2")));
                 }
             }
             if (!(index % objectDistance)) {
-                this.objects.push(new WorldObject(new Vector3(this.highCenter.x, this.highCenter.y, this.highCenter.z), 'right' + (Math.random() < 0.5 ? '1' : '2')));
+                this.objects.push(new WorldObject(new Vector3(this.highCenter.x, this.highCenter.y, this.highCenter.z), "right" + (Math.random() < 0.5 ? "1" : "2")));
             }
         } else if (!(index % tunnelDistance)) {
-            this.objects.push(new WorldObject(new Vector3(this.highCenter.x, this.highCenter.y, this.highCenter.z), 'tunnel'));
+            this.objects.push(new WorldObject(new Vector3(this.highCenter.x, this.highCenter.y, this.highCenter.z), "tunnel"));
         }
     }
 
