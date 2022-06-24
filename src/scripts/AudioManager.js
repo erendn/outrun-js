@@ -22,7 +22,7 @@ class AudioManager {
                 this.flash = (this.flash + 1) % 10;
             }
             if (sounds['wave'].paused)
-                sounds['wave'].play();
+                sounds['wave'].play().catch(error => {});
         } else if (Outrun.scene == IN_GAME_SCENE) {
             if (sounds['music-' + this.music].paused)
                 sounds['music-' + this.music].play();
