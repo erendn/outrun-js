@@ -1,3 +1,9 @@
+import { Radio } from "./AudioManager.js";
+import { Canvas } from "./Canvas.js";
+import { loadAssets, loading, maxLoading, sprites } from "./Assets.js";
+import { EventListener } from "./EventListener.js";
+import { GameWorld } from "./GameWorld.js";
+
 /**
  * This is the game class that executes the main function of the game.
  */
@@ -87,9 +93,9 @@ class Game {
 
 var controlCount = 0;
 
-const MENU_SCENE = "menu";
-const RADIO_SCENE = "radio";
-const IN_GAME_SCENE = "drive";
+export const MENU_SCENE = "menu";
+export const RADIO_SCENE = "radio";
+export const IN_GAME_SCENE = "drive";
 
 const FPS = 60; // Frames per second
 
@@ -97,4 +103,4 @@ var time = null;
 var currentTime = null;
 
 // TODO: Add the singleton design pattern
-let Outrun = new Game(); // Singleton instance of Game
+export const Outrun = new Game(); // Singleton instance of Game

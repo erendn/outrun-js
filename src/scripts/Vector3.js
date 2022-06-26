@@ -1,7 +1,10 @@
+import { Canvas } from "./Canvas.js";
+import { Driver } from "./GameWorld.js";
+
 /**
  * This is the 3D vector class.
  */
-class Vector3 {
+export class Vector3 {
 
     constructor(x, y, z) {
         // x, y, and z values

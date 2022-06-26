@@ -1,8 +1,16 @@
+import { Camera } from "./Camera.js";
+import { WorldObject } from "./WorldObject.js";
+import { Vector3 } from "./Vector3.js";
+import { Driver } from "./GameWorld.js";
+import { Outrun } from "./Game.js";
+import { Segment } from "./Segment.js";
+import { Junction } from "./Junction.js";
+
 /**
  * This class represents the car of the player. It also includes the camera
  * that is attached to the car.
  */
-class Player {
+export class Player {
 
     constructor() {
         this.camera = new Camera(window.innerWidth, window.innerHeight, 300, 120); // Camera attached to the car

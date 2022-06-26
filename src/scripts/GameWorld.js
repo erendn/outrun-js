@@ -1,7 +1,15 @@
+import { Player } from "./Player.js";
+import { Road, trackNumLanes } from "./Road.js";
+import { Vector3 } from "./Vector3.js";
+import { sprites, colors } from "./Assets.js";
+import { Outrun } from "./Game.js";
+import { Canvas } from "./Canvas.js";
+import { Segment } from "./Segment.js";
+
 /**
  * This class represents the game world. It contains the road, route, and background.
  */
-class GameWorld {
+export class GameWorld {
 
     constructor() {
         this.road = new Road(new Vector3(0, 0, 0), 0, 0, trackNumLanes); // Road of the game
@@ -166,4 +174,4 @@ const backgroundOffset = -135;
 
 // TODO: Add the singleton design pattern
 // FIXME: This should be in the Player.js file
-let Driver = new Player(); // Singleton instance of Player
+export let Driver = new Player(); // Singleton instance of Player

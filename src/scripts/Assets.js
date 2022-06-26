@@ -1,12 +1,14 @@
-let sprites = {};
-let sounds = {};
-let colors = {};
-let dimensions = {};
+import { Outrun } from "./Game.js";
 
-var loading = 0;
-var maxLoading = 0;
+export let sprites = {};
+export let sounds = {};
+export let colors = {};
+export let dimensions = {};
 
-function loadAssets() {
+export var loading = 0;
+export var maxLoading = 0;
+
+export function loadAssets() {
   //\\//\\ LOADING //\\//\\
   sprites["loading-text"] = loadSprite("loading/loading-text");
   sprites["loading-box"] = loadSprite("loading/loading-box");

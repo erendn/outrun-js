@@ -1,7 +1,10 @@
+import { Vector3 } from "./Vector3.js";
+import { Driver } from "./GameWorld.js";
+
 /**
  * This class represents a ground tile in the game.
  */
-class Tile {
+export class Tile {
 
     constructor(prevTile, highCenter) {
         this.lowCenter = prevTile.highCenter;

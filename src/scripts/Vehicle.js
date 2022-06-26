@@ -1,7 +1,15 @@
+import { WorldObject } from "./WorldObject.js";
+import { Outrun } from "./Game.js";
+import { Segment, laneWidth, lineWidth } from "./Segment.js";
+import { Driver } from "./GameWorld.js";
+import { dimensions } from "./Assets.js";
+import { Vector3 } from "./Vector3.js";
+import { Junction } from "./Junction.js";
+
 /**
  * This class represents non-player vehicles in the game.
  */
-class Vehicle {
+export class Vehicle {
 
     constructor(center, shift, vehicleType) {
         this.vehicleType = vehicleType;

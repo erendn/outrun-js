@@ -1,7 +1,9 @@
+import { Segment, invisSegment } from "./Segment.js";
+
 /**
  * This class is used for junctions in the game.
  */
-class Junction {
+export class Junction {
 
     constructor(prevJunction, curve, hill, index, isInitial) {
         this.numLanes = prevJunction.numLanes;

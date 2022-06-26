@@ -1,7 +1,15 @@
+import { Segment, laneWidth, lineWidth, sideLineWidth, offroadWidth, segmentDepth } from "./Segment.js";
+import { Vector3 } from "./Vector3.js";
+import { Outrun } from "./Game.js";
+import { Vehicle } from "./Vehicle.js";
+import { WorldObject } from "./WorldObject.js";
+import { sounds } from "./Assets.js";
+import { Junction } from "./Junction.js";
+
 /**
  * This class represents the road and route in the game.
  */
-class Road {
+export class Road {
 
     constructor(center, curve, hill, numLanes) {
         this.trackRemain = trackLength - 1; // Remaining number of track to be generated
@@ -305,7 +313,7 @@ class Road {
 const trackLength = 2000; // Number of segments in each track
 const junctionLength = 400; // Number of segments in each junction
 
-const trackNumLanes = 6; // Number of lanes in the road
+export const trackNumLanes = 6; // Number of lanes in the road
 const junctNumLanes = 3; // Number of lanes in the junctions
 
 const vehicleSpawn = 5; // Max number of vehicles to be added in each addition of segments

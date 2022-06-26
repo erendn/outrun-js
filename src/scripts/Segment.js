@@ -1,7 +1,14 @@
+import { Vector3 } from "./Vector3.js";
+import { Tile } from "./Tile.js";
+import { WorldObject } from "./WorldObject.js";
+import { Driver } from "./GameWorld.js";
+import { dimensions } from "./Assets.js";
+import { Outrun } from "./Game.js";
+
 /**
  * This class represents a road segment.
  */
-class Segment {
+export class Segment {
 
     constructor(prevSegment, curve, hill, index, isInitial, isTunnel) {
         this.numLanes = prevSegment.numLanes; // Number of lanes in this segment
@@ -82,11 +89,11 @@ class Segment {
 
 }
 
-const invisSegment = 5;
-const sideLineWidth = 300; // Width of side lines
-const lineWidth = 150; // Width of road lines
-const laneWidth = 1200; // Width of road lanes
-const offroadWidth = 70000; // Width of offroad
-const segmentDepth = 600; // Depth of the segment
+export const invisSegment = 5;
+export const sideLineWidth = 300; // Width of side lines
+export const lineWidth = 150; // Width of road lines
+export const laneWidth = 1200; // Width of road lanes
+export const offroadWidth = 70000; // Width of offroad
+export const segmentDepth = 600; // Depth of the segment
 const objectDistance = 20; // Distance between objects
 const tunnelDistance = 6; // Distance of between tunnel objects

@@ -1,3 +1,8 @@
+import { Outrun, MENU_SCENE, RADIO_SCENE, IN_GAME_SCENE } from "./Game.js";
+import { Canvas } from "./Canvas.js";
+import { sprites } from "./Assets.js";
+import { sounds } from "./Assets.js";
+
 /**
  * This class manages the audio in the game. It can currently play main menu
  * sounds and in-game music.
@@ -85,4 +90,4 @@ class AudioManager {
 const radioDelay = 6; // Used for radio signal animation
 
 // TODO: Add the singleton design pattern
-let Radio = new AudioManager(); // Singleton instance of AudioManager
+export const Radio = new AudioManager(); // Singleton instance of AudioManager

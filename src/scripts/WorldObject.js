@@ -1,7 +1,12 @@
+import { Vector3 } from "./Vector3.js";
+import { dimensions } from "./Assets.js";
+import { Outrun } from "./Game.js";
+import { Driver } from "./GameWorld.js";
+
 /**
  * This is the class to store world objects.
  */
-class WorldObject {
+export class WorldObject {
 
     constructor(center, fileName) {
         this.center = center; // Center point of the object on the ground

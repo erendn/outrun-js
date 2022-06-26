@@ -1,7 +1,12 @@
+import { Radio } from "./AudioManager.js";
+import { Outrun, MENU_SCENE, RADIO_SCENE, IN_GAME_SCENE } from "./Game.js";
+import { loading, maxLoading, sounds } from "./Assets.js";
+import { Driver } from "./GameWorld.js";
+
 /**
  * This is the event listener class. It listens to the keyboard events.
  */
-class EventListener {
+export class EventListener {
 
     constructor() {
         document.onkeydown = this.keyDown;
