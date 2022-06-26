@@ -1,7 +1,6 @@
 import { Outrun, MENU_SCENE, RADIO_SCENE, IN_GAME_SCENE } from "./Game.js";
 import { Canvas } from "./Canvas.js";
-import { sprites } from "./Assets.js";
-import { sounds } from "./Assets.js";
+import { sounds, sprites } from "./Assets.js";
 
 /**
  * This class manages the audio in the game. It can currently play main menu
