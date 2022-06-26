@@ -49,8 +49,8 @@ export class Player {
             this.speed -= 2;
         }
         this.speed = this.speed < 0 ? 0 : this.speed > maxSpeed ? maxSpeed : this.speed;
-        var carIndex = Outrun.gameWorld.road.findIndex(this.car.center.z); // Index of the road segment on which the car stands
-        var segment = Outrun.gameWorld.road.segments[carIndex]; // The road segment on which the car stands
+        let carIndex = Outrun.gameWorld.road.findIndex(this.car.center.z); // Index of the road segment on which the car stands
+        let segment = Outrun.gameWorld.road.segments[carIndex]; // The road segment on which the car stands
         // Update the car's rotation and altitude according to the segment
         if (segment instanceof Segment) {
             this.lastSegment = segment;

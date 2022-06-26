@@ -22,8 +22,8 @@ export class Tile {
      * function in the Game class.
      */
     project(measure2) {
-        var relSpace = Vector3.calculate(this.space, Driver.camera.gap, measure2);
-        var relWidth = Vector3.calculate(this.width, Driver.camera.gap, measure2);
+        let relSpace = Vector3.calculate(this.space, Driver.camera.gap, measure2);
+        let relWidth = Vector3.calculate(this.width, Driver.camera.gap, measure2);
         this.upLeft.xScreen = this.highCenter.xScreen + relSpace - relWidth / 2;
         this.upLeft.yScreen = this.highCenter.yScreen;
         this.upRight.xScreen = this.highCenter.xScreen + relSpace + relWidth / 2;

@@ -46,7 +46,7 @@ class Game {
     mainLoop() {
         // Take the millisecond difference from the last time the game is updated
         currentTime = new Date().getTime();
-        var milliseconds = currentTime - time;
+        let milliseconds = currentTime - time;
         // Update if the millisecond difference is above the FPS limit
         if (milliseconds >= 1000 / FPS) {
             time = currentTime;
@@ -99,8 +99,8 @@ export const IN_GAME_SCENE = "drive";
 
 const FPS = 60; // Frames per second
 
-var time = null;
-var currentTime = null;
+let time = null;
+let currentTime = null;
 
 // TODO: Add the singleton design pattern
 export const Outrun = new Game(); // Singleton instance of Game

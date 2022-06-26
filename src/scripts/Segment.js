@@ -24,7 +24,7 @@ export class Segment {
         this.rightSide = new Tile(prevSegment.rightSide, this.highCenter); // Right side tile
         // Road line tiles
         this.lines = [];
-        for (var i = 0; i < this.numLanes - 1; i++) {
+        for (let i = 0; i < this.numLanes - 1; i++) {
             this.lines.push(new Tile(prevSegment.lines[i], this.highCenter));
         }
         // Objects on this segment
@@ -58,28 +58,28 @@ export class Segment {
             this.leftSide.downRight.project();
             this.rightSide.downLeft.project();
             this.rightSide.downRight.project();
-            for (var i = 0; i < this.numLanes - 1; i++) {
+            for (let i = 0; i < this.numLanes - 1; i++) {
                 this.lines[i].downLeft.project();
                 this.lines[i].downRight.project();
             }
         }
         this.highCenter.x = this.lowCenter.x + (this.curve - Driver.curve);
         this.highCenter.project();
-        var measure2 = this.highCenter.z - Driver.camera.position.z;
+        let measure2 = this.highCenter.z - Driver.camera.position.z;
         this.offroad.project(measure2);
         this.asphalt.project(measure2);
         this.leftSide.project(measure2);
         this.rightSide.project(measure2);
-        for (var i = 0, size = this.numLanes / 2; i < size; i++) {
-            var relSpace = Vector3.calculate(this.lines[i].space, Driver.camera.gap, measure2);
-            var relWidth = Vector3.calculate(this.lines[i].width, Driver.camera.gap, measure2);
+        for (let i = 0, size = this.numLanes / 2; i < size; i++) {
+            let relSpace = Vector3.calculate(this.lines[i].space, Driver.camera.gap, measure2);
+            let relWidth = Vector3.calculate(this.lines[i].width, Driver.camera.gap, measure2);
             this.lines[i].calculate(relSpace, relWidth);
             this.lines[this.numLanes - 2 - i].calculate(-relSpace, relWidth);
         }
         if (this.numLanes % 2 == 0) {
             this.lines[this.numLanes / 2 + 1].project(measure2);
         }
-        for (var i = 0; i < this.objects.length; i++) {
+        for (let i = 0; i < this.objects.length; i++) {
             if (dimensions[Outrun.gameWorld.route][this.objects[i].fileName] != undefined) {
                 this.objects[i].center.x = this.highCenter.x + dimensions[Outrun.gameWorld.route][this.objects[i].fileName].offset;
                 this.objects[i].project(measure2);

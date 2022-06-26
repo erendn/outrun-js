@@ -82,7 +82,7 @@ class Canvas2D {
      * Draw a text on the screen.
      */
     drawText(text) {
-        for (var i = 0; i < text.length; i++) {
+        for (let i = 0; i < text.length; i++) {
             this.drawStaticImage(sprites["hud-" + text.charAt(text.length - i - 1)], 19 - i * 8, 209, 7, 12);
         }
 
@@ -105,11 +105,11 @@ class Canvas2D {
         // If the target color has been reached, return the color
         if (base == target)
             return base;
-        var resHex = "#"; // Result hex code of current step color
-        for (var i = 1; i <= 5; i += 2) {
+        let resHex = "#"; // Result hex code of current step color
+        for (let i = 1; i <= 5; i += 2) {
             // Take the difference of each RGB color
-            var diff = parseInt(target.substring(i, i + 2), 16) - parseInt(base.substring(i, i + 2), 16);
-            var add = null;
+            let diff = parseInt(target.substring(i, i + 2), 16) - parseInt(base.substring(i, i + 2), 16);
+            let add = null;
             // If the difference is above the step, take the color stepped
             // towards the result. Otherwise, take the target color.
             if (Math.abs(diff) >= step) {

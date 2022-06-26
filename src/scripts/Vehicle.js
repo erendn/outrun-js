@@ -38,8 +38,8 @@ export class Vehicle {
             this.car.center.z += speed;
         }
 
-        var carIndex = Outrun.gameWorld.road.findIndex(this.car.center.z);
-        var segment = Outrun.gameWorld.road.segments[carIndex];
+        let carIndex = Outrun.gameWorld.road.findIndex(this.car.center.z);
+        let segment = Outrun.gameWorld.road.segments[carIndex];
         if (segment instanceof Segment) {
             this.hasStopped = false;
             this.lastSegment = segment;

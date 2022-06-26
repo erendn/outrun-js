@@ -27,7 +27,7 @@ export class Road {
         this.segments[0].leftSide.downRight.project();
         this.segments[0].rightSide.downLeft.project();
         this.segments[0].rightSide.downRight.project();
-        for (var i = 0; i < numLanes - 1; i++) {
+        for (let i = 0; i < numLanes - 1; i++) {
             this.segments[0].lines[i].downLeft.project();
             this.segments[0].lines[i].downRight.project();
         }
@@ -41,8 +41,8 @@ export class Road {
      * Prepare an initial road segment.
      */
     static prepareInitial(center, curve, hill, numLanes) {
-        var asphaltWidth = laneWidth * numLanes + lineWidth * (numLanes - 1) + sideLineWidth * 2;
-        var initial = {
+        let asphaltWidth = laneWidth * numLanes + lineWidth * (numLanes - 1) + sideLineWidth * 2;
+        let initial = {
             numLanes: numLanes,
             curve: curve,
             hill: hill,
@@ -77,8 +77,8 @@ export class Road {
             },
             lines: []
         };
-        var leftSide = initial.leftSide;
-        for (var i = 0; i < numLanes - 1; i++) {
+        let leftSide = initial.leftSide;
+        for (let i = 0; i < numLanes - 1; i++) {
             initial.lines.push(
                 {
                     upLeft: new Vector3(leftSide.upRight.x + laneWidth + (laneWidth + lineWidth) * i, center.y, center.z),
@@ -96,10 +96,10 @@ export class Road {
      * Add new segments to the road.
      */
     addSegments(canCurve) {
-        var curved = canCurve & Math.random() < 0.4;
+        let curved = canCurve & Math.random() < 0.4;
         if (this.segments[this.segments.length - 1] instanceof Segment) {
             if (curved & this.trackRemain > 400 + Outrun.renderSize) {
-                var curveLength = Math.random() < 0.5 ? 200 : 400;
+                let curveLength = Math.random() < 0.5 ? 200 : 400;
                 if (Math.random() < 0.7) {
                     this.addCurves(curveLength);
                 } else {
@@ -107,7 +107,7 @@ export class Road {
                 }
                 this.trackRemain -= curveLength;
             } else if (this.trackRemain != 0) {
-                var length = Math.min(this.trackRemain, Outrun.renderSize);
+                let length = Math.min(this.trackRemain, Outrun.renderSize);
                 this.addStraights(length);
                 this.trackRemain -= length;
             } else {
@@ -122,14 +122,14 @@ export class Road {
                 }
             }
         } else {
-            var lastJunction = null;
+            let lastJunction = null;
             if (this.chosenPath[this.chosenPath.length - 1]) {
                 lastJunction = this.segments[this.segments.length - 1].rightJunction;
-                var newCenter = new Vector3(lastJunction.highCenter.x + (laneWidth * 1.5 + sideLineWidth / 2 + lineWidth / 2), lastJunction.highCenter.y, lastJunction.highCenter.z);
+                let newCenter = new Vector3(lastJunction.highCenter.x + (laneWidth * 1.5 + sideLineWidth / 2 + lineWidth / 2), lastJunction.highCenter.y, lastJunction.highCenter.z);
                 this.segments.push(new Segment(Road.prepareInitial(newCenter, lastJunction.curve, lastJunction.hill, trackNumLanes), 0, 0, this.segments.length, true));
             } else {
                 lastJunction = this.segments[this.segments.length - 1].leftJunction;
-                var newCenter = new Vector3(lastJunction.highCenter.x - (laneWidth * 1.5 + sideLineWidth / 2 + lineWidth / 2), lastJunction.highCenter.y, lastJunction.highCenter.z);
+                let newCenter = new Vector3(lastJunction.highCenter.x - (laneWidth * 1.5 + sideLineWidth / 2 + lineWidth / 2), lastJunction.highCenter.y, lastJunction.highCenter.z);
                 this.segments.push(new Segment(Road.prepareInitial(newCenter, lastJunction.curve, lastJunction.hill, trackNumLanes), 0, 0, this.segments.length, true));
             }
             this.addStraights(Outrun.renderSize);
@@ -140,24 +140,24 @@ export class Road {
      * Add curved segments to the road.
      */
     addCurves(length) {
-        var direction = Math.random() < 0.5 ? -1 : 1;
-        var part = length / 3;
-        var vehicle = 0;
-        for (var i = 0; i < part; i++) {
+        let direction = Math.random() < 0.5 ? -1 : 1;
+        let part = length / 3;
+        let vehicle = 0;
+        for (let i = 0; i < part; i++) {
             this.segments.push(new Segment(this.segments[this.segments.length - 1], MAX_CURVE * (i / part) * direction, 0, this.segments.length, false));
             if (vehicle < vehicleSpawn & Math.random() < 0.01) {
                 vehicle++;
                 this.addVehicles(this.segments[this.segments.length - 1]);
             }
         }
-        for (var i = 0; i < part; i++) {
+        for (let i = 0; i < part; i++) {
             this.segments.push(new Segment(this.segments[this.segments.length - 1], MAX_CURVE * direction, 0, this.segments.length, false));
             if (vehicle < vehicleSpawn & Math.random() < 0.01) {
                 vehicle++;
                 this.addVehicles(this.segments[this.segments.length - 1]);
             }
         }
-        for (var i = 0; i < part; i++) {
+        for (let i = 0; i < part; i++) {
             this.segments.push(new Segment(this.segments[this.segments.length - 1], MAX_CURVE * (1 - i / part) * direction, 0, this.segments.length, false));
             if (vehicle < vehicleSpawn & Math.random() < 0.01) {
                 vehicle++;
@@ -170,23 +170,23 @@ export class Road {
      * Add hill segments to the road.
      */
     addHills(length) {
-        var part = length / 3;
-        var vehicle = 0;
-        for (var i = 0; i < part; i++) {
+        let part = length / 3;
+        let vehicle = 0;
+        for (let i = 0; i < part; i++) {
             this.segments.push(new Segment(this.segments[this.segments.length - 1], 0, MAX_HILL * (Math.cos((2 * i / part - 1) * Math.PI) + 1), this.segments.length, false));
             if (vehicle < vehicleSpawn & Math.random() < 0.01) {
                 vehicle++;
                 this.addVehicles(this.segments[this.segments.length - 1]);
             }
         }
-        for (var i = 0; i < part; i++) {
+        for (let i = 0; i < part; i++) {
             this.segments.push(new Segment(this.segments[this.segments.length - 1], 0, 0, this.segments.length, false));
             if (vehicle < vehicleSpawn & Math.random() < 0.01) {
                 vehicle++;
                 this.addVehicles(this.segments[this.segments.length - 1]);
             }
         }
-        for (var i = 0; i < part; i++) {
+        for (let i = 0; i < part; i++) {
             this.segments.push(new Segment(this.segments[this.segments.length - 1], 0, MAX_HILL * (-Math.cos((2 * i / part - 1) * Math.PI) - 1), this.segments.length, false));
             if (vehicle < vehicleSpawn & Math.random() < 0.01) {
                 vehicle++;
@@ -199,8 +199,8 @@ export class Road {
      * Add straight segments to the road.
      */
     addStraights(length) {
-        var vehicle = 0;
-        for (var i = 0; i < length; i++) {
+        let vehicle = 0;
+        for (let i = 0; i < length; i++) {
             this.segments.push(new Segment(this.segments[this.segments.length - 1], 0, 0, this.segments.length, false));
             if (vehicle < vehicleSpawn & Math.random() < 0.01) {
                 vehicle++;
@@ -214,24 +214,24 @@ export class Road {
      */
     addJunctions(length) {
         this.trackCount++;
-        var lastSegment = this.segments[this.segments.length - 1];
-        var initial = {
+        let lastSegment = this.segments[this.segments.length - 1];
+        let initial = {
             numLanes: junctNumLanes,
             leftJunction: Road.prepareInitial(new Vector3(lastSegment.highCenter.x - (lastSegment.asphalt.width / 4 - sideLineWidth / 2 + lineWidth / 4), lastSegment.highCenter.y, lastSegment.highCenter.z), lastSegment.curve, lastSegment.hill, junctNumLanes),
             rightJunction: Road.prepareInitial(new Vector3(lastSegment.highCenter.x + (lastSegment.asphalt.width / 4 - sideLineWidth / 2 + lineWidth / 4), lastSegment.highCenter.y, lastSegment.highCenter.z), lastSegment.curve, lastSegment.hill, junctNumLanes)
         };
         this.segments.push(new Junction(initial, 0, 0, this.segments.length, true));
-        var part = (length - 1) / 3;
-        for (var i = 0; i < part; i++) {
+        let part = (length - 1) / 3;
+        for (let i = 0; i < part; i++) {
             this.segments.push(new Junction(this.segments[this.segments.length - 1], MAX_CURVE * (i / part), 0, this.segments.length, false));
         }
-        for (var i = 0; i < part; i++) {
+        for (let i = 0; i < part; i++) {
             this.segments.push(new Junction(this.segments[this.segments.length - 1], MAX_CURVE, 0, this.segments.length, false));
         }
-        for (var i = 0; i < part; i++) {
+        for (let i = 0; i < part; i++) {
             this.segments.push(new Junction(this.segments[this.segments.length - 1], MAX_CURVE * (1 - i / part), 0, this.segments.length, false));
         }
-        for (var i = 0; i < Outrun.renderSize; i++) {
+        for (let i = 0; i < Outrun.renderSize; i++) {
             this.segments.push(new Junction(this.segments[this.segments.length - 1], 0, 0, this.segments.length, false));
         }
     }
@@ -240,7 +240,7 @@ export class Road {
      * Add vehicles to the road.
      */
     addVehicles(segment) {
-        var shift = (Math.floor(Math.random() * (segment.numLanes / 2)) + 0.5) * (Math.random() < 0.5 ? 1 : -1);
+        let shift = (Math.floor(Math.random() * (segment.numLanes / 2)) + 0.5) * (Math.random() < 0.5 ? 1 : -1);
         this.vehicles.push(new Vehicle(new Vector3(segment.highCenter.x, segment.highCenter.y, segment.highCenter.z), shift, "vehicle-" + Math.floor(Math.random() * 11)));
     }
 
@@ -248,7 +248,7 @@ export class Road {
      * Change the light on the starting segment.
      */
     nextLight() {
-        var currentFile = this.startSegment.objects[this.startSegment.objects.length - 1].fileName;
+        let currentFile = this.startSegment.objects[this.startSegment.objects.length - 1].fileName;
         if (currentFile == "start0")
             this.startSegment.objects[this.startSegment.objects.length - 1].fileName = "start1";
         else if (currentFile == "start1")
@@ -275,8 +275,8 @@ export class Road {
      * Find the current route of the road.
      */
     findRoute() {
-        var length = this.chosenPath.length;
-        var sum = this.chosenPath.reduce((a, b) => a + b, 0);
+        let length = this.chosenPath.length;
+        let sum = this.chosenPath.reduce((a, b) => a + b, 0);
         switch (length) {
             case 0: return "coconut-beach";
             case 1:

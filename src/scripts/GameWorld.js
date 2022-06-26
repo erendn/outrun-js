@@ -31,7 +31,7 @@ export class GameWorld {
         if (Outrun.playable)
             Driver.play();
         // Play all other vehicles in the game
-        for (var i = 0; i < this.road.vehicles.length; i++) {
+        for (let i = 0; i < this.road.vehicles.length; i++) {
             this.road.vehicles[i].play();
         }
     }
@@ -41,26 +41,26 @@ export class GameWorld {
      * function in the Game class.
      */
     update() {
-        var currentIndex = this.road.findIndex(Driver.camera.position.z); // Current road segment's index
+        let currentIndex = this.road.findIndex(Driver.camera.position.z); // Current road segment's index
         // Project all road segments on the screen
-        for (var i = currentIndex, size = Math.min(this.road.segments.length, currentIndex + Outrun.renderSize); i < size; i++) {
+        for (let i = currentIndex, size = Math.min(this.road.segments.length, currentIndex + Outrun.renderSize); i < size; i++) {
             this.road.segments[i].project();
         }
         // Project the driver on the screen
         Driver.project();
         // Project all other vehicles on the screen
-        for (var i = 0; i < this.road.vehicles.length; i++) {
+        for (let i = 0; i < this.road.vehicles.length; i++) {
             this.road.vehicles[i].project();
         }
         // Update the current route
         this.route = this.road.findRoute();
         // Mix the colors of the world
-        for (var i = 0; i < 9; i++) {
-            var key = Object.keys(this.currentColor)[i];
+        for (let i = 0; i < 9; i++) {
+            let key = Object.keys(this.currentColor)[i];
             this.currentColor[key] = Canvas.mix(this.currentColor[key], colors[this.route][key], 1);
         }
         // Do the parallax effect
-        var parallaxAmount = Driver.speed * Math.sign(Driver.curveDirection);
+        let parallaxAmount = Driver.speed * Math.sign(Driver.curveDirection);
         this.backParallax -= backSpeed * parallaxAmount;
         this.frontParallax -= frontSpeed * parallaxAmount;
         if (Math.abs(this.backParallax) > 1) {
@@ -84,49 +84,49 @@ export class GameWorld {
         Canvas.drawStaticImage(sprites[this.route].front, frontWidth * (this.frontParallax - 1), backgroundOffset, frontWidth, backgroundHeight);
         Canvas.drawStaticImage(sprites[this.route].front, frontWidth * (this.frontParallax), backgroundOffset, frontWidth, backgroundHeight);
         Canvas.drawStaticImage(sprites[this.route].front, frontWidth * (this.frontParallax + 1), backgroundOffset, frontWidth, backgroundHeight);
-        var currentIndex = this.road.findIndex(Driver.camera.position.z); // Current road segment's index
-        var maxRendered = Math.min(this.road.segments.length, currentIndex + Outrun.renderSize) - 1; // Farthest rendered road segment's index
+        let currentIndex = this.road.findIndex(Driver.camera.position.z); // Current road segment's index
+        let maxRendered = Math.min(this.road.segments.length, currentIndex + Outrun.renderSize) - 1; // Farthest rendered road segment's index
         // Draw all offroads from back to front
-        for (var i = maxRendered; i >= currentIndex; i--) {
-            var segment = this.road.segments[i];
-            var color = segment.isDark ? this.currentColor.darkOffroadColor : this.currentColor.lightOffroadColor;
+        for (let i = maxRendered; i >= currentIndex; i--) {
+            let segment = this.road.segments[i];
+            let color = segment.isDark ? this.currentColor.darkOffroadColor : this.currentColor.lightOffroadColor;
             if (segment instanceof Segment) {
                 Canvas.drawShape(segment.offroad.upLeft, segment.offroad.upRight, segment.offroad.downRight, segment.offroad.downLeft, color);
             } else {
-                var subSegment = segment.leftJunction;
+                let subSegment = segment.leftJunction;
                 Canvas.drawShape(subSegment.offroad.upLeft, subSegment.offroad.upRight, subSegment.offroad.downRight, subSegment.offroad.downLeft, color);
                 subSegment = segment.rightJunction;
                 Canvas.drawShape(subSegment.offroad.upLeft, subSegment.offroad.upRight, subSegment.offroad.downRight, subSegment.offroad.downLeft, color);
             }
         }
         // Draw all roads from back to front
-        for (var i = maxRendered; i >= currentIndex; i--) {
-            var segment = this.road.segments[i];
-            var asphaltColor = segment.isDark ? this.currentColor.darkAsphaltColor : this.currentColor.lightAsphaltColor;
-            var sideColor = segment.isDark ? this.currentColor.darkSideColor : this.currentColor.lightSideColor;
-            var lineColor = segment.isDark ? this.currentColor.darkLineColor : this.currentColor.lightLineColor;
+        for (let i = maxRendered; i >= currentIndex; i--) {
+            let segment = this.road.segments[i];
+            let asphaltColor = segment.isDark ? this.currentColor.darkAsphaltColor : this.currentColor.lightAsphaltColor;
+            let sideColor = segment.isDark ? this.currentColor.darkSideColor : this.currentColor.lightSideColor;
+            let lineColor = segment.isDark ? this.currentColor.darkLineColor : this.currentColor.lightLineColor;
             if (segment instanceof Segment) {
                 Canvas.drawShape(segment.asphalt.upLeft, segment.asphalt.upRight, segment.asphalt.downRight, segment.asphalt.downLeft, asphaltColor);
                 Canvas.drawShape(segment.leftSide.upLeft, segment.leftSide.upRight, segment.leftSide.downRight, segment.leftSide.downLeft, sideColor);
                 Canvas.drawShape(segment.rightSide.upLeft, segment.rightSide.upRight, segment.rightSide.downRight, segment.rightSide.downLeft, sideColor);
-                for (var j = 0; j < segment.numLanes - 1; j++) {
+                for (let j = 0; j < segment.numLanes - 1; j++) {
                     Canvas.drawShape(segment.lines[j].upLeft, segment.lines[j].upRight, segment.lines[j].downRight, segment.lines[j].downLeft, lineColor);
                 }
-                for (var j = 0; j < segment.objects.length; j++) {
-                    var object = segment.objects[j];
+                for (let j = 0; j < segment.objects.length; j++) {
+                    let object = segment.objects[j];
                     if (sprites[this.route][object.fileName] != undefined)
                         Canvas.drawImage(sprites[this.route][object.fileName], object.center, object.relWidth, object.relHeight);
                 }
             } else {
-                var subSegment = segment.leftJunction;
+                let subSegment = segment.leftJunction;
                 Canvas.drawShape(subSegment.asphalt.upLeft, subSegment.asphalt.upRight, subSegment.asphalt.downRight, subSegment.asphalt.downLeft, asphaltColor);
                 Canvas.drawShape(subSegment.leftSide.upLeft, subSegment.leftSide.upRight, subSegment.leftSide.downRight, subSegment.leftSide.downLeft, sideColor);
                 Canvas.drawShape(subSegment.rightSide.upLeft, subSegment.rightSide.upRight, subSegment.rightSide.downRight, subSegment.rightSide.downLeft, sideColor);
-                for (var j = 0; j < subSegment.numLanes - 1; j++) {
+                for (let j = 0; j < subSegment.numLanes - 1; j++) {
                     Canvas.drawShape(subSegment.lines[j].upLeft, subSegment.lines[j].upRight, subSegment.lines[j].downRight, subSegment.lines[j].downLeft, lineColor);
                 }
-                for (var j = 0; j < subSegment.objects.length; j++) {
-                    var object = subSegment.objects[j];
+                for (let j = 0; j < subSegment.objects.length; j++) {
+                    let object = subSegment.objects[j];
                     if (sprites[this.route][object.fileName] != undefined)
                         Canvas.drawImage(sprites[this.route][object.fileName], object.center, object.relWidth, object.relHeight);
                 }
@@ -134,20 +134,20 @@ export class GameWorld {
                 Canvas.drawShape(subSegment.asphalt.upLeft, subSegment.asphalt.upRight, subSegment.asphalt.downRight, subSegment.asphalt.downLeft, asphaltColor);
                 Canvas.drawShape(subSegment.leftSide.upLeft, subSegment.leftSide.upRight, subSegment.leftSide.downRight, subSegment.leftSide.downLeft, sideColor);
                 Canvas.drawShape(subSegment.rightSide.upLeft, subSegment.rightSide.upRight, subSegment.rightSide.downRight, subSegment.rightSide.downLeft, sideColor);
-                for (var j = 0; j < subSegment.numLanes - 1; j++) {
+                for (let j = 0; j < subSegment.numLanes - 1; j++) {
                     Canvas.drawShape(subSegment.lines[j].upLeft, subSegment.lines[j].upRight, subSegment.lines[j].downRight, subSegment.lines[j].downLeft, lineColor);
                 }
-                for (var j = 0; j < subSegment.objects.length; j++) {
-                    var object = subSegment.objects[j];
+                for (let j = 0; j < subSegment.objects.length; j++) {
+                    let object = subSegment.objects[j];
                     if (sprites[this.route][object.fileName] != undefined)
                         Canvas.drawImage(sprites[this.route][object.fileName], object.center, object.relWidth, object.relHeight);
                 }
             }
         }
         // Draw the vehicles
-        for (var i = this.road.vehicles.length - 1; i >= 0; i--) {
-            var vehicle = this.road.vehicles[i];
-            var position = this.road.findIndex(vehicle.car.center.z);
+        for (let i = this.road.vehicles.length - 1; i >= 0; i--) {
+            let vehicle = this.road.vehicles[i];
+            let position = this.road.findIndex(vehicle.car.center.z);
             if (position > currentIndex & position < maxRendered)
                 Canvas.drawImage(sprites[vehicle.vehicleType][vehicle.car.fileName], vehicle.car.center, vehicle.car.relWidth, vehicle.car.relHeight);
         }

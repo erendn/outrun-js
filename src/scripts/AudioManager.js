@@ -59,7 +59,7 @@ class AudioManager {
         Canvas.drawStaticImage(sprites["radio-car"], 0, 0, Canvas.width, Canvas.height);
         Canvas.drawStaticImage(sprites["radio"], 127, 166, 126, 30);
         Canvas.drawStaticImage(sprites["radio-freq-" + this.music], 143, 173, 24, 7);
-        for (var i = 0; i < this.dots; i++) {
+        for (let i = 0; i < this.dots; i++) {
             Canvas.drawStaticImage(sprites["radio-dot-" + (i < 4 ? "green" : "red")], 156 + i * 3, 187, 2, 2);
             Canvas.drawStaticImage(sprites["radio-dot-" + (i < 4 ? "green" : "red")], 156 + i * 3, 190, 2, 2);
         }
