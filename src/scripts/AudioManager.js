@@ -88,5 +88,4 @@ class AudioManager {
 
 const radioDelay = 6; // Used for radio signal animation
 
-// TODO: Add the singleton design pattern
 export const Radio = new AudioManager(); // Singleton instance of AudioManager

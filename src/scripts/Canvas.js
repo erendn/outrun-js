@@ -127,5 +127,4 @@ class Canvas2D {
 
 const canvasRatio = 1.42857142857; // Original ratio of the canvas
 
-// TODO: Add the singleton design pattern
 export const Canvas = new Canvas2D(); // Singleton instance of Canvas2D
