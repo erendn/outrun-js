@@ -122,13 +122,12 @@ export class Road {
                 }
             }
         } else {
-            let lastJunction = null;
             if (this.chosenPath[this.chosenPath.length - 1]) {
-                lastJunction = this.segments[this.segments.length - 1].rightJunction;
+                let lastJunction = this.segments[this.segments.length - 1].rightJunction;
                 let newCenter = new Vector3(lastJunction.highCenter.x + (laneWidth * 1.5 + sideLineWidth / 2 + lineWidth / 2), lastJunction.highCenter.y, lastJunction.highCenter.z);
                 this.segments.push(new Segment(Road.prepareInitial(newCenter, lastJunction.curve, lastJunction.hill, trackNumLanes), 0, 0, this.segments.length, true));
             } else {
-                lastJunction = this.segments[this.segments.length - 1].leftJunction;
+                let lastJunction = this.segments[this.segments.length - 1].leftJunction;
                 let newCenter = new Vector3(lastJunction.highCenter.x - (laneWidth * 1.5 + sideLineWidth / 2 + lineWidth / 2), lastJunction.highCenter.y, lastJunction.highCenter.z);
                 this.segments.push(new Segment(Road.prepareInitial(newCenter, lastJunction.curve, lastJunction.hill, trackNumLanes), 0, 0, this.segments.length, true));
             }

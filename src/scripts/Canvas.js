@@ -109,13 +109,12 @@ class Canvas2D {
         for (let i = 1; i <= 5; i += 2) {
             // Take the difference of each RGB color
             let diff = parseInt(target.substring(i, i + 2), 16) - parseInt(base.substring(i, i + 2), 16);
-            let add = null;
             // If the difference is above the step, take the color stepped
             // towards the result. Otherwise, take the target color.
             if (Math.abs(diff) >= step) {
-                add = (parseInt(base.substring(i, i + 2), 16) + step * Math.sign(diff)).toString(16).toUpperCase();
+                var add = (parseInt(base.substring(i, i + 2), 16) + step * Math.sign(diff)).toString(16).toUpperCase();
             } else {
-                add = target.substring(i, i + 2);
+                var add = target.substring(i, i + 2);
             }
             // Add the mixed color to the result
             resHex += (add.length == 1 ? "0" : "") + add;
