@@ -1,11 +1,15 @@
+/**
+ * This class represents non-player vehicles in the game.
+ */
 class Vehicle {
 
     constructor(center, shift, vehicleType) {
         this.vehicleType = vehicleType;
         this.shift = shift;
         this.car = new WorldObject(center, "right0");
-        this.car.width = 810;
-        this.car.height = 460;
+        this.car.width = 810; // Width of the vehicle
+        this.car.height = 460; // Height of the vehicle
+        // Project function of this object
         this.car.project = function (measure2, dimension) {
             this.center.project();
             this.relWidth = Vector3.calculate(dimension.width, Driver.camera.gap, measure2);
@@ -17,6 +21,10 @@ class Vehicle {
         this.hasStopped = false;
     }
 
+    /**
+     * This function is called once at each game cycle by the mainLoop()
+     * function in the Game class.
+     */
     play() {
         if (!this.hasStopped) {
             this.car.center.z += speed;
@@ -62,6 +70,10 @@ class Vehicle {
         this.car.center.y = segment.highCenter.y;
     }
 
+    /**
+     * This function is called once at each game cycle by the mainLoop()
+     * function in the Game class.
+     */
     project() {
         this.car.project(this.car.center.z - Driver.camera.position.z, dimensions[this.vehicleType]);
 
@@ -88,4 +100,4 @@ class Vehicle {
 
 }
 
-const speed = 400;
+const speed = 400; // Constant speed of vehicles

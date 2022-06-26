@@ -1,21 +1,26 @@
+/**
+ * This class represents a road segment.
+ */
 class Segment {
 
     constructor(prevSegment, curve, hill, index, isInitial, isTunnel) {
-        this.numLanes = prevSegment.numLanes;
-        this.isInitial = isInitial;
-        this.curve = prevSegment.curve + curve;
-        this.hill = prevSegment.hill + hill;
-        this.lowCenter = prevSegment.highCenter;
-        this.highCenter = new Vector3(this.lowCenter.x + curve, this.lowCenter.y + hill, this.lowCenter.z + segmentDepth);
-        this.isDark = index % (2 * invisSegment) < invisSegment;
-        this.offroad = new Tile(prevSegment.offroad, this.highCenter);
-        this.asphalt = new Tile(prevSegment.asphalt, this.highCenter);
-        this.leftSide = new Tile(prevSegment.leftSide, this.highCenter);
-        this.rightSide = new Tile(prevSegment.rightSide, this.highCenter);
+        this.numLanes = prevSegment.numLanes; // Number of lanes in this segment
+        this.isInitial = isInitial; // Whether this is the road's first segment
+        this.curve = prevSegment.curve + curve; // Curve angle
+        this.hill = prevSegment.hill + hill; // Hill amount
+        this.lowCenter = prevSegment.highCenter; // Low center point
+        this.highCenter = new Vector3(this.lowCenter.x + curve, this.lowCenter.y + hill, this.lowCenter.z + segmentDepth); // High center point
+        this.isDark = index % (2 * invisSegment) < invisSegment; // Whether this tile has darker colors
+        this.offroad = new Tile(prevSegment.offroad, this.highCenter); // Offroad tile
+        this.asphalt = new Tile(prevSegment.asphalt, this.highCenter); // Asphalt tile
+        this.leftSide = new Tile(prevSegment.leftSide, this.highCenter); // Left side tile
+        this.rightSide = new Tile(prevSegment.rightSide, this.highCenter); // Right side tile
+        // Road line tiles
         this.lines = [];
         for (var i = 0; i < this.numLanes - 1; i++) {
             this.lines.push(new Tile(prevSegment.lines[i], this.highCenter));
         }
+        // Objects on this segment
         this.objects = [];
         if (!isTunnel) {
             if (!(index % (objectDistance / 4))) {
@@ -32,6 +37,10 @@ class Segment {
         }
     }
 
+    /**
+     * This function is called once at each game cycle by the mainLoop()
+     * function in the Game class.
+     */
     project() {
         if (this.isInitial & this.lowCenter.z > Driver.camera.position.z) {
             this.offroad.downLeft.project();
@@ -74,10 +83,10 @@ class Segment {
 }
 
 const invisSegment = 5;
-const sideLineWidth = 300;
-const lineWidth = 150;
-const laneWidth = 1200;
-const offroadWidth = 70000;
-const segmentDepth = 600;
-const objectDistance = 20;
-const tunnelDistance = 6;
+const sideLineWidth = 300; // Width of side lines
+const lineWidth = 150; // Width of road lines
+const laneWidth = 1200; // Width of road lanes
+const offroadWidth = 70000; // Width of offroad
+const segmentDepth = 600; // Depth of the segment
+const objectDistance = 20; // Distance between objects
+const tunnelDistance = 6; // Distance of between tunnel objects

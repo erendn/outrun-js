@@ -1,36 +1,56 @@
+/**
+ * This is the game class that executes the main function of the game.
+ */
 class Game {
 
     constructor() {
-        this.scene = MENU_SCENE;
-        this.renderSize = 300;
-        this.playable = false;
-        this.startDelay = 0;
+        this.scene = MENU_SCENE; // Current scene of the game
+        this.renderSize = 300; // Render distance
+        this.playable = false; // If the game is playable
+        this.startDelay = 0; // Delay when starting the game
     }
 
+    /**
+     * Initialize the game by taking the current time, loading all assets, and creating the event listener.
+     */
     init() {
         time = new Date().getTime();
         loadAssets();
         this.eventListener = new EventListener();
     }
 
+    /**
+     * Create a new game.
+     */
     newGame() {
         this.gameWorld = new GameWorld();
     }
 
+    /**
+     * Start the game.
+     */
     start() {
         Outrun.init();
         Outrun.mainLoop();
     }
 
+    /**
+     * This is the main loop function of the game. Once executed, it calls itself continuously.
+     */
     mainLoop() {
+        // Take the millisecond difference from the last time the game is updated
         currentTime = new Date().getTime();
         var milliseconds = currentTime - time;
+        // Update if the millisecond difference is above the FPS limit
         if (milliseconds >= 1000 / FPS) {
             time = currentTime;
+            // If all assets are not yet loaded, draw the loading screen
             if (loading < maxLoading) {
                 Outrun.drawLoading();
             } else {
+                // Update the radio
                 Radio.update();
+                // Draw the current scene
                 if (Outrun.scene == MENU_SCENE | Outrun.scene == RADIO_SCENE) {
                     Radio.draw();
                 } else if (Outrun.scene == IN_GAME_SCENE) {
@@ -50,6 +70,9 @@ class Game {
         requestAnimationFrame(Outrun.mainLoop);
     }
 
+    /**
+     * Draw the loading screen.
+     */
     drawLoading() {
         Canvas.fill("#008BFF");
         Canvas.canvasContext.fillStyle = "#000000";
@@ -68,9 +91,10 @@ const MENU_SCENE = "menu";
 const RADIO_SCENE = "radio";
 const IN_GAME_SCENE = "drive";
 
-const FPS = 60;
+const FPS = 60; // Frames per second
 
 var time = null;
 var currentTime = null;
 
-let Outrun = new Game();
+// TODO: Add the singleton design pattern
+let Outrun = new Game(); // Singleton instance of Game

@@ -1,3 +1,6 @@
+/**
+ * This is the event listener class. It listens to the keyboard events.
+ */
 class EventListener {
 
     constructor() {
@@ -5,6 +8,9 @@ class EventListener {
         document.onkeyup = this.keyUp;
     }
 
+    /**
+     * The function to be called when a key is down.
+     */
     keyDown(event) {
         if (loading == maxLoading) {
             if (Outrun.scene == MENU_SCENE) {
@@ -37,7 +43,10 @@ class EventListener {
             }
         }
     }
-    
+
+    /**
+     * The function to be called when a key is up.
+     */
     keyUp(event) {
         if (Outrun.scene == IN_GAME_SCENE) {
             if (event.which == KEY_W | event.which == KEY_UP) {

@@ -1,36 +1,57 @@
+/**
+ * This class manages the audio in the game. It can currently play main menu
+ * sounds and in-game music.
+ */
 class AudioManager {
 
     constructor() {
-        this.delay = 0;
-        this.music = 1;
-        this.dots = 3;
-        this.background = 0;
-        this.tree = 0;
-        this.flash = 0;
+        this.delay = 0; // Used for radio signal animation
+        this.dots = 3; // Number of dots in the radio signal animation
+        this.music = 1; // Number of music to be played
+        this.background = 0; // Number of wave sprite for the animation
+        this.tree = 0; // Number of tree sprite for the animation
+        this.flash = 0; // Number of flash sprite for the animation
     }
 
+    /**
+     * This function is called once at each game cycle by the mainLoop()
+     * function in the Game class.
+     */
     update() {
+        // Play animations and sounds, and select the music to be played in the 
+        // game during the menu and radio scenes.
         if (Outrun.scene == MENU_SCENE | Outrun.scene == RADIO_SCENE) {
+            // Reduce delay in each update. When delay reaches zero, choose a
+            // random animation to be played.
             this.delay = (this.delay + 1) % radioDelay;
             if (!this.delay) {
                 this.dots--;
                 if (this.dots < 0) {
                     this.dots = 3 + Math.random() * 4;
                 }
+                // TODO: Randomize the animations below
                 this.background = (this.background + 1) % 6;
                 this.tree = (this.tree + 1) % 3;
                 this.flash = (this.flash + 1) % 10;
             }
+            // If the wave sound has stopped, play it again.
             if (sounds["wave"].paused)
                 sounds["wave"].play().catch(error => {});
+        // If this is the in-game scene, play the same music continuously.
+        // TODO: Change the music once it finishes
         } else if (Outrun.scene == IN_GAME_SCENE) {
             if (sounds["music-" + this.music].paused)
                 sounds["music-" + this.music].play();
         }
     }
 
+    /**
+     * This function is called once at each game cycle by the mainLoop()
+     * function in the Game class.
+     */
     draw() {
-        Canvas.fill("#008BFF");
+        Canvas.fill("#008BFF"); // Background color in the menu and radio scenes
+        // Draw all sprites to the top of the background color
         Canvas.drawStaticImage(sprites["radio-car"], 0, 0, Canvas.width, Canvas.height);
         Canvas.drawStaticImage(sprites["radio"], 127, 166, 126, 30);
         Canvas.drawStaticImage(sprites["radio-freq-" + this.music], 143, 173, 24, 7);
@@ -61,6 +82,7 @@ class AudioManager {
 
 }
 
-const radioDelay = 6;
+const radioDelay = 6; // Used for radio signal animation
 
-let Radio = new AudioManager();
+// TODO: Add the singleton design pattern
+let Radio = new AudioManager(); // Singleton instance of AudioManager

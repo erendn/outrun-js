@@ -1,3 +1,6 @@
+/**
+ * This class is used for junctions in the game.
+ */
 class Junction {
 
     constructor(prevJunction, curve, hill, index, isInitial) {
@@ -8,6 +11,9 @@ class Junction {
         this.isInitial = isInitial;
     }
 
+    /**
+     * Project the junction on the screen.
+     */
     project() {
         this.leftJunction.project();
         this.rightJunction.project();

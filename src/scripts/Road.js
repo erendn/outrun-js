@@ -1,12 +1,16 @@
+/**
+ * This class represents the road and route in the game.
+ */
 class Road {
 
     constructor(center, curve, hill, numLanes) {
-        this.trackRemain = trackLength - 1;
-        this.chosenPath = [];
-        this.vehicles = [];
-        this.trackCount = 0;
-        this.segments = [new Segment(Road.prepareInitial(center, curve, hill, numLanes), curve, hill, 0, true)];
-        this.addSegments(false);
+        this.trackRemain = trackLength - 1; // Remaining number of track to be generated
+        this.chosenPath = []; // Chosen path by the player
+        this.vehicles = []; // Vehicles in the game
+        this.trackCount = 0; // Current track count
+        this.segments = [new Segment(Road.prepareInitial(center, curve, hill, numLanes), curve, hill, 0, true)]; // Segments of the road
+        this.addSegments(false); // Add straight segments
+        // Project the first segment of the road
         this.segments[0].offroad.downLeft.project();
         this.segments[0].offroad.downRight.project();
         this.segments[0].asphalt.downLeft.project();
@@ -19,11 +23,15 @@ class Road {
             this.segments[0].lines[i].downLeft.project();
             this.segments[0].lines[i].downRight.project();
         }
-        this.startSegment = this.segments[13];
-        this.endSegment = null;
+        this.startSegment = this.segments[13]; // Starting segment of the road
+        this.endSegment = null; // Ending segment of the road
+        // Add the flags to the start segment
         this.startSegment.objects.push(new WorldObject(new Vector3(this.startSegment.highCenter.x, this.startSegment.highCenter.y, this.startSegment.highCenter.z), "start0"));
     }
 
+    /**
+     * Prepare an initial road segment.
+     */
     static prepareInitial(center, curve, hill, numLanes) {
         var asphaltWidth = laneWidth * numLanes + lineWidth * (numLanes - 1) + sideLineWidth * 2;
         var initial = {
@@ -76,6 +84,9 @@ class Road {
         return initial;
     }
 
+    /**
+     * Add new segments to the road.
+     */
     addSegments(canCurve) {
         var curved = canCurve & Math.random() < 0.4;
         if (this.segments[this.segments.length - 1] instanceof Segment) {
@@ -117,6 +128,9 @@ class Road {
         }
     }
 
+    /**
+     * Add curved segments to the road.
+     */
     addCurves(length) {
         var direction = Math.random() < 0.5 ? -1 : 1;
         var part = length / 3;
@@ -144,6 +158,9 @@ class Road {
         }
     }
 
+    /**
+     * Add hill segments to the road.
+     */
     addHills(length) {
         var part = length / 3;
         var vehicle = 0;
@@ -170,6 +187,9 @@ class Road {
         }
     }
 
+    /**
+     * Add straight segments to the road.
+     */
     addStraights(length) {
         var vehicle = 0;
         for (var i = 0; i < length; i++) {
@@ -181,6 +201,9 @@ class Road {
         }
     }
 
+    /**
+     * Add junctions to the road.
+     */
     addJunctions(length) {
         this.trackCount++;
         var lastSegment = this.segments[this.segments.length - 1];
@@ -205,11 +228,17 @@ class Road {
         }
     }
 
+    /**
+     * Add vehicles to the road.
+     */
     addVehicles(segment) {
         var shift = (Math.floor(Math.random() * (segment.numLanes / 2)) + 0.5) * (Math.random() < 0.5 ? 1 : -1);
         this.vehicles.push(new Vehicle(new Vector3(segment.highCenter.x, segment.highCenter.y, segment.highCenter.z), shift, "vehicle-" + Math.floor(Math.random() * 11)));
     }
 
+    /**
+     * Change the light on the starting segment.
+     */
     nextLight() {
         var currentFile = this.startSegment.objects[this.startSegment.objects.length - 1].fileName;
         if (currentFile == "start0")
@@ -227,10 +256,16 @@ class Road {
             sounds["signal-0"].play();
     }
 
+    /**
+     * Find the segment index of a point on the road.
+     */
     findIndex(position) {
         return Math.floor(position / segmentDepth) % this.segments.length;
     }
 
+    /**
+     * Find the current route of the road.
+     */
     findRoute() {
         var length = this.chosenPath.length;
         var sum = this.chosenPath.reduce((a, b) => a + b, 0);
@@ -267,13 +302,13 @@ class Road {
 
 }
 
-const trackLength = 2000;
-const junctionLength = 400;
+const trackLength = 2000; // Number of segments in each track
+const junctionLength = 400; // Number of segments in each junction
 
-const trackNumLanes = 6;
-const junctNumLanes = 3;
+const trackNumLanes = 6; // Number of lanes in the road
+const junctNumLanes = 3; // Number of lanes in the junctions
 
-const vehicleSpawn = 5;
+const vehicleSpawn = 5; // Max number of vehicles to be added in each addition of segments
 
-const MAX_CURVE = 1;
-const MAX_HILL = 10;
+const MAX_CURVE = 1; // Max curve amount
+const MAX_HILL = 10; // Max hill amount
