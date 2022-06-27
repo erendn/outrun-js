@@ -8,7 +8,6 @@ class AudioManager {
     constructor() {
         this._volume = 1;
         this._activeSounds = []; // Actively running audio objects
-        this._stopHandler = this._stopHandler.bind(this);
     }
 
     /**
@@ -52,7 +51,7 @@ class AudioManager {
     }
 
     /**
-     * 
+     * Set the volume of all audio files.
      */
     volume(percentage) {
         percentage = Math.min(Math.max(percentage, 1), 0);
