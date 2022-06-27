@@ -1,6 +1,7 @@
+import AudioManager from "./engine/AudioManager.js";
 import Radio from "./Radio.js";
 import { Outrun, MENU_SCENE, RADIO_SCENE, IN_GAME_SCENE } from "./Game.js";
-import { loading, maxLoading, sounds } from "./Assets.js";
+import { loading, maxLoading } from "./Assets.js";
 import { Driver } from "./GameWorld.js";
 
 /**
@@ -21,7 +22,7 @@ export class EventListener {
             if (Outrun.scene == MENU_SCENE) {
                 if (event.which == KEY_ENTER) {
                     Outrun.scene = RADIO_SCENE;
-                    sounds["coin"].play();
+                    AudioManager.play("coin");
                 }
             } else if (Outrun.scene == RADIO_SCENE) {
                 if (event.which == KEY_A | event.which == KEY_LEFT) {
@@ -31,7 +32,7 @@ export class EventListener {
                     if (Radio.music != 2)
                         Radio.music++;
                 } else if (event.which == KEY_ENTER) {
-                    sounds["wave"].pause();
+                    AudioManager.stop("wave");
                     Outrun.newGame();
                     Outrun.scene = IN_GAME_SCENE;
                 }

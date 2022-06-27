@@ -1,6 +1,7 @@
+import AudioManager from "./engine/AudioManager.js";
 import { Outrun, MENU_SCENE, RADIO_SCENE, IN_GAME_SCENE } from "./Game.js";
 import { Canvas } from "./Canvas.js";
-import { sounds, sprites } from "./Assets.js";
+import { sprites } from "./Assets.js";
 
 /**
  * This class manages the audio in the game. It can currently play main menu
@@ -15,6 +16,8 @@ class Radio {
         this.background = 0; // Number of wave sprite for the animation
         this.tree = 0; // Number of tree sprite for the animation
         this.flash = 0; // Number of flash sprite for the animation
+        this.waveStarted = false;
+        this.musicStarted = false;
     }
 
     /**
@@ -38,14 +41,17 @@ class Radio {
                 this.tree = (this.tree + 1) % 3;
                 this.flash = (this.flash + 1) % 10;
             }
-            // If the wave sound has stopped, play it again.
-            if (sounds["wave"].paused)
-                sounds["wave"].play().catch(error => {});
+            if (!this.waveStarted) {
+                AudioManager.play("wave", true);
+                this.waveStarted = true;
+            }
         // If this is the in-game scene, play the same music continuously.
         // TODO: Change the music once it finishes
         } else if (Outrun.scene == IN_GAME_SCENE) {
-            if (sounds["music-" + this.music].paused)
-                sounds["music-" + this.music].play();
+            if (!this.musicStarted) {
+                AudioManager.play("music-" + this.music, true);
+                this.musicStarted = true;
+            }
         }
     }
 

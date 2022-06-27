@@ -1,9 +1,9 @@
+import AudioManager from "./engine/AudioManager.js";
 import { Segment, laneWidth, lineWidth, sideLineWidth, offroadWidth, segmentDepth } from "./Segment.js";
 import { Vector3 } from "./Vector3.js";
 import { Outrun } from "./Game.js";
 import { Vehicle } from "./Vehicle.js";
 import { WorldObject } from "./WorldObject.js";
-import { sounds } from "./Assets.js";
 import { Junction } from "./Junction.js";
 
 /**
@@ -255,12 +255,11 @@ export class Road {
         else if (currentFile == "start2")
             this.startSegment.objects[this.startSegment.objects.length - 1].fileName = "start3";
         if (currentFile == "start2") {
-            sounds["signal-1"].play();
+            AudioManager.play("signal-1");
             Outrun.playable = true;
+        } else {
+            AudioManager.play("signal-0");
         }
-
-        else
-            sounds["signal-0"].play();
     }
 
     /**
