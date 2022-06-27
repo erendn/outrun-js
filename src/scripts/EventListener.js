@@ -7,7 +7,7 @@ import { Driver } from "./GameWorld.js";
 /**
  * This is the event listener class. It listens to the keyboard events.
  */
-export class EventListener {
+class EventListener {
 
     constructor() {
         document.onkeydown = this.keyDown;
@@ -94,3 +94,6 @@ const KEY_UP = 38;
 const KEY_LEFT = 37;
 const KEY_DOWN = 40;
 const KEY_RIGHT = 39;
+
+const _EventListener = new EventListener(); // Singleton instance
+export default _EventListener;
