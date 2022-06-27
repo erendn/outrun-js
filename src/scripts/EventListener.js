@@ -1,4 +1,4 @@
-import { Radio } from "./AudioManager.js";
+import Radio from "./Radio.js";
 import { Outrun, MENU_SCENE, RADIO_SCENE, IN_GAME_SCENE } from "./Game.js";
 import { loading, maxLoading, sounds } from "./Assets.js";
 import { Driver } from "./GameWorld.js";

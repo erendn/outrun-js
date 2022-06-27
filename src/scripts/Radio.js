@@ -6,7 +6,7 @@ import { sounds, sprites } from "./Assets.js";
  * This class manages the audio in the game. It can currently play main menu
  * sounds and in-game music.
  */
-class AudioManager {
+class Radio {
 
     constructor() {
         this.delay = 0; // Used for radio signal animation
@@ -88,4 +88,5 @@ class AudioManager {
 
 const radioDelay = 6; // Used for radio signal animation
 
-export const Radio = new AudioManager(); // Singleton instance of AudioManager
+const _Radio = new Radio(); // Singleton instance
+export default _Radio;

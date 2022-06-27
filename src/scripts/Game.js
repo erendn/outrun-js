@@ -1,4 +1,4 @@
-import { Radio } from "./AudioManager.js";
+import Radio from "./Radio.js";
 import { Canvas } from "./Canvas.js";
 import { loadAssets, loading, maxLoading, sprites } from "./Assets.js";
 import { EventListener } from "./EventListener.js";
