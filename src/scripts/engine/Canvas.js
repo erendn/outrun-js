@@ -1,4 +1,5 @@
-import { sprites } from "./Assets.js";
+import { sprites } from "../Assets.js";
+import ConfigManager from "./ConfigManager.js";
 
 /**
  * This is the canvas (aka camera screen).
@@ -8,21 +9,34 @@ class Canvas2D {
     constructor() {
         this.canvas = document.getElementById("screen"); // HTML canvas
         this.canvasContext = this.canvas.getContext("2d"); // 2D context of the HTML canvas
-        this.canvas.width = 320; // Width of the HTML canvas
-        this.canvas.height = 224; // Height of the HTML canvas
+    }
+
+    /**
+     * Setup the canvas.
+     * FIXME: Non-blocking hence not safe. Implement engine signalling in order to fix.
+     */
+    setup() {
+        // Wait for engine configuration to be ready
+        if (!ConfigManager.isReady()) {
+            requestAnimationFrame(_Canvas2D.setup);
+            return;
+        }
+        _Canvas2D.canvas.width = ConfigManager.get("canvas_width"); // Width of the HTML canvas
+        _Canvas2D.canvas.height = ConfigManager.get("canvas_height"); // Height of the HTML canvas
+        const canvasRatio = _Canvas2D.canvas.width / _Canvas2D.canvas.height; // Original ratio of the canvas
         // Resize the canvas keeping the original ratio
         if (window.innerWidth / window.innerHeight <= canvasRatio) {
-            this.canvas.width = window.innerWidth;
-            this.canvas.height = window.innerWidth / canvasRatio;
+            _Canvas2D.canvas.width = window.innerWidth;
+            _Canvas2D.canvas.height = window.innerWidth / canvasRatio;
         } else {
-            this.canvas.width = window.innerHeight * canvasRatio;
-            this.canvas.height = window.innerHeight;
+            _Canvas2D.canvas.width = window.innerHeight * canvasRatio;
+            _Canvas2D.canvas.height = window.innerHeight;
         }
-        this.width = 320; // Original width of the canvas
-        this.height = 224; // Original height of the canvas
+        _Canvas2D.width = ConfigManager.get("canvas_width"); // Original width of the canvas
+        _Canvas2D.height = ConfigManager.get("canvas_height"); // Original height of the canvas
         // Prepare a gradient for later use
-        this.gradient = this.canvasContext.createLinearGradient(0, 0, 0, 200);
-        this.gradient.addColorStop(1, "white");
+        _Canvas2D.gradient = _Canvas2D.canvasContext.createLinearGradient(0, 0, 0, 200);
+        _Canvas2D.gradient.addColorStop(1, "white");
     }
 
     /**
@@ -83,6 +97,7 @@ class Canvas2D {
      */
     drawText(text) {
         for (let i = 0; i < text.length; i++) {
+            // FIXME: Don't use sprites here
             this.drawStaticImage(sprites["hud-" + text.charAt(text.length - i - 1)], 19 - i * 8, 209, 7, 12);
         }
 
@@ -124,6 +139,6 @@ class Canvas2D {
 
 }
 
-const canvasRatio = 1.42857142857; // Original ratio of the canvas
-
-export const Canvas = new Canvas2D(); // Singleton instance of Canvas2D
+const _Canvas2D = new Canvas2D(); // Singleton instance
+_Canvas2D.setup(); // Setup here
+export default _Canvas2D;

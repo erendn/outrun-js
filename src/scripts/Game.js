@@ -1,5 +1,5 @@
 import Radio from "./Radio.js";
-import { Canvas } from "./Canvas.js";
+import Canvas from "./engine/Canvas.js";
 import { loadAssets, loading, maxLoading, sprites } from "./Assets.js";
 import EventListener from "./EventListener.js";
 import { GameWorld } from "./GameWorld.js";

@@ -1,4 +1,4 @@
-import { Canvas } from "./Canvas.js";
+import Canvas from "./engine/Canvas.js";
 import { Driver } from "./GameWorld.js";
 
 /**

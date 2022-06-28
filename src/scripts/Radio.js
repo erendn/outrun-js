@@ -1,6 +1,6 @@
 import AudioManager from "./engine/AudioManager.js";
 import { Outrun, MENU_SCENE, RADIO_SCENE, IN_GAME_SCENE } from "./Game.js";
-import { Canvas } from "./Canvas.js";
+import Canvas from "./engine/Canvas.js";
 import { sprites } from "./Assets.js";
 
 /**

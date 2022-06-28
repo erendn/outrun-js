@@ -3,7 +3,7 @@ import { Road, trackNumLanes } from "./Road.js";
 import { Vector3 } from "./Vector3.js";
 import { sprites, colors } from "./Assets.js";
 import { Outrun } from "./Game.js";
-import { Canvas } from "./Canvas.js";
+import Canvas from "./engine/Canvas.js";
 import { Segment } from "./Segment.js";
 
 /**
