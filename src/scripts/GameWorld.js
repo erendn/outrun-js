@@ -1,6 +1,6 @@
 import { Player } from "./Player.js";
 import { Road, trackNumLanes } from "./Road.js";
-import { Vector3 } from "./Vector3.js";
+import Vector3 from "./engine/Vector3.js";
 import { sprites, colors } from "./Assets.js";
 import { Outrun } from "./Game.js";
 import Canvas from "./engine/Canvas.js";

@@ -1,6 +1,6 @@
 import AudioManager from "./engine/AudioManager.js";
 import { Segment, laneWidth, lineWidth, sideLineWidth, offroadWidth, segmentDepth } from "./Segment.js";
-import { Vector3 } from "./Vector3.js";
+import Vector3 from "./engine/Vector3.js";
 import { Outrun } from "./Game.js";
 import { Vehicle } from "./Vehicle.js";
 import { WorldObject } from "./WorldObject.js";

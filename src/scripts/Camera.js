@@ -1,4 +1,4 @@
-import { Vector3 } from "./Vector3.js";
+import Vector3 from "./engine/Vector3.js";
 import { laneWidth, lineWidth } from "./Segment.js";
 
 /**

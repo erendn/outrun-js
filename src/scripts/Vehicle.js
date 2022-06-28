@@ -3,7 +3,7 @@ import { Outrun } from "./Game.js";
 import { Segment, laneWidth, lineWidth } from "./Segment.js";
 import { Driver } from "./GameWorld.js";
 import { dimensions } from "./Assets.js";
-import { Vector3 } from "./Vector3.js";
+import Vector3 from "./engine/Vector3.js";
 import { Junction } from "./Junction.js";
 
 /**

@@ -1,6 +1,6 @@
 import { Camera } from "./Camera.js";
 import { WorldObject } from "./WorldObject.js";
-import { Vector3 } from "./Vector3.js";
+import Vector3 from "./engine/Vector3.js";
 import { Driver } from "./GameWorld.js";
 import { Outrun } from "./Game.js";
 import { Segment } from "./Segment.js";
