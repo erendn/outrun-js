@@ -5,14 +5,22 @@ class ConfigManager {
 
     constructor() {
         this._configs = {}; // Store configs here
+        this.loadFromFile("./src/scripts/engine/config.json"); // Load the default configuration of the engine
     }
 
     /**
      * Load configuration from a JSON file.
      */
     loadFromFile(fileName) {
-        const that = this;
-        fetch(fileName).then(response => that._configs = response.json());
+        fetch(fileName)
+        // Convert to JSON object
+        .then(response => response.json())
+        // Store the configurations read from the file
+        .then(data => {
+            for (let key in data) {
+                this._configs[key] = data[key];
+            }
+        });
     }
 
     /**

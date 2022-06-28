@@ -1,3 +1,4 @@
+import ConfigManager from "./ConfigManager.js";
 import { sounds } from "../Assets.js";
 
 /**
@@ -6,7 +7,6 @@ import { sounds } from "../Assets.js";
 class AudioManager {
 
     constructor() {
-        this._volume = 1;
         this._activeSounds = []; // Actively running audio objects
     }
 
@@ -30,7 +30,7 @@ class AudioManager {
         if (this._activeSounds.indexOf(soundName) > -1) {
             console.log("WARNING: Audio \"" + soundName + "\" was already playing. Might have been triggered unnecessarily.");
         } else {
-            sounds[soundName].volume = this._volume;
+            sounds[soundName].volume = ConfigManager.get("volume");
             sounds[soundName].addEventListener("ended", () => {this._stopHandler(soundName, loop)}, HANDLER_OPTS);
             sounds[soundName].play().catch(() => {
                 // Try again when user interacts with the document

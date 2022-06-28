@@ -1,3 +1,5 @@
+import ConfigManager from "./ConfigManager.js";
+
 /**
  * This class imitates a CPU clock to trigger subscribed functions in
  * predetermined intervals.
@@ -24,7 +26,7 @@ class Clock {
         for (let i = 0; i < this._subs.length; ++i) {
             this._subs[i](); // Call the given function
         }
-        setTimeout(() => {this._tick()}, 1000 / TICK_PER_SEC); // Run the function again
+        setTimeout(() => {this._tick()}, 1000 / ConfigManager.get("clock_freq")); // Run the function again
     }
 
     /**
@@ -67,8 +69,6 @@ class Clock {
     }
 
 }
-
-const TICK_PER_SEC = 60; // Number of ticks per second
 
 const _Clock = new Clock(); // Singleton instance
 export default _Clock;
