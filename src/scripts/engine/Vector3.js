@@ -1,5 +1,5 @@
+import Camera from "./Camera.js";
 import Canvas from "./Canvas.js";
-import { Driver } from "../GameWorld.js";
 
 /**
  * This is the 3D vector class.
@@ -27,9 +27,9 @@ export default class Vector3 {
      * Project this point on the screen.
      */
     project() {
-        let zDiff = this.z - Driver.camera.position.z;
-        this.xScreen = Canvas.width / 2 + Driver.camera.gap * (this.x - Driver.camera.position.x) / zDiff;
-        this.yScreen = Canvas.height / 2 + Driver.camera.gap * (Driver.camera.position.y - this.y) / zDiff;
+        let zDiff = this.z - Camera.position.z;
+        this.xScreen = Canvas.width / 2 + Camera.gap * (this.x - Camera.position.x) / zDiff;
+        this.yScreen = Canvas.height / 2 + Camera.gap * (Camera.position.y - this.y) / zDiff;
     }
 
 }

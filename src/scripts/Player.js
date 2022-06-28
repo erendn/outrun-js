@@ -1,4 +1,4 @@
-import { Camera } from "./Camera.js";
+import Camera from "./engine/Camera.js";
 import { WorldObject } from "./WorldObject.js";
 import Vector3 from "./engine/Vector3.js";
 import { Driver } from "./GameWorld.js";
@@ -13,7 +13,8 @@ import { Junction } from "./Junction.js";
 export class Player {
 
     constructor() {
-        this.camera = new Camera(window.innerWidth, window.innerHeight, 300, 120); // Camera attached to the car
+        this.camera = Camera; // Camera attached to the car
+        this.camera.setup(window.innerWidth, window.innerHeight, 300, 120); // Setup the camera
         this.car = new WorldObject(new Vector3(0, 0, carDistance), "straight"); // The car of the player
         this.car.width = 810; // In-game width of the car
         this.car.height = 460; // In-game height of the car
