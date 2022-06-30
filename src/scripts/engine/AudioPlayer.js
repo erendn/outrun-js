@@ -4,7 +4,7 @@ import { sounds } from "../Assets.js";
 /**
  * This class manages all audio in the game.
  */
-class AudioManager {
+class AudioPlayer {
 
     constructor() {
         this._activeSounds = []; // Actively running audio objects
@@ -64,5 +64,5 @@ class AudioManager {
 
 const HANDLER_OPTS = { once: true }; // Options for event handler functions
 
-const _AudioManager = new AudioManager(); // Singleton instance
-export default _AudioManager;
+const _AudioPlayer = new AudioPlayer(); // Singleton instance
+export default _AudioPlayer;

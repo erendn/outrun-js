@@ -1,4 +1,4 @@
-import AudioManager from "./engine/AudioManager.js";
+import AudioPlayer from "./engine/AudioPlayer.js";
 import { Outrun, MENU_SCENE, RADIO_SCENE, IN_GAME_SCENE } from "./Game.js";
 import Canvas from "./engine/Canvas.js";
 import { sprites } from "./Assets.js";
@@ -42,14 +42,14 @@ class Radio {
                 this.flash = (this.flash + 1) % 10;
             }
             if (!this.waveStarted) {
-                AudioManager.play("wave", true);
+                AudioPlayer.play("wave", true);
                 this.waveStarted = true;
             }
         // If this is the in-game scene, play the same music continuously.
         // TODO: Change the music once it finishes
         } else if (Outrun.scene == IN_GAME_SCENE) {
             if (!this.musicStarted) {
-                AudioManager.play("music-" + this.music, true);
+                AudioPlayer.play("music-" + this.music, true);
                 this.musicStarted = true;
             }
         }

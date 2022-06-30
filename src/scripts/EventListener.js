@@ -1,4 +1,4 @@
-import AudioManager from "./engine/AudioManager.js";
+import AudioPlayer from "./engine/AudioPlayer.js";
 import Radio from "./Radio.js";
 import { Outrun, MENU_SCENE, RADIO_SCENE, IN_GAME_SCENE } from "./Game.js";
 import { loading, maxLoading } from "./Assets.js";
@@ -36,7 +36,7 @@ class EventListener {
             if (Outrun.scene == MENU_SCENE) {
                 if (key == KEY_ENTER) {
                     Outrun.scene = RADIO_SCENE;
-                    AudioManager.play("coin");
+                    AudioPlayer.play("coin");
                 }
             } else if (Outrun.scene == RADIO_SCENE) {
                 if (key == KEY_LEFT) {
@@ -46,7 +46,7 @@ class EventListener {
                     if (Radio.music != 2)
                         Radio.music++;
                 } else if (key == KEY_ENTER) {
-                    AudioManager.stop("wave");
+                    AudioPlayer.stop("wave");
                     Outrun.newGame();
                     Outrun.scene = IN_GAME_SCENE;
                 }
