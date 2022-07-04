@@ -2,7 +2,6 @@ import Vector3 from "./engine/Vector3.js";
 import { Tile } from "./Tile.js";
 import { WorldObject } from "./WorldObject.js";
 import { Driver } from "./GameWorld.js";
-import { dimensions } from "./Assets.js";
 import { Outrun } from "./Game.js";
 
 /**
@@ -29,19 +28,20 @@ export class Segment {
         }
         // Objects on this segment
         this.objects = [];
-        if (!isTunnel) {
-            if (!(index % (objectDistance / 4))) {
-                this.objects.push(new WorldObject(new Vector3(this.highCenter.x, this.highCenter.y, this.highCenter.z), "terrain"));
-                if (Math.random() < 0.1) {
-                    this.objects.push(new WorldObject(new Vector3(this.highCenter.x, this.highCenter.y, this.highCenter.z), "left" + (Math.random() < 0.5 ? "1" : "2")));
-                }
-            }
-            if (!(index % objectDistance)) {
-                this.objects.push(new WorldObject(new Vector3(this.highCenter.x, this.highCenter.y, this.highCenter.z), "right" + (Math.random() < 0.5 ? "1" : "2")));
-            }
-        } else if (!(index % tunnelDistance)) {
-            this.objects.push(new WorldObject(new Vector3(this.highCenter.x, this.highCenter.y, this.highCenter.z), "tunnel"));
-        }
+        // FIXME: Fix the code below
+        // if (!isTunnel) {
+        //     if (!(index % (objectDistance / 4))) {
+        //         this.objects.push(new WorldObject(new Vector3(this.highCenter.x, this.highCenter.y, this.highCenter.z), "terrain"));
+        //         if (Math.random() < 0.1) {
+        //             this.objects.push(new WorldObject(new Vector3(this.highCenter.x, this.highCenter.y, this.highCenter.z), "left" + (Math.random() < 0.5 ? "1" : "2")));
+        //         }
+        //     }
+        //     if (!(index % objectDistance)) {
+        //         this.objects.push(new WorldObject(new Vector3(this.highCenter.x, this.highCenter.y, this.highCenter.z), "right" + (Math.random() < 0.5 ? "1" : "2")));
+        //     }
+        // } else if (!(index % tunnelDistance)) {
+        //     this.objects.push(new WorldObject(new Vector3(this.highCenter.x, this.highCenter.y, this.highCenter.z), "tunnel"));
+        // }
     }
 
     /**
@@ -80,10 +80,9 @@ export class Segment {
             this.lines[this.numLanes / 2 + 1].project(measure2);
         }
         for (let i = 0; i < this.objects.length; i++) {
-            if (dimensions[Outrun.gameWorld.route][this.objects[i].fileName] != undefined) {
-                this.objects[i].center.x = this.highCenter.x + dimensions[Outrun.gameWorld.route][this.objects[i].fileName].offset;
-                this.objects[i].project(measure2);
-            }
+            // FIXME: Adjust the offset of objects
+            this.objects[i].center.x = 0;
+            this.objects[i].project(measure2);
         }
     }
 

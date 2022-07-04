@@ -1,6 +1,6 @@
+import AssetLoader from "./engine/AssetLoader.js";
 import Radio from "./Radio.js";
 import Canvas from "./engine/Canvas.js";
-import { loadAssets, loading, maxLoading, sprites } from "./Assets.js";
 import EventListener from "./EventListener.js";
 import { GameWorld } from "./GameWorld.js";
 
@@ -12,7 +12,8 @@ class Game {
     constructor() {
         this.scene = MENU_SCENE; // Current scene of the game
         this.renderSize = 300; // Render distance
-        this.playable = false; // If the game is playable
+        // FIXME: The game shouldn't start immediately
+        this.playable = true; // If the game is playable
         this.startDelay = 0; // Delay when starting the game
     }
 
@@ -21,7 +22,6 @@ class Game {
      */
     init() {
         time = new Date().getTime();
-        loadAssets();
     }
 
     /**
@@ -50,7 +50,7 @@ class Game {
         if (milliseconds >= 1000 / FPS) {
             time = currentTime;
             // If all assets are not yet loaded, draw the loading screen
-            if (loading < maxLoading) {
+            if (AssetLoader.loadPercentage() < 1) {
                 Outrun.drawLoading();
             } else {
                 // Update the radio
@@ -61,8 +61,9 @@ class Game {
                 } else if (Outrun.scene == IN_GAME_SCENE) {
                     if (!Outrun.playable) {
                         Outrun.startDelay = (Outrun.startDelay + 1) % FPS;
-                        if (!Outrun.startDelay)
-                            Outrun.gameWorld.road.nextLight();
+                        // FIXME: Fix the code below
+                        // if (!Outrun.startDelay)
+                        //     Outrun.gameWorld.road.nextLight();
                     }
                     Outrun.gameWorld.play();
                     Outrun.gameWorld.update();
@@ -83,9 +84,13 @@ class Game {
         Canvas.canvasContext.fillStyle = "#000000";
         Canvas.canvasContext.fillRect(99, 126, 121, 12);
         Canvas.canvasContext.fillStyle = "#F7F700";
-        Canvas.canvasContext.fillRect(99, 126, 121 * (loading / maxLoading), 12);
-        Canvas.drawStaticImage(sprites["loading-box"], 98, 125, 124, 15);
-        Canvas.drawStaticImage(sprites["loading-text"], 106, 84, 109, 28);
+        Canvas.canvasContext.fillRect(99, 126, 121 * AssetLoader.loadPercentage(), 12);
+        let box = AssetLoader.getSprite("loading/loading-box");
+        let text = AssetLoader.getSprite("loading/loading-text");
+        if (box != undefined && text != undefined) {
+            Canvas.drawStaticImage(box, 98, 125, 124, 15);
+            Canvas.drawStaticImage(text, 106, 84, 109, 28);
+        }
     }
 
 }

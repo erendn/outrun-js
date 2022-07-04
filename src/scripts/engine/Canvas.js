@@ -1,4 +1,4 @@
-import { sprites } from "../Assets.js";
+import AssetLoader from "./AssetLoader.js";
 import ConfigManager from "./ConfigManager.js";
 
 /**
@@ -98,7 +98,7 @@ class Canvas2D {
     drawText(text) {
         for (let i = 0; i < text.length; i++) {
             // FIXME: Don't use sprites here
-            this.drawStaticImage(sprites["hud-" + text.charAt(text.length - i - 1)], 19 - i * 8, 209, 7, 12);
+            this.drawStaticImage(AssetLoader.getSprite("hud/digits", text.charAt(text.length - i - 1)), 19 - i * 8, 209, 7, 12);
         }
 
     }

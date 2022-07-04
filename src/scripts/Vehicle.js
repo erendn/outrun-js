@@ -1,8 +1,8 @@
+import AssetLoader from "./engine/AssetLoader.js";
 import { WorldObject } from "./WorldObject.js";
 import { Outrun } from "./Game.js";
 import { Segment, laneWidth, lineWidth } from "./Segment.js";
 import { Driver } from "./GameWorld.js";
-import { dimensions } from "./Assets.js";
 import Vector3 from "./engine/Vector3.js";
 import { Junction } from "./Junction.js";
 
@@ -14,14 +14,15 @@ export class Vehicle {
     constructor(center, shift, vehicleType) {
         this.vehicleType = vehicleType;
         this.shift = shift;
-        this.car = new WorldObject(center, "right0");
+        this.car = new WorldObject(center, "right-0");
         this.car.width = 810; // Width of the vehicle
         this.car.height = 460; // Height of the vehicle
         // Project function of this object
-        this.car.project = function (measure2, dimension) {
+        this.car.project = function (measure2) {
             this.center.project();
-            this.relWidth = Vector3.calculate(dimension.width, Driver.camera.gap, measure2);
-            this.relHeight = Vector3.calculate(dimension.height, Driver.camera.gap, measure2);
+            let sprite = AssetLoader.getSprite("vehicles", vehicleType, this.fileName);
+            this.relWidth = Vector3.calculate(sprite.width, Driver.camera.gap, measure2);
+            this.relHeight = Vector3.calculate(sprite.height, Driver.camera.gap, measure2);
         };
         this.lastSegment = null;
         this.chosenPath = [];
@@ -83,25 +84,25 @@ export class Vehicle {
      * function in the Game class.
      */
     project() {
-        this.car.project(this.car.center.z - Driver.camera.position.z, dimensions[this.vehicleType]);
+        this.car.project(this.car.center.z - Driver.camera.position.z);
 
         if (this.curveDirection < 0) {
             if (this.car.center.x < Driver.car.center.x)
-                this.car.fileName = "left1";
+                this.car.fileName = "left-1";
 
             else
-                this.car.fileName = "left0";
+                this.car.fileName = "left-0";
         } else if (this.curveDirection > 0) {
             if (this.car.center.x > Driver.car.center.x)
-                this.car.fileName = "right1";
+                this.car.fileName = "right-1";
 
             else
-                this.car.fileName = "right0";
+                this.car.fileName = "right-0";
         } else {
             if (this.car.center.x < Driver.car.center.x) {
-                this.car.fileName = "right0";
+                this.car.fileName = "right-0";
             } else {
-                this.car.fileName = "left0";
+                this.car.fileName = "left-0";
             }
         }
     }

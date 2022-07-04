@@ -1,7 +1,7 @@
+import AssetLoader from "./engine/AssetLoader.js";
 import AudioPlayer from "./engine/AudioPlayer.js";
 import Radio from "./Radio.js";
 import { Outrun, MENU_SCENE, RADIO_SCENE, IN_GAME_SCENE } from "./Game.js";
-import { loading, maxLoading } from "./Assets.js";
 import { Driver } from "./GameWorld.js";
 
 /**
@@ -32,11 +32,11 @@ class EventListener {
      */
     keyDown(event) {
         const key = EventListener.normalize(event.which);
-        if (loading == maxLoading) {
+        if (AssetLoader.loadPercentage() == 1) {
             if (Outrun.scene == MENU_SCENE) {
                 if (key == KEY_ENTER) {
                     Outrun.scene = RADIO_SCENE;
-                    AudioPlayer.play("coin");
+                    AudioPlayer.play("sample/coin");
                 }
             } else if (Outrun.scene == RADIO_SCENE) {
                 if (key == KEY_LEFT) {
@@ -46,7 +46,7 @@ class EventListener {
                     if (Radio.music != 2)
                         Radio.music++;
                 } else if (key == KEY_ENTER) {
-                    AudioPlayer.stop("wave");
+                    AudioPlayer.stop("sample/wave");
                     Outrun.newGame();
                     Outrun.scene = IN_GAME_SCENE;
                 }

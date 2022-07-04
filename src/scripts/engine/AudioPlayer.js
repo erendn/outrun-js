@@ -1,5 +1,5 @@
+import AssetLoader from "./AssetLoader.js";
 import ConfigManager from "./ConfigManager.js";
-import { sounds } from "../Assets.js";
 
 /**
  * This class manages all audio in the game.
@@ -30,9 +30,10 @@ class AudioPlayer {
         if (this._activeSounds.indexOf(soundName) > -1) {
             console.log("WARNING: Audio \"" + soundName + "\" was already playing. Might have been triggered unnecessarily.");
         } else {
-            sounds[soundName].volume = ConfigManager.get("volume");
-            sounds[soundName].addEventListener("ended", () => {this._stopHandler(soundName, loop)}, HANDLER_OPTS);
-            sounds[soundName].play().catch(() => {
+            const sound = AssetLoader.getSound(soundName);
+            sound.volume = ConfigManager.get("volume");
+            sound.addEventListener("ended", () => {this._stopHandler(soundName, loop)}, HANDLER_OPTS);
+            sound.play().catch(() => {
                 // Try again when user interacts with the document
                 document.addEventListener("keydown", () => {this.play(soundName, loop)}, HANDLER_OPTS);
             });
@@ -46,8 +47,9 @@ class AudioPlayer {
         // FIXME: Stopped sounds should not be played with the this.play()
         // function because this.stop() function does not remove the event
         // listeners.
-        sounds[soundName].pause();
-        sounds[soundName].currentTime = 0;
+        const sound = AssetLoader.getSound(soundName);
+        sound.pause();
+        sound.currentTime = 0;
     }
 
     /**

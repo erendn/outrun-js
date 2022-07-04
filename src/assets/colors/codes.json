@@ -1,0 +1,167 @@
+{
+    "coconut-beach": {
+        "skyColor": "#008BFF",
+        "darkOffroadColor": "#D3C0B2",
+        "lightOffroadColor": "#E1CDBF",
+        "darkAsphaltColor": "#7F7D7D",
+        "lightAsphaltColor": "#8B898A",
+        "darkSideColor": "#7F7D7D",
+        "lightSideColor": "#E5DCDD",
+        "darkLineColor": "#7F7D7D",
+        "lightLineColor": "#E5DCDD"
+    },
+    "gateaway": {
+        "skyColor": "#00BEDA",
+        "darkOffroadColor": "#959E6B",
+        "lightOffroadColor": "#A2AA75",
+        "darkAsphaltColor": "#767475",
+        "lightAsphaltColor": "#838081",
+        "darkSideColor": "#767475",
+        "lightSideColor": "#CECACD",
+        "darkLineColor": "#767475",
+        "lightLineColor": "#CECACD"
+    },
+    "devils-canyon": {
+        "skyColor": "#FFC25E",
+        "darkOffroadColor": "#809473",
+        "lightOffroadColor": "#8CA17F",
+        "darkAsphaltColor": "#89857A",
+        "lightAsphaltColor": "#9A958D",
+        "darkSideColor": "#8E0C00",
+        "lightSideColor": "#CAC6C7",
+        "darkLineColor": "#89857A",
+        "lightLineColor": "#CAC6C7"
+    },
+    "desert": {
+        "skyColor": "#000FFF",
+        "darkOffroadColor": "#CEBCA2",
+        "lightOffroadColor": "#DAC9AE",
+        "darkAsphaltColor": "#AB9C8F",
+        "lightAsphaltColor": "#B8A89B",
+        "darkSideColor": "#AB9C8F",
+        "lightSideColor": "#B8A89B",
+        "darkLineColor": "#AB9C8F",
+        "lightLineColor": "#B8A89B"
+    },
+    "alps": {
+        "skyColor": "#005AFF",
+        "darkOffroadColor": "#8BA17D",
+        "lightOffroadColor": "#95AC87",
+        "darkAsphaltColor": "#7E7C7E",
+        "lightAsphaltColor": "#8A878A",
+        "darkSideColor": "#7E7C7E",
+        "lightSideColor": "#C9C9C3",
+        "darkLineColor": "#7E7C7E",
+        "lightLineColor": "#C9C9C3"
+    },
+    "cloudy-mountain": {
+        "skyColor": "#938BFA",
+        "darkOffroadColor": "#959D6C",
+        "lightOffroadColor": "#A2AA75",
+        "darkAsphaltColor": "#777576",
+        "lightAsphaltColor": "#817F80",
+        "darkSideColor": "#777576",
+        "lightSideColor": "#C4C2C5",
+        "darkLineColor": "#777576",
+        "lightLineColor": "#C4C2C5"
+    },
+    "wilderness": {
+        "skyColor": "#D8C2A3",
+        "darkOffroadColor": "#B18F73",
+        "lightOffroadColor": "#BE9C7E",
+        "darkAsphaltColor": "#B8987B",
+        "lightAsphaltColor": "#C7A687",
+        "darkSideColor": "#B8987B",
+        "lightSideColor": "#C7A687",
+        "darkLineColor": "#B8987B",
+        "lightLineColor": "#C7A687"
+    },
+    "old-capital": {
+        "skyColor": "#7642FD",
+        "darkOffroadColor": "#523627",
+        "lightOffroadColor": "#5B3F2F",
+        "darkAsphaltColor": "#4E3F3F",
+        "lightAsphaltColor": "#574848",
+        "darkSideColor": "#4E3F3F",
+        "lightSideColor": "#C29E82",
+        "darkLineColor": "#4E3F3F",
+        "lightLineColor": "#C29E82"
+    },
+    "wheat-field": {
+        "skyColor": "#FFC25E",
+        "darkOffroadColor": "#825E00",
+        "lightOffroadColor": "#866404",
+        "darkAsphaltColor": "#646365",
+        "lightAsphaltColor": "#6F6E70",
+        "darkSideColor": "#646365",
+        "lightSideColor": "#C2C0C2",
+        "darkLineColor": "#646365",
+        "lightLineColor": "#C2C0C2"
+    },
+    "seaside-town": {
+        "skyColor": "#3C74FE",
+        "darkOffroadColor": "#D2A479",
+        "lightOffroadColor": "#DAAF82",
+        "darkAsphaltColor": "#868277",
+        "lightAsphaltColor": "#979288",
+        "darkSideColor": "#868277",
+        "lightSideColor": "#CDC9CE",
+        "darkLineColor": "#868277",
+        "lightLineColor": "#CDC9CE"
+    },
+    "vineyard": {
+        "skyColor": "#0BA1FF",
+        "darkOffroadColor": "#A3A95C",
+        "lightOffroadColor": "#B0B566",
+        "darkAsphaltColor": "#7F7D7E",
+        "lightAsphaltColor": "#898687",
+        "darkSideColor": "#7F7D7E",
+        "lightSideColor": "#ACAAAC",
+        "darkLineColor": "#7F7D7E",
+        "lightLineColor": "#ACAAAC"
+    },
+    "death-valley": {
+        "skyColor": "#6255FE",
+        "darkOffroadColor": "#AA7B5D",
+        "lightOffroadColor": "#AD7E5E",
+        "darkAsphaltColor": "#6C5D5D",
+        "lightAsphaltColor": "#776868",
+        "darkSideColor": "#6C5D5D",
+        "lightSideColor": "#C6C0C4",
+        "darkLineColor": "#6C5D5D",
+        "lightLineColor": "#C6C0C4"
+    },
+    "desolation-hill": {
+        "skyColor": "#EFECDC",
+        "darkOffroadColor": "#CEBEB1",
+        "lightOffroadColor": "#D9CABE",
+        "darkAsphaltColor": "#848284",
+        "lightAsphaltColor": "#908D90",
+        "darkSideColor": "#848284",
+        "lightSideColor": "#CFCCCF",
+        "darkLineColor": "#848284",
+        "lightLineColor": "#CFCCCF"
+    },
+    "autobahn": {
+        "skyColor": "#7642FD",
+        "darkOffroadColor": "#839876",
+        "lightOffroadColor": "#8EA481",
+        "darkAsphaltColor": "#696B86",
+        "lightAsphaltColor": "#747592",
+        "darkSideColor": "#8C0C00",
+        "lightSideColor": "#C5C4C5",
+        "darkLineColor": "#696B86",
+        "lightLineColor": "#C5C4C5"
+    },
+    "lakeside": {
+        "skyColor": "#FEAAA4",
+        "darkOffroadColor": "#B8A79B",
+        "lightOffroadColor": "#C6B4A8",
+        "darkAsphaltColor": "#7D7569",
+        "lightAsphaltColor": "#877F72",
+        "darkSideColor": "#7D7569",
+        "lightSideColor": "#C8C1C2",
+        "darkLineColor": "#7D7569",
+        "lightLineColor": "#C8C1C2"
+    }
+}

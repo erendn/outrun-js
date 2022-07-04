@@ -1,5 +1,5 @@
+import AssetLoader from "./engine/AssetLoader.js";
 import Vector3 from "./engine/Vector3.js";
-import { dimensions } from "./Assets.js";
 import { Outrun } from "./Game.js";
 import { Driver } from "./GameWorld.js";
 
@@ -20,8 +20,10 @@ export class WorldObject {
      */
     project(measure2) {
         this.center.project();
-        this.relWidth = Vector3.calculate(dimensions[Outrun.gameWorld.route][this.fileName].width, Driver.camera.gap, measure2);
-        this.relHeight = Vector3.calculate(dimensions[Outrun.gameWorld.route][this.fileName].height, Driver.camera.gap, measure2);
+        console.log("environment", Outrun.gameWorld.route, this.fileName);
+        let sprite = AssetLoader.getSprite("environment", Outrun.gameWorld.route, this.fileName);
+        this.relWidth = Vector3.calculate(sprite.width, Driver.camera.gap, measure2);
+        this.relHeight = Vector3.calculate(sprite.height, Driver.camera.gap, measure2);
     }
 
 }

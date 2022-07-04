@@ -34,7 +34,8 @@ export class Road {
         this.startSegment = this.segments[13]; // Starting segment of the road
         this.endSegment = null; // Ending segment of the road
         // Add the flags to the start segment
-        this.startSegment.objects.push(new WorldObject(new Vector3(this.startSegment.highCenter.x, this.startSegment.highCenter.y, this.startSegment.highCenter.z), "start0"));
+        // FIXME: Fix the code below
+        // this.startSegment.objects.push(new WorldObject(new Vector3(this.startSegment.highCenter.x, this.startSegment.highCenter.y, this.startSegment.highCenter.z), "start0"));
     }
 
     /**
@@ -255,10 +256,10 @@ export class Road {
         else if (currentFile == "start2")
             this.startSegment.objects[this.startSegment.objects.length - 1].fileName = "start3";
         if (currentFile == "start2") {
-            AudioPlayer.play("signal-1");
+            AudioPlayer.play("sample/signal-1");
             Outrun.playable = true;
         } else {
-            AudioPlayer.play("signal-0");
+            AudioPlayer.play("sample/signal-0");
         }
     }
 

@@ -1,7 +1,7 @@
+import AssetLoader from "./engine/AssetLoader.js";
 import { Player } from "./Player.js";
 import { Road, trackNumLanes } from "./Road.js";
 import Vector3 from "./engine/Vector3.js";
-import { sprites, colors } from "./Assets.js";
 import { Outrun } from "./Game.js";
 import Canvas from "./engine/Canvas.js";
 import { Segment } from "./Segment.js";
@@ -14,7 +14,7 @@ export class GameWorld {
     constructor() {
         this.road = new Road(new Vector3(0, 0, 0), 0, 0, trackNumLanes); // Road of the game
         this.route = "coconut-beach"; // Current route place
-        this.currentColor = colors["coconut-beach"]; // Current colors of the game world
+        this.currentColor = AssetLoader.getColor("codes")["coconut-beach"]; // Current colors of the game world
         this.backParallax = 0; // Parallax amount of the back background
         this.frontParallax = 0; // Parallax amount of the front background
     }
@@ -57,7 +57,7 @@ export class GameWorld {
         // Mix the colors of the world
         for (let i = 0; i < 9; i++) {
             let key = Object.keys(this.currentColor)[i];
-            this.currentColor[key] = Canvas.mix(this.currentColor[key], colors[this.route][key], 1);
+            this.currentColor[key] = Canvas.mix(this.currentColor[key], AssetLoader.getColor("codes")[this.route][key], 1);
         }
         // Do the parallax effect
         let parallaxAmount = Driver.speed * Math.sign(Driver.curveDirection);
@@ -78,12 +78,14 @@ export class GameWorld {
     draw() {
         // Draw the background
         Canvas.fillGradient(this.currentColor.skyColor);
-        Canvas.drawStaticImage(sprites[this.route].back, backWidth * (this.backParallax - 1), backgroundOffset, backWidth, backgroundHeight);
-        Canvas.drawStaticImage(sprites[this.route].back, backWidth * (this.backParallax), backgroundOffset, backWidth, backgroundHeight);
-        Canvas.drawStaticImage(sprites[this.route].back, backWidth * (this.backParallax + 1), backgroundOffset, backWidth, backgroundHeight);
-        Canvas.drawStaticImage(sprites[this.route].front, frontWidth * (this.frontParallax - 1), backgroundOffset, frontWidth, backgroundHeight);
-        Canvas.drawStaticImage(sprites[this.route].front, frontWidth * (this.frontParallax), backgroundOffset, frontWidth, backgroundHeight);
-        Canvas.drawStaticImage(sprites[this.route].front, frontWidth * (this.frontParallax + 1), backgroundOffset, frontWidth, backgroundHeight);
+        let back = AssetLoader.getSprite("background", this.route, "back");
+        let front = AssetLoader.getSprite("background", this.route, "front");
+        Canvas.drawStaticImage(back, backWidth * (this.backParallax - 1), backgroundOffset, backWidth, backgroundHeight);
+        Canvas.drawStaticImage(back, backWidth * (this.backParallax), backgroundOffset, backWidth, backgroundHeight);
+        Canvas.drawStaticImage(back, backWidth * (this.backParallax + 1), backgroundOffset, backWidth, backgroundHeight);
+        Canvas.drawStaticImage(front, frontWidth * (this.frontParallax - 1), backgroundOffset, frontWidth, backgroundHeight);
+        Canvas.drawStaticImage(front, frontWidth * (this.frontParallax), backgroundOffset, frontWidth, backgroundHeight);
+        Canvas.drawStaticImage(front, frontWidth * (this.frontParallax + 1), backgroundOffset, frontWidth, backgroundHeight);
         let currentIndex = this.road.findIndex(Driver.camera.position.z); // Current road segment's index
         let maxRendered = Math.min(this.road.segments.length, currentIndex + Outrun.renderSize) - 1; // Farthest rendered road segment's index
         // Draw all offroads from back to front
@@ -114,8 +116,9 @@ export class GameWorld {
                 }
                 for (let j = 0; j < segment.objects.length; j++) {
                     let object = segment.objects[j];
-                    if (sprites[this.route][object.fileName] != undefined)
-                        Canvas.drawImage(sprites[this.route][object.fileName], object.center, object.relWidth, object.relHeight);
+                    let sprite = AssetLoader.getSprite("environment", this.route, object.fileName);
+                    if (sprite != undefined)
+                        Canvas.drawImage(sprite, object.center, object.relWidth, object.relHeight);
                 }
             } else {
                 let subSegment = segment.leftJunction;
@@ -127,8 +130,9 @@ export class GameWorld {
                 }
                 for (let j = 0; j < subSegment.objects.length; j++) {
                     let object = subSegment.objects[j];
-                    if (sprites[this.route][object.fileName] != undefined)
-                        Canvas.drawImage(sprites[this.route][object.fileName], object.center, object.relWidth, object.relHeight);
+                    let sprite = AssetLoader.getSprite("environment", this.route, object.fileName);
+                    if (sprite != undefined)
+                    Canvas.drawImage(sprite, object.center, object.relWidth, object.relHeight);
                 }
                 subSegment = segment.rightJunction;
                 Canvas.drawShape(subSegment.asphalt.upLeft, subSegment.asphalt.upRight, subSegment.asphalt.downRight, subSegment.asphalt.downLeft, asphaltColor);
@@ -139,8 +143,9 @@ export class GameWorld {
                 }
                 for (let j = 0; j < subSegment.objects.length; j++) {
                     let object = subSegment.objects[j];
-                    if (sprites[this.route][object.fileName] != undefined)
-                        Canvas.drawImage(sprites[this.route][object.fileName], object.center, object.relWidth, object.relHeight);
+                    let sprite = AssetLoader.getSprite("environment", this.route, object.fileName);
+                    if (sprite != undefined)
+                        Canvas.drawImage(sprite, object.center, object.relWidth, object.relHeight);
                 }
             }
         }
@@ -149,13 +154,19 @@ export class GameWorld {
             let vehicle = this.road.vehicles[i];
             let position = this.road.findIndex(vehicle.car.center.z);
             if (position > currentIndex & position < maxRendered)
-                Canvas.drawImage(sprites[vehicle.vehicleType][vehicle.car.fileName], vehicle.car.center, vehicle.car.relWidth, vehicle.car.relHeight);
+                Canvas.drawImage(AssetLoader.getSprite("vehicles", vehicle.vehicleType, vehicle.car.fileName),
+                                 vehicle.car.center,
+                                 vehicle.car.relWidth,
+                                 vehicle.car.relHeight);
         }
         // Draw the driver's car
-        Canvas.drawImage(sprites[Driver.car.fileName], Driver.car.center, Driver.car.relWidth, Driver.car.relHeight);
+        Canvas.drawImage(AssetLoader.getSprite("ferrari", Driver.car.fileName),
+                         Driver.car.center,
+                         Driver.car.relWidth,
+                         Driver.car.relHeight);
         // Draw the HUD
-        Canvas.drawStaticImage(sprites["hud-" + this.route], 301, 210, 16, 11);
-        Canvas.drawStaticImage(sprites["hud-kmh"], 27, 210, 18, 13);
+        Canvas.drawStaticImage(AssetLoader.getSprite("hud/map", this.route), 301, 210, 16, 11);
+        Canvas.drawStaticImage(AssetLoader.getSprite("hud/kmh"), 27, 210, 18, 13);
         Canvas.drawText(Math.floor(Driver.speed / 3).toString());
         // If the road is ending, add new segments
         if (this.road.segments.length - currentIndex < Outrun.renderSize) {
