@@ -70,7 +70,6 @@ class Game {
                     Outrun.gameWorld.draw();
                 }
             }
-            Canvas.fix();
         }
 
         requestAnimationFrame(Outrun.mainLoop);

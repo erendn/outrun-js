@@ -8,7 +8,7 @@ class Canvas2D {
 
     constructor() {
         this.canvas = document.getElementById("screen"); // HTML canvas
-        this.canvasContext = this.canvas.getContext("2d"); // 2D context of the HTML canvas
+        this.canvasContext = this.canvas.getContext("2d", CANVAS_CONFIG); // 2D context of the HTML canvas
     }
 
     /**
@@ -21,29 +21,27 @@ class Canvas2D {
             requestAnimationFrame(_Canvas2D.setup);
             return;
         }
-        _Canvas2D.canvas.width = ConfigManager.get("canvas_width"); // Width of the HTML canvas
-        _Canvas2D.canvas.height = ConfigManager.get("canvas_height"); // Height of the HTML canvas
-        const canvasRatio = _Canvas2D.canvas.width / _Canvas2D.canvas.height; // Original ratio of the canvas
-        // Resize the canvas keeping the original ratio
+        const width = ConfigManager.get("canvas_width"); // Width of the HTML canvas
+        const height = ConfigManager.get("canvas_height"); // Height of the HTML canvas
+        _Canvas2D.canvas.width = width;
+        _Canvas2D.canvas.height = height;
+        const canvasRatio = width / height; // Original ratio of the canvas
+        // Resize the canvas' style keeping the original ratio
         if (window.innerWidth / window.innerHeight <= canvasRatio) {
-            _Canvas2D.canvas.width = window.innerWidth;
-            _Canvas2D.canvas.height = window.innerWidth / canvasRatio;
+            _Canvas2D.canvas.style.width = window.innerWidth;
+            _Canvas2D.canvas.style.height = window.innerWidth / canvasRatio;
         } else {
-            _Canvas2D.canvas.width = window.innerHeight * canvasRatio;
-            _Canvas2D.canvas.height = window.innerHeight;
+            _Canvas2D.canvas.style.width = window.innerHeight * canvasRatio;
+            _Canvas2D.canvas.style.height = window.innerHeight;
         }
-        _Canvas2D.width = ConfigManager.get("canvas_width"); // Original width of the canvas
-        _Canvas2D.height = ConfigManager.get("canvas_height"); // Original height of the canvas
+        _Canvas2D.width = width; // Original width of the canvas
+        _Canvas2D.height = height; // Original height of the canvas
         // Prepare a gradient for later use
         _Canvas2D.gradient = _Canvas2D.canvasContext.createLinearGradient(0, 0, 0, 200);
         _Canvas2D.gradient.addColorStop(1, "white");
-    }
-
-    /**
-     * Clear the canvas.
-     */
-    clear() {
-        this.canvasContext.clearRect(0, 0, this.width, this.height);
+        // Disable image smoothing for better graphics
+        _Canvas2D.canvasContext.mozImageSmoothingEnabled = false;
+        _Canvas2D.canvasContext.imageSmoothingEnabled = false;
     }
 
     /**
@@ -104,15 +102,6 @@ class Canvas2D {
     }
 
     /**
-     * Fix the canvas by redrawing it to fill the HTML canvas.
-     */
-    fix() {
-        this.canvasContext.mozImageSmoothingEnabled = false;
-        this.canvasContext.imageSmoothingEnabled = false;
-        this.canvasContext.drawImage(this.canvas, 0, 0, this.width, this.height, 0, 0, this.canvas.width, this.canvas.height);
-    }
-
-    /**
      * Mix two colors with the current step given.
      * TODO: Use yield for simpler implementation
      */
@@ -137,6 +126,12 @@ class Canvas2D {
         return resHex;
     }
 
+}
+
+const CANVAS_CONFIG = {
+    alpha: false,
+    antialias: false,
+    depth: false,
 }
 
 const _Canvas2D = new Canvas2D(); // Singleton instance
