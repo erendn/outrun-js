@@ -5,6 +5,7 @@ import { Driver } from "./GameWorld.js";
 import { Outrun } from "./Game.js";
 import { Segment } from "./Segment.js";
 import { Junction } from "./Junction.js";
+import { laneWidth, lineWidth } from "./Segment.js";
 
 /**
  * This class represents the car of the player. It also includes the camera
@@ -14,7 +15,8 @@ export class Player {
 
     constructor() {
         this.camera = Camera; // Camera attached to the car
-        this.camera.setup(window.innerWidth, window.innerHeight, 300, 120); // Setup the camera
+        // FIXME: Don't use window size below, it's irrelevant to the canvas sizes
+        this.camera.setup(window.innerWidth, window.innerHeight, 300, 120, new Vector3(-1.5 * (laneWidth + lineWidth), this.altitude + this.height / 2, 0)); // Setup the camera
         this.car = new WorldObject(new Vector3(0, 0, carDistance), "straight"); // The car of the player
         this.car.width = 810; // In-game width of the car
         this.car.height = 460; // In-game height of the car
