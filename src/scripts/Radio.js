@@ -1,7 +1,7 @@
-import AssetLoader from "./engine/AssetLoader.js";
-import AudioPlayer from "./engine/AudioPlayer.js";
+import AssetLoader from "./engine/core/AssetLoader.js";
+import AudioPlayer from "./engine/core/AudioPlayer.js";
 import { Outrun, MENU_SCENE, RADIO_SCENE, IN_GAME_SCENE } from "./Game.js";
-import Canvas from "./engine/Canvas.js";
+import Canvas from "./engine/geometry/Canvas.js";
 
 /**
  * This class manages the audio in the game. It can currently play main menu

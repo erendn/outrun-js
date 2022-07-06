@@ -1,4 +1,4 @@
-import Vector3 from "./engine/Vector3.js";
+import Vector3 from "./engine/geometry/Vector3.js";
 import { Tile } from "./Tile.js";
 import { WorldObject } from "./WorldObject.js";
 import { Driver } from "./GameWorld.js";

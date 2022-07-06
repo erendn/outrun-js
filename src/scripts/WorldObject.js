@@ -1,5 +1,5 @@
-import AssetLoader from "./engine/AssetLoader.js";
-import Vector3 from "./engine/Vector3.js";
+import AssetLoader from "./engine/core/AssetLoader.js";
+import Vector3 from "./engine/geometry/Vector3.js";
 import { Outrun } from "./Game.js";
 import { Driver } from "./GameWorld.js";
 

@@ -1,9 +1,9 @@
-import AssetLoader from "./engine/AssetLoader.js";
+import AssetLoader from "./engine/core/AssetLoader.js";
 import { WorldObject } from "./WorldObject.js";
 import { Outrun } from "./Game.js";
 import { Segment, laneWidth, lineWidth } from "./Segment.js";
 import { Driver } from "./GameWorld.js";
-import Vector3 from "./engine/Vector3.js";
+import Vector3 from "./engine/geometry/Vector3.js";
 import { Junction } from "./Junction.js";
 
 /**

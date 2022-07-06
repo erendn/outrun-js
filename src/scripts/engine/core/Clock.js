@@ -1,4 +1,4 @@
-import ConfigManager from "./ConfigManager.js";
+import ConfigManager from "../ConfigManager.js";
 
 /**
  * This class imitates a CPU clock to trigger subscribed functions in

@@ -1,5 +1,5 @@
 import Vector3 from "./Vector3.js";
-import { laneWidth, lineWidth } from "../Segment.js";
+import { laneWidth, lineWidth } from "../../Segment.js";
 
 /**
  * This class represents the camera in the game. This camera is used as a

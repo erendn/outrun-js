@@ -1,6 +1,6 @@
-import AssetLoader from "./engine/AssetLoader.js";
+import AssetLoader from "./engine/core/AssetLoader.js";
 import Radio from "./Radio.js";
-import Canvas from "./engine/Canvas.js";
+import Canvas from "./engine/geometry/Canvas.js";
 import EventListener from "./EventListener.js";
 import { GameWorld } from "./GameWorld.js";
 

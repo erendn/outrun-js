@@ -1,9 +1,9 @@
-import AssetLoader from "./engine/AssetLoader.js";
+import AssetLoader from "./engine/core/AssetLoader.js";
 import { Player } from "./Player.js";
 import { Road, trackNumLanes } from "./Road.js";
-import Vector3 from "./engine/Vector3.js";
+import Vector3 from "./engine/geometry/Vector3.js";
 import { Outrun } from "./Game.js";
-import Canvas from "./engine/Canvas.js";
+import Canvas from "./engine/geometry/Canvas.js";
 import { Segment } from "./Segment.js";
 
 /**

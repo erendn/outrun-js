@@ -1,5 +1,5 @@
-import AssetLoader from "./AssetLoader.js";
-import ConfigManager from "./ConfigManager.js";
+import AssetLoader from "../core/AssetLoader.js";
+import ConfigManager from "../core/ConfigManager.js";
 
 /**
  * This is the canvas (aka camera screen).
