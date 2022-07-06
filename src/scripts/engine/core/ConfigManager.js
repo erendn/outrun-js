@@ -15,19 +15,17 @@ class ConfigManager {
     }
 
     /**
-     * Load configuration from a JSON file.
+     * Asynchronous function to load configuration from a JSON file.
      */
-    loadFromFile(fileName) {
-        fetch(fileName)
-        // Convert to JSON object
-        .then(response => response.json())
+    async loadFromFile(fileName) {
+        // Fetch the JSON file
+        const res = await fetch(fileName);
+        const data = await res.json();
         // Store the configurations read from the file
-        .then(data => {
-            for (let key in data) {
-                this._configs[key] = data[key];
-            }
-            this._ready = true;
-        });
+        for (let key in data) {
+            this._configs[key] = data[key];
+        }
+        this._ready = true;
     }
 
     /**
