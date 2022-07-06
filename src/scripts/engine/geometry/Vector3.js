@@ -1,5 +1,6 @@
 import Camera from "./Camera.js";
 import Canvas from "./Canvas.js";
+import Vector2 from "./Vector2.js";
 
 /**
  * This is the 3D vector class.
@@ -7,13 +8,11 @@ import Canvas from "./Canvas.js";
 export default class Vector3 {
 
     constructor(x, y, z) {
-        // x, y, and z values
         this.x = x;
         this.y = y;
         this.z = z;
         // This point's projection on the screen
-        this.xScreen = 0;
-        this.yScreen = 0;
+        this.onScreen = new Vector2(0, 0);
     }
 
     /**
@@ -28,8 +27,8 @@ export default class Vector3 {
      */
     project() {
         let zDiff = this.z - Camera.position.z;
-        this.xScreen = Canvas.width / 2 + Camera.gap * (this.x - Camera.position.x) / zDiff;
-        this.yScreen = Canvas.height / 2 + Camera.gap * (Camera.position.y - this.y) / zDiff;
+        this.onScreen.x = Canvas.width / 2 + Camera.gap * (this.x - Camera.position.x) / zDiff;
+        this.onScreen.y = Canvas.height / 2 + Camera.gap * (Camera.position.y - this.y) / zDiff;
     }
 
 }

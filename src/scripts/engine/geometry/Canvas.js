@@ -67,7 +67,7 @@ class Canvas2D {
      * Draw an image on the canvas with its center point and dimension.
      */
     drawImage(image, center, width, height) {
-        this.canvasContext.drawImage(image, center.xScreen - width / 2, center.yScreen - height, width, height);
+        this.canvasContext.drawImage(image, center.x - width / 2, center.y - height, width, height);
     }
 
     /**
@@ -80,12 +80,12 @@ class Canvas2D {
     /**
      * Draw a tetragon with its points and color given.
      */
-    drawShape(point1, point2, point3, point4, color) {
+    drawShape(points, color) {
         this.canvasContext.beginPath();
-        this.canvasContext.moveTo(point1.xScreen, point1.yScreen);
-        this.canvasContext.lineTo(point2.xScreen, point2.yScreen);
-        this.canvasContext.lineTo(point3.xScreen, point3.yScreen);
-        this.canvasContext.lineTo(point4.xScreen, point4.yScreen);
+        this.canvasContext.moveTo(points[0].x, points[0].y);
+        this.canvasContext.lineTo(points[1].x, points[1].y);
+        this.canvasContext.lineTo(points[2].x, points[2].y);
+        this.canvasContext.lineTo(points[3].x, points[3].y);
         this.canvasContext.fillStyle = color;
         this.canvasContext.fill();
         this.canvasContext.strokeStyle = color;

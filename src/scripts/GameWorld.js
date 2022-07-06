@@ -93,12 +93,12 @@ export class GameWorld {
             let segment = this.road.segments[i];
             let color = segment.isDark ? this.currentColor.darkOffroadColor : this.currentColor.lightOffroadColor;
             if (segment instanceof Segment) {
-                Canvas.drawShape(segment.offroad.upLeft, segment.offroad.upRight, segment.offroad.downRight, segment.offroad.downLeft, color);
+                Canvas.drawShape(segment.offroad.getCorners(), color);
             } else {
                 let subSegment = segment.leftJunction;
-                Canvas.drawShape(subSegment.offroad.upLeft, subSegment.offroad.upRight, subSegment.offroad.downRight, subSegment.offroad.downLeft, color);
+                Canvas.drawShape(subSegment.offroad.getCorners(), color);
                 subSegment = segment.rightJunction;
-                Canvas.drawShape(subSegment.offroad.upLeft, subSegment.offroad.upRight, subSegment.offroad.downRight, subSegment.offroad.downLeft, color);
+                Canvas.drawShape(subSegment.offroad.getCorners(), color);
             }
         }
         // Draw all roads from back to front
@@ -108,44 +108,44 @@ export class GameWorld {
             let sideColor = segment.isDark ? this.currentColor.darkSideColor : this.currentColor.lightSideColor;
             let lineColor = segment.isDark ? this.currentColor.darkLineColor : this.currentColor.lightLineColor;
             if (segment instanceof Segment) {
-                Canvas.drawShape(segment.asphalt.upLeft, segment.asphalt.upRight, segment.asphalt.downRight, segment.asphalt.downLeft, asphaltColor);
-                Canvas.drawShape(segment.leftSide.upLeft, segment.leftSide.upRight, segment.leftSide.downRight, segment.leftSide.downLeft, sideColor);
-                Canvas.drawShape(segment.rightSide.upLeft, segment.rightSide.upRight, segment.rightSide.downRight, segment.rightSide.downLeft, sideColor);
+                Canvas.drawShape(segment.asphalt.getCorners(), asphaltColor);
+                Canvas.drawShape(segment.leftSide.getCorners(), sideColor);
+                Canvas.drawShape(segment.rightSide.getCorners(), sideColor);
                 for (let j = 0; j < segment.numLanes - 1; j++) {
-                    Canvas.drawShape(segment.lines[j].upLeft, segment.lines[j].upRight, segment.lines[j].downRight, segment.lines[j].downLeft, lineColor);
+                    Canvas.drawShape(segment.lines[j].getCorners(), lineColor);
                 }
                 for (let j = 0; j < segment.objects.length; j++) {
                     let object = segment.objects[j];
                     let sprite = AssetLoader.getSprite("environment", this.route, object.fileName);
                     if (sprite != undefined)
-                        Canvas.drawImage(sprite, object.center, object.relWidth, object.relHeight);
+                        Canvas.drawImage(sprite, object.center.onScreen, object.relWidth, object.relHeight);
                 }
             } else {
                 let subSegment = segment.leftJunction;
-                Canvas.drawShape(subSegment.asphalt.upLeft, subSegment.asphalt.upRight, subSegment.asphalt.downRight, subSegment.asphalt.downLeft, asphaltColor);
-                Canvas.drawShape(subSegment.leftSide.upLeft, subSegment.leftSide.upRight, subSegment.leftSide.downRight, subSegment.leftSide.downLeft, sideColor);
-                Canvas.drawShape(subSegment.rightSide.upLeft, subSegment.rightSide.upRight, subSegment.rightSide.downRight, subSegment.rightSide.downLeft, sideColor);
+                Canvas.drawShape(subSegment.asphalt.getCorners(), asphaltColor);
+                Canvas.drawShape(subSegment.leftSide.getCorners(), sideColor);
+                Canvas.drawShape(subSegment.rightSide.getCorners(), sideColor);
                 for (let j = 0; j < subSegment.numLanes - 1; j++) {
-                    Canvas.drawShape(subSegment.lines[j].upLeft, subSegment.lines[j].upRight, subSegment.lines[j].downRight, subSegment.lines[j].downLeft, lineColor);
+                    Canvas.drawShape(subSegment.lines[j].getCorners(), lineColor);
                 }
                 for (let j = 0; j < subSegment.objects.length; j++) {
                     let object = subSegment.objects[j];
                     let sprite = AssetLoader.getSprite("environment", this.route, object.fileName);
                     if (sprite != undefined)
-                    Canvas.drawImage(sprite, object.center, object.relWidth, object.relHeight);
+                    Canvas.drawImage(sprite, object.center.onScreen, object.relWidth, object.relHeight);
                 }
                 subSegment = segment.rightJunction;
-                Canvas.drawShape(subSegment.asphalt.upLeft, subSegment.asphalt.upRight, subSegment.asphalt.downRight, subSegment.asphalt.downLeft, asphaltColor);
-                Canvas.drawShape(subSegment.leftSide.upLeft, subSegment.leftSide.upRight, subSegment.leftSide.downRight, subSegment.leftSide.downLeft, sideColor);
-                Canvas.drawShape(subSegment.rightSide.upLeft, subSegment.rightSide.upRight, subSegment.rightSide.downRight, subSegment.rightSide.downLeft, sideColor);
+                Canvas.drawShape(subSegment.asphalt.getCorners(), asphaltColor);
+                Canvas.drawShape(subSegment.leftSide.getCorners(), sideColor);
+                Canvas.drawShape(subSegment.rightSide.getCorners(), sideColor);
                 for (let j = 0; j < subSegment.numLanes - 1; j++) {
-                    Canvas.drawShape(subSegment.lines[j].upLeft, subSegment.lines[j].upRight, subSegment.lines[j].downRight, subSegment.lines[j].downLeft, lineColor);
+                    Canvas.drawShape(subSegment.lines[j].getCorners(), lineColor);
                 }
                 for (let j = 0; j < subSegment.objects.length; j++) {
                     let object = subSegment.objects[j];
                     let sprite = AssetLoader.getSprite("environment", this.route, object.fileName);
                     if (sprite != undefined)
-                        Canvas.drawImage(sprite, object.center, object.relWidth, object.relHeight);
+                        Canvas.drawImage(sprite, object.center.onScreen, object.relWidth, object.relHeight);
                 }
             }
         }
@@ -155,13 +155,13 @@ export class GameWorld {
             let position = this.road.findIndex(vehicle.car.center.z);
             if (position > currentIndex & position < maxRendered)
                 Canvas.drawImage(AssetLoader.getSprite("vehicles", vehicle.vehicleType, vehicle.car.fileName),
-                                 vehicle.car.center,
+                                 vehicle.car.center.onScreen,
                                  vehicle.car.relWidth,
                                  vehicle.car.relHeight);
         }
         // Draw the driver's car
         Canvas.drawImage(AssetLoader.getSprite("ferrari", Driver.car.fileName),
-                         Driver.car.center,
+                         Driver.car.center.onScreen,
                          Driver.car.relWidth,
                          Driver.car.relHeight);
         // Draw the HUD

@@ -1,5 +1,6 @@
-import Vector3 from "./Vector3.js";
 import Camera from "./Camera.js";
+import Vector2 from "./Vector2.js";
+import Vector3 from "./Vector3.js";
 
 /**
  * This class represents a ground tile in the game.
@@ -13,8 +14,16 @@ export class Tile {
         this.width = prevTile.width;
         this.downLeft = prevTile.upLeft;
         this.downRight = prevTile.upRight;
-        this.upLeft = new Vector3();
-        this.upRight = new Vector3();
+        this.upLeft = new Vector2();
+        this.upRight = new Vector2();
+    }
+
+    getCorners() {
+        // FIXME: Remove the Vector3 part below
+        if (this.downLeft instanceof Vector3) {
+            return [this.upLeft, this.upRight, this.downRight.onScreen, this.downLeft.onScreen];
+        }
+        return [this.upLeft, this.upRight, this.downRight, this.downLeft];
     }
 
     /**
@@ -24,20 +33,20 @@ export class Tile {
     project(measure2) {
         let relSpace = Vector3.calculate(this.space, Camera.gap, measure2);
         let relWidth = Vector3.calculate(this.width, Camera.gap, measure2);
-        this.upLeft.xScreen = this.highCenter.xScreen + relSpace - relWidth / 2;
-        this.upLeft.yScreen = this.highCenter.yScreen;
-        this.upRight.xScreen = this.highCenter.xScreen + relSpace + relWidth / 2;
-        this.upRight.yScreen = this.highCenter.yScreen;
+        this.upLeft.x = this.highCenter.onScreen.x + relSpace - relWidth / 2;
+        this.upLeft.y = this.highCenter.onScreen.y;
+        this.upRight.x = this.highCenter.onScreen.x + relSpace + relWidth / 2;
+        this.upRight.y = this.highCenter.onScreen.y;
     }
 
     /**
      * Project the tile with given relative space and relative width values.
      */
     calculate(relSpace, relWidth) {
-        this.upLeft.xScreen = this.highCenter.xScreen + relSpace - relWidth / 2;
-        this.upLeft.yScreen = this.highCenter.yScreen;
-        this.upRight.xScreen = this.highCenter.xScreen + relSpace + relWidth / 2;
-        this.upRight.yScreen = this.highCenter.yScreen;
+        this.upLeft.x = this.highCenter.onScreen.x + relSpace - relWidth / 2;
+        this.upLeft.y = this.highCenter.onScreen.y;
+        this.upRight.x = this.highCenter.onScreen.x + relSpace + relWidth / 2;
+        this.upRight.y = this.highCenter.onScreen.y;
     }
 
 }
