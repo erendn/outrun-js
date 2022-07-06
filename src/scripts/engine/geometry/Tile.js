@@ -1,5 +1,5 @@
-import Vector3 from "./engine/geometry/Vector3.js";
-import { Driver } from "./GameWorld.js";
+import Vector3 from "./Vector3.js";
+import Camera from "./Camera.js";
 
 /**
  * This class represents a ground tile in the game.
@@ -22,8 +22,8 @@ export class Tile {
      * function in the Game class.
      */
     project(measure2) {
-        let relSpace = Vector3.calculate(this.space, Driver.camera.gap, measure2);
-        let relWidth = Vector3.calculate(this.width, Driver.camera.gap, measure2);
+        let relSpace = Vector3.calculate(this.space, Camera.gap, measure2);
+        let relWidth = Vector3.calculate(this.width, Camera.gap, measure2);
         this.upLeft.xScreen = this.highCenter.xScreen + relSpace - relWidth / 2;
         this.upLeft.yScreen = this.highCenter.yScreen;
         this.upRight.xScreen = this.highCenter.xScreen + relSpace + relWidth / 2;

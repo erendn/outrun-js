@@ -1,5 +1,5 @@
 import Vector3 from "./engine/geometry/Vector3.js";
-import { Tile } from "./Tile.js";
+import { Tile } from "./engine/geometry/Tile.js";
 import { WorldObject } from "./WorldObject.js";
 import { Driver } from "./GameWorld.js";
 import { Outrun } from "./Game.js";
