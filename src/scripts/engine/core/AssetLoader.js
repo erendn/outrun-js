@@ -1,3 +1,6 @@
+/**
+ * This class is responsible for loading all files under the "assets" folder.
+ */
 class AssetLoader {
 
     constructor() {
@@ -8,6 +11,9 @@ class AssetLoader {
         this.loadAssets();
     }
 
+    /**
+     * Convert the path of a file to a unique key for maps.
+     */
     static _makeKey(args) {
         let key = "";
         for (let i = 0; i < args.length; ++i) {
@@ -19,10 +25,16 @@ class AssetLoader {
         return key;
     }
 
+    /**
+     * Return the percentage of the loaded assets.
+     */
     loadPercentage() {
         return (this._sprites.size + this._sounds.size + this._colors.size) / this._totalAssetCount;
     }
 
+    /**
+     * Asynchronous function to load all assets.
+     */
     async loadAssets() {
         // Fetch the "dir" file
         const res = await fetch("./src/assets/dir");
@@ -43,6 +55,9 @@ class AssetLoader {
         }
     }
 
+    /**
+     * Load the sprite from the given path.
+     */
     _loadSprite(path) {
         const that = this;
         let image = new Image();
@@ -54,6 +69,9 @@ class AssetLoader {
         this._totalAssetCount++;
     }
 
+    /**
+     * Load the sound from the given path.
+     */
     _loadSound(path) {
         const that = this;
         let audio = new Audio();
@@ -69,6 +87,9 @@ class AssetLoader {
         this._totalAssetCount++;
     }
 
+    /**
+     * Load the color config from the given path.
+     */
     _loadColor(path) {
         const that = this;
         fetch("./src/assets/colors/" + path)
@@ -79,14 +100,23 @@ class AssetLoader {
         this._totalAssetCount++;
     }
 
+    /**
+     * Return the sprite object with the given key.
+     */
     getSprite() {
         return this._sprites.get(AssetLoader._makeKey(arguments));
     }
-    
+
+    /**
+     * Return the sound object with the given key.
+     */
     getSound() {
         return this._sounds.get(AssetLoader._makeKey(arguments));
     }
 
+    /**
+     * Return the color config object with the given key.
+     */
     getColor() {
         return this._colors.get(AssetLoader._makeKey(arguments));
     }
