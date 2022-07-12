@@ -1,28 +1,36 @@
 import Camera from "./Camera.js";
+import Canvas from "./Canvas.js";
 import Vector2 from "./Vector2.js";
 import Vector3 from "./Vector3.js";
 
 /**
  * This class represents a ground tile in the game.
  */
-export class Tile {
+export default class Tile {
 
-    constructor(prevTile, highCenter) {
-        this.lowCenter = prevTile.highCenter;
-        this.highCenter = highCenter;
-        this.space = prevTile.space;
-        this.width = prevTile.width;
-        this.downLeft = prevTile.upLeft;
-        this.downRight = prevTile.upRight;
-        this.upLeft = new Vector2();
-        this.upRight = new Vector2();
+    constructor(prev, segment, skew, width, infinite=false) {
+        this.lowCenter = segment._lowCenter;
+        this.highCenter = segment._highCenter;
+        this.skew = skew;
+        this.width = width;
+        this.infinite = infinite;
+        if (prev == null) {
+            prev = {
+                upLeft: new Vector2(0, 0),
+                upRight: new Vector2(0, 0),
+            }
+        }
+        this.downLeft = prev.upLeft;
+        this.downRight = prev.upRight;
+        this.upLeft = new Vector2(0, 0);
+        this.upRight = new Vector2(0, 0);
+    }
+
+    getColor() {
+        throw new Error("Implement the getColor() method in the child class.");
     }
 
     getCorners() {
-        // FIXME: Remove the Vector3 part below
-        if (this.downLeft instanceof Vector3) {
-            return [this.upLeft, this.upRight, this.downRight.onScreen, this.downLeft.onScreen];
-        }
         return [this.upLeft, this.upRight, this.downRight, this.downLeft];
     }
 
@@ -30,23 +38,27 @@ export class Tile {
      * This function is called once at each game cycle by the mainLoop()
      * function in the Game class.
      */
-    project(measure2) {
-        let relSpace = Vector3.calculate(this.space, Camera.gap, measure2);
-        let relWidth = Vector3.calculate(this.width, Camera.gap, measure2);
-        this.upLeft.x = this.highCenter.onScreen.x + relSpace - relWidth / 2;
+    project(zDiff) {
+        let relSkew = Vector3.calculate(this.skew, Camera.gap, zDiff);
+        let relWidth = Vector3.calculate(this.width, Camera.gap, zDiff);
+        this.upLeft.x = this.infinite ? 0 : this.highCenter.onScreen.x + relSkew - relWidth / 2;
         this.upLeft.y = this.highCenter.onScreen.y;
-        this.upRight.x = this.highCenter.onScreen.x + relSpace + relWidth / 2;
+        this.upRight.x = this.infinite ? Canvas.width : this.highCenter.onScreen.x + relSkew + relWidth / 2;
         this.upRight.y = this.highCenter.onScreen.y;
     }
 
     /**
      * Project the tile with given relative space and relative width values.
      */
-    calculate(relSpace, relWidth) {
-        this.upLeft.x = this.highCenter.onScreen.x + relSpace - relWidth / 2;
+    calculate(relSkew, relWidth) {
+        this.upLeft.x = this.highCenter.onScreen.x + relSkew - relWidth / 2;
         this.upLeft.y = this.highCenter.onScreen.y;
-        this.upRight.x = this.highCenter.onScreen.x + relSpace + relWidth / 2;
+        this.upRight.x = this.highCenter.onScreen.x + relSkew + relWidth / 2;
         this.upRight.y = this.highCenter.onScreen.y;
+    }
+
+    draw(isDark) {
+        Canvas.drawShape(this.getCorners(), this.getColor(isDark));
     }
 
 }

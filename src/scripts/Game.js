@@ -2,7 +2,14 @@ import AssetLoader from "./engine/core/AssetLoader.js";
 import Radio from "./Radio.js";
 import Canvas from "./engine/geometry/Canvas.js";
 import EventListener from "./EventListener.js";
-import { GameWorld } from "./GameWorld.js";
+import Camera from "./engine/geometry/Camera.js";
+import GameWorld from "./engine/render/GameWorld.js";
+import Segment from "./engine/geometry/Segment.js";
+import GroundTile from "./tiles/GroundTile.js";
+import AsphaltTile from "./tiles/AsphaltTile.js";
+import SideTile from "./tiles/SideTile.js";
+import LineTile from "./tiles/GroundTile.js";
+import Vector3 from "./engine/geometry/Vector3.js";
 
 /**
  * This is the game class that executes the main function of the game.
@@ -11,10 +18,10 @@ class Game {
 
     constructor() {
         this.scene = MENU_SCENE; // Current scene of the game
-        this.renderSize = 300; // Render distance
         // FIXME: The game shouldn't start immediately
         this.playable = true; // If the game is playable
         this.startDelay = 0; // Delay when starting the game
+        this.route = "coconut-beach"; // FIXME: Move somewhere else
     }
 
     /**
@@ -27,8 +34,31 @@ class Game {
     /**
      * Create a new game.
      */
-    newGame() {
-        this.gameWorld = new GameWorld();
+    setup() {
+        GameWorld.reset();
+        // FIXME: Don't use window size below, it's irrelevant to the canvas sizes
+        Camera.setup(Canvas.width, Canvas.height, 700, 120);
+        let segment = null;
+        let ground = null;
+        let asphalt = null;
+        let side = null;
+        let line = null;
+        for (let i = 0; i < 1001; ++i) {
+            segment = new Segment(segment, 0, 0, i % (2 * 6) < 6);
+            ground = new GroundTile(ground, segment);
+            asphalt = new AsphaltTile(asphalt, segment);
+            side = new SideTile(side, segment);
+            // line = new LineTile(line, segment);
+            segment.addTile(ground);
+            segment.addTile(asphalt);
+            segment.addTile(side);
+            // segment.addTile(line);
+            if (i == 0) {
+                segment.project();
+            } else {
+                GameWorld.addSegment(segment);
+            }
+        }
     }
 
     /**
@@ -59,19 +89,11 @@ class Game {
                 if (Outrun.scene == MENU_SCENE | Outrun.scene == RADIO_SCENE) {
                     Radio.draw();
                 } else if (Outrun.scene == IN_GAME_SCENE) {
-                    if (!Outrun.playable) {
-                        Outrun.startDelay = (Outrun.startDelay + 1) % FPS;
-                        // FIXME: Fix the code below
-                        // if (!Outrun.startDelay)
-                        //     Outrun.gameWorld.road.nextLight();
-                    }
-                    Outrun.gameWorld.play();
-                    Outrun.gameWorld.update();
-                    Outrun.gameWorld.draw();
+                    GameWorld.project();
+                    GameWorld.draw();
                 }
             }
         }
-
         requestAnimationFrame(Outrun.mainLoop);
     }
 

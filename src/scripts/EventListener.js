@@ -2,7 +2,7 @@ import AssetLoader from "./engine/core/AssetLoader.js";
 import AudioPlayer from "./engine/core/AudioPlayer.js";
 import Radio from "./Radio.js";
 import { Outrun, MENU_SCENE, RADIO_SCENE, IN_GAME_SCENE } from "./Game.js";
-import { Driver } from "./GameWorld.js";
+import Camera from "./engine/geometry/Camera.js";
 
 /**
  * This is the event listener class. It listens to the keyboard events.
@@ -47,18 +47,18 @@ class EventListener {
                         Radio.music++;
                 } else if (key == KEY_ENTER) {
                     AudioPlayer.stop("sample/wave");
-                    Outrun.newGame();
+                    Outrun.setup();
                     Outrun.scene = IN_GAME_SCENE;
                 }
             } else if (Outrun.scene == IN_GAME_SCENE) {
                 if (key == KEY_UP) {
-                    Driver.accelerate = true;
+                    Camera.position.z += 50;
                 } else if (key == KEY_DOWN) {
-                    Driver.decelerate = true;
+                    Camera.position.z -= 50;
                 } else if (key == KEY_LEFT) {
-                    Driver.steerLeft = true;
+                    Camera.position.x -= 50;
                 } else if (key == KEY_RIGHT) {
-                    Driver.steerRight = true;
+                    Camera.position.x += 50;
                 }
             }
         }
@@ -70,15 +70,6 @@ class EventListener {
     keyUp(event) {
         const key = EventListener.normalize(event.which);
         if (Outrun.scene == IN_GAME_SCENE) {
-            if (key == KEY_UP) {
-                Driver.accelerate = false;
-            } else if (key == KEY_DOWN) {
-                Driver.decelerate = false;
-            } else if (key == KEY_LEFT) {
-                Driver.steerLeft = false;
-            } else if (key == KEY_RIGHT) {
-                Driver.steerRight = false;
-            }
         }
     }
 

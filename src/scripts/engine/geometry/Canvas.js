@@ -79,6 +79,9 @@ class Canvas2D {
      * Draw a tetragon with its points and color given.
      */
     drawShape(points, color) {
+        for (let i = 0; i < points.length; ++i) {
+            points[i].y = Math.ceil(points[i].y) + 0.5;
+        }
         this.canvasContext.beginPath();
         this.canvasContext.moveTo(points[0].x, points[0].y);
         this.canvasContext.lineTo(points[1].x, points[1].y);
