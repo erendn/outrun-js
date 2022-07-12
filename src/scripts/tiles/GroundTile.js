@@ -1,6 +1,7 @@
 import AssetLoader from "../engine/core/AssetLoader.js";
 import Tile from "../engine/geometry/Tile.js";
 import { Outrun } from "../Game.js";
+import { GROUND_SKEW, GROUND_WIDTH } from "../constants/TileConstants.js";
 
 export default class GroundTile extends Tile {
 
@@ -14,6 +15,3 @@ export default class GroundTile extends Tile {
     }
 
 }
-
-const GROUND_SKEW = 0; // Ground is not skewed
-const GROUND_WIDTH = 1; // Ground's width is infinite
