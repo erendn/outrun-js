@@ -8,8 +8,7 @@ import Segment from "./engine/geometry/Segment.js";
 import GroundTile from "./tiles/GroundTile.js";
 import AsphaltTile from "./tiles/AsphaltTile.js";
 import SideTile from "./tiles/SideTile.js";
-import LineTile from "./tiles/GroundTile.js";
-import Vector3 from "./engine/geometry/Vector3.js";
+import LineTile from "./tiles/LineTile.js";
 
 /**
  * This is the game class that executes the main function of the game.
@@ -37,22 +36,30 @@ class Game {
     setup() {
         GameWorld.reset();
         // FIXME: Don't use window size below, it's irrelevant to the canvas sizes
-        Camera.setup(Canvas.width, Canvas.height, 700, 120);
+        Camera.setup(Canvas.width, Canvas.height, 1000, 120);
         let segment = null;
         let ground = null;
         let asphalt = null;
-        let side = null;
-        let line = null;
+        let sides = [null, null];
+        let lines = [null, null, null, null, null, null];
         for (let i = 0; i < 1001; ++i) {
             segment = new Segment(segment, 0, 0, i % (2 * 6) < 6);
             ground = new GroundTile(ground, segment);
             asphalt = new AsphaltTile(asphalt, segment);
-            side = new SideTile(side, segment);
-            // line = new LineTile(line, segment);
+            for (let j = 0; j < 2; ++j) {
+                sides[j] = new SideTile(sides[j], segment, j * 2 - 1);
+            }
+            for (let j = 0; j < 5; ++j) {
+                lines[j] = new LineTile(lines[j], segment, j - 2);
+            }
             segment.addTile(ground);
             segment.addTile(asphalt);
-            segment.addTile(side);
-            // segment.addTile(line);
+            for (let j = 0; j < 2; ++j) {
+                segment.addTile(sides[j]);
+            }
+            for (let j = 0; j < 5; ++j) {
+                segment.addTile(lines[j]);
+            }
             if (i == 0) {
                 segment.project();
             } else {

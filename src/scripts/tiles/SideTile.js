@@ -5,8 +5,8 @@ import { SIDE_SKEW, SIDE_WIDTH } from "../constants/TileConstants.js";
 
 export default class SideTile extends Tile {
 
-    constructor(prev, segment) {
-        super(prev, segment, SIDE_SKEW, SIDE_WIDTH, false);
+    constructor(prev, segment, skewMultiply=1) {
+        super(prev, segment, SIDE_SKEW * skewMultiply, SIDE_WIDTH, false);
     }
 
     getColor(isDark) {

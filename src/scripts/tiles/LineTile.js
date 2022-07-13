@@ -5,8 +5,8 @@ import { LINE_SKEW, LINE_WIDTH } from "../constants/TileConstants.js";
 
 export default class LineTile extends Tile {
 
-    constructor(prev, segment) {
-        super(prev, segment, LINE_SKEW, LINE_WIDTH, false);
+    constructor(prev, segment, skewMultiply=1) {
+        super(prev, segment, LINE_SKEW * skewMultiply, LINE_WIDTH, false);
     }
 
     getColor(isDark) {
