@@ -1,7 +1,7 @@
 import Camera from "./Camera.js";
 import Canvas from "../render/Canvas.js";
+import { thales } from "../geometry/Utils.js";
 import Vector2 from "../geometry/Vector2.js";
-import Vector3 from "../geometry/Vector3.js";
 
 /**
  * This class represents a ground tile in the game.
@@ -39,21 +39,11 @@ export default class Tile {
      * function in the Game class.
      */
     project(zDiff) {
-        let relSkew = Vector3.calculate(this.skew, Camera.gap, zDiff);
-        let relWidth = Vector3.calculate(this.width, Camera.gap, zDiff);
+        const relSkew = thales(this.skew, Camera.gap, zDiff);
+        const relWidth = thales(this.width, Camera.gap, zDiff);
         this.upLeft.x = this.infinite ? 0 : this.highCenter.onScreen.x + relSkew - relWidth / 2;
         this.upLeft.y = this.highCenter.onScreen.y;
         this.upRight.x = this.infinite ? Canvas.width : this.highCenter.onScreen.x + relSkew + relWidth / 2;
-        this.upRight.y = this.highCenter.onScreen.y;
-    }
-
-    /**
-     * Project the tile with given relative space and relative width values.
-     */
-    calculate(relSkew, relWidth) {
-        this.upLeft.x = this.highCenter.onScreen.x + relSkew - relWidth / 2;
-        this.upLeft.y = this.highCenter.onScreen.y;
-        this.upRight.x = this.highCenter.onScreen.x + relSkew + relWidth / 2;
         this.upRight.y = this.highCenter.onScreen.y;
     }
 

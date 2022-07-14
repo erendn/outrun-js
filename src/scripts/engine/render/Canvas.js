@@ -80,6 +80,7 @@ class Canvas2D {
      */
     drawShape(points, color) {
         for (let i = 0; i < points.length; ++i) {
+            points[i].x = Math.ceil(points[i].x) + (0 < i && i < 3 ? 0.5 : -0.5);
             points[i].y = Math.ceil(points[i].y) + 0.5;
         }
         this.canvasContext.beginPath();
