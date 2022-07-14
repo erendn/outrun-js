@@ -1,4 +1,5 @@
 import AssetLoader from "./engine/core/AssetLoader.js";
+import Clock from "./engine/core/Clock.js";
 import Radio from "./Radio.js";
 import Canvas from "./engine/render/Canvas.js";
 import EventListener from "./EventListener.js";
@@ -27,7 +28,8 @@ class Game {
      * Initialize the game by taking the current time, loading all assets, and creating the event listener.
      */
     init() {
-        time = new Date().getTime();
+        Clock.subscribe(this.mainLoop);
+        Clock.startClock();
     }
 
     /**
@@ -69,39 +71,23 @@ class Game {
     }
 
     /**
-     * Start the game.
-     */
-    start() {
-        Outrun.init();
-        Outrun.mainLoop();
-    }
-
-    /**
      * This is the main loop function of the game. Once executed, it calls itself continuously.
      */
     mainLoop() {
-        // Take the millisecond difference from the last time the game is updated
-        currentTime = new Date().getTime();
-        let milliseconds = currentTime - time;
-        // Update if the millisecond difference is above the FPS limit
-        if (milliseconds >= 1000 / FPS) {
-            time = currentTime;
-            // If all assets are not yet loaded, draw the loading screen
-            if (AssetLoader.loadPercentage() < 1) {
-                Outrun.drawLoading();
-            } else {
-                // Update the radio
-                Radio.update();
-                // Draw the current scene
-                if (Outrun.scene == MENU_SCENE | Outrun.scene == RADIO_SCENE) {
-                    Radio.draw();
-                } else if (Outrun.scene == IN_GAME_SCENE) {
-                    GameWorld.project();
-                    GameWorld.draw();
-                }
+        // If all assets are not yet loaded, draw the loading screen
+        if (AssetLoader.loadPercentage() < 1) {
+            Outrun.drawLoading();
+        } else {
+            // Update the radio
+            Radio.update();
+            // Draw the current scene
+            if (Outrun.scene == MENU_SCENE | Outrun.scene == RADIO_SCENE) {
+                Radio.draw();
+            } else if (Outrun.scene == IN_GAME_SCENE) {
+                GameWorld.project();
+                GameWorld.draw();
             }
         }
-        requestAnimationFrame(Outrun.mainLoop);
     }
 
     /**
@@ -126,11 +112,6 @@ class Game {
 export const MENU_SCENE = "menu";
 export const RADIO_SCENE = "radio";
 export const IN_GAME_SCENE = "drive";
-
-const FPS = 60; // Frames per second
-
-let time = null;
-let currentTime = null;
 
 // TODO: Add the singleton design pattern
 export const Outrun = new Game(); // Singleton instance of Game

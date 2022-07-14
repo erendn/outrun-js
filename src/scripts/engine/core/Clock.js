@@ -1,4 +1,4 @@
-import ConfigManager from "../ConfigManager.js";
+import ConfigManager from "./ConfigManager.js";
 
 /**
  * This class imitates a CPU clock to trigger subscribed functions in
@@ -10,23 +10,31 @@ class Clock {
         this._active = false; // Whether the clock is still running
         this._stop = false; // Whether the clock will stop soon
         this._subs = []; // Subscribed functions
+        this._lastTickTime = Date.now(); // Milliseconds of the last tick
+        this.lastFPS = 0; // FPS of the last frame
     }
 
     /**
      * This is called in each cycle.
      */
     _tick() {
-        this._active = true; // Clock is still running
-        // Stop the clock if flagged
-        if (this._stop) {
-            this._active = false;
-            this._stop = false;
-            return;
+        const FPS = ConfigManager.get("clock_freq");
+        const currentTickTime = Date.now();
+        if (currentTickTime - _Clock._lastTickTime >= 1000 / FPS) {
+            _Clock._active = true; // Clock is still running
+            // Stop the clock if flagged
+            if (_Clock._stop) {
+                _Clock._active = false;
+                _Clock._stop = false;
+                return;
+            }
+            for (let i = 0; i < _Clock._subs.length; ++i) {
+                _Clock._subs[i](); // Call the given function
+            }
+            _Clock.lastFPS = 1000 / (currentTickTime - _Clock._lastTickTime);
+            _Clock._lastTickTime = currentTickTime;
         }
-        for (let i = 0; i < this._subs.length; ++i) {
-            this._subs[i](); // Call the given function
-        }
-        setTimeout(() => {this._tick()}, 1000 / ConfigManager.get("clock_freq")); // Run the function again
+        requestAnimationFrame(_Clock._tick);
     }
 
     /**

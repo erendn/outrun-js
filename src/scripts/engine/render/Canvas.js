@@ -9,39 +9,34 @@ class Canvas2D {
     constructor() {
         this.canvas = document.getElementById("screen"); // HTML canvas
         this.canvasContext = this.canvas.getContext("2d", CANVAS_CONFIG); // 2D context of the HTML canvas
+        this.setup();
     }
 
     /**
      * Setup the canvas.
-     * FIXME: Non-blocking hence not safe. Implement engine signalling in order to fix.
      */
     setup() {
-        // Wait for engine configuration to be ready
-        if (!ConfigManager.isReady()) {
-            requestAnimationFrame(_Canvas2D.setup);
-            return;
-        }
         const width = ConfigManager.get("canvas_width"); // Width of the HTML canvas
         const height = ConfigManager.get("canvas_height"); // Height of the HTML canvas
-        _Canvas2D.canvas.width = width;
-        _Canvas2D.canvas.height = height;
+        this.canvas.width = width;
+        this.canvas.height = height;
         const canvasRatio = width / height; // Original ratio of the canvas
         // Resize the canvas' style keeping the original ratio
         if (window.innerWidth / window.innerHeight <= canvasRatio) {
-            _Canvas2D.canvas.style.width = window.innerWidth;
-            _Canvas2D.canvas.style.height = window.innerWidth / canvasRatio;
+            this.canvas.style.width = window.innerWidth;
+            this.canvas.style.height = window.innerWidth / canvasRatio;
         } else {
-            _Canvas2D.canvas.style.width = window.innerHeight * canvasRatio;
-            _Canvas2D.canvas.style.height = window.innerHeight;
+            this.canvas.style.width = window.innerHeight * canvasRatio;
+            this.canvas.style.height = window.innerHeight;
         }
-        _Canvas2D.width = width; // Original width of the canvas
-        _Canvas2D.height = height; // Original height of the canvas
+        this.width = width; // Original width of the canvas
+        this.height = height; // Original height of the canvas
         // Prepare a gradient for later use
-        _Canvas2D.gradient = _Canvas2D.canvasContext.createLinearGradient(0, 0, 0, 200);
-        _Canvas2D.gradient.addColorStop(1, "white");
+        this.gradient = this.canvasContext.createLinearGradient(0, 0, 0, 200);
+        this.gradient.addColorStop(1, "white");
         // Disable image smoothing for better graphics
-        _Canvas2D.canvasContext.mozImageSmoothingEnabled = false;
-        _Canvas2D.canvasContext.imageSmoothingEnabled = false;
+        this.canvasContext.mozImageSmoothingEnabled = false;
+        this.canvasContext.imageSmoothingEnabled = false;
     }
 
     /**
@@ -139,5 +134,4 @@ const CANVAS_CONFIG = {
 }
 
 const _Canvas2D = new Canvas2D(); // Singleton instance
-_Canvas2D.setup(); // Setup here
 export default _Canvas2D;
