@@ -1,5 +1,5 @@
 import ConfigManager from "../core/ConfigManager.js";
-import Camera from "../geometry/Camera.js";
+import Camera from "./Camera.js";
 
 class GameWorld {
 

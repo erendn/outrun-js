@@ -1,5 +1,5 @@
-import Camera from "./Camera.js";
-import Canvas from "./Canvas.js";
+import Camera from "../render/Camera.js";
+import Canvas from "../render/Canvas.js";
 import Vector2 from "./Vector2.js";
 
 /**

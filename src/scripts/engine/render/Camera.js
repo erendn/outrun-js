@@ -1,4 +1,4 @@
-import Vector3 from "./Vector3.js";
+import Vector3 from "../geometry/Vector3.js";
 
 /**
  * This class represents the camera in the game. This camera is used as a

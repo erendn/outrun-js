@@ -1,7 +1,7 @@
 import Camera from "./Camera.js";
-import Canvas from "./Canvas.js";
-import Vector2 from "./Vector2.js";
-import Vector3 from "./Vector3.js";
+import Canvas from "../render/Canvas.js";
+import Vector2 from "../geometry/Vector2.js";
+import Vector3 from "../geometry/Vector3.js";
 
 /**
  * This class represents a ground tile in the game.

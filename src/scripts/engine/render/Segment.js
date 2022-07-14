@@ -1,6 +1,6 @@
 import ConfigManager from "../core/ConfigManager.js";
 import Camera from "./Camera.js";
-import Vector3 from "./Vector3.js";
+import Vector3 from "../geometry/Vector3.js";
 
 export default class Segment {
 

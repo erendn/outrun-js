@@ -1,5 +1,5 @@
 import AssetLoader from "../engine/core/AssetLoader.js";
-import Tile from "../engine/geometry/Tile.js";
+import Tile from "../engine/render/Tile.js";
 import { Outrun } from "../Game.js";
 import { ASPHALT_SKEW, ASPHALT_WIDTH } from "../constants/TileConstants.js";
 
