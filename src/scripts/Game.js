@@ -10,6 +10,7 @@ import GroundTile from "./tiles/GroundTile.js";
 import AsphaltTile from "./tiles/AsphaltTile.js";
 import SideTile from "./tiles/SideTile.js";
 import LineTile from "./tiles/LineTile.js";
+import { MENU_SCENE, RADIO_SCENE, IN_GAME_SCENE } from "./constants/Scenes.js";
 
 /**
  * This is the game class that executes the main function of the game.
@@ -108,10 +109,6 @@ class Game {
     }
 
 }
-
-export const MENU_SCENE = "menu";
-export const RADIO_SCENE = "radio";
-export const IN_GAME_SCENE = "drive";
 
 // TODO: Add the singleton design pattern
 export const Outrun = new Game(); // Singleton instance of Game

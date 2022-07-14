@@ -1,7 +1,8 @@
 import AssetLoader from "./engine/core/AssetLoader.js";
 import AudioPlayer from "./engine/core/AudioPlayer.js";
 import Radio from "./Radio.js";
-import { Outrun, MENU_SCENE, RADIO_SCENE, IN_GAME_SCENE } from "./Game.js";
+import { Outrun } from "./Game.js";
+import { MENU_SCENE, RADIO_SCENE, IN_GAME_SCENE } from "./constants/Scenes.js";
 import Camera from "./engine/render/Camera.js";
 
 /**
