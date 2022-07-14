@@ -77,14 +77,14 @@ class Game {
     mainLoop() {
         // If all assets are not yet loaded, draw the loading screen
         if (AssetLoader.loadPercentage() < 1) {
-            Outrun.drawLoading();
+            _Game.drawLoading();
         } else {
             // Update the radio
             Radio.update();
             // Draw the current scene
-            if (Outrun.scene == MENU_SCENE | Outrun.scene == RADIO_SCENE) {
+            if (_Game.scene == MENU_SCENE | _Game.scene == RADIO_SCENE) {
                 Radio.draw();
-            } else if (Outrun.scene == IN_GAME_SCENE) {
+            } else if (_Game.scene == IN_GAME_SCENE) {
                 GameWorld.project();
                 GameWorld.draw();
             }
@@ -110,5 +110,5 @@ class Game {
 
 }
 
-// TODO: Add the singleton design pattern
-export const Outrun = new Game(); // Singleton instance of Game
+const _Game = new Game(); // Singleton instance
+export default _Game;

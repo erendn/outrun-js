@@ -1,6 +1,6 @@
 import AssetLoader from "./engine/core/AssetLoader.js";
 import AudioPlayer from "./engine/core/AudioPlayer.js";
-import { Outrun } from "./Game.js";
+import Game from "./Game.js";
 import Canvas from "./engine/render/Canvas.js";
 import { MENU_SCENE, RADIO_SCENE, IN_GAME_SCENE } from "./constants/Scenes.js";
 
@@ -28,7 +28,7 @@ class Radio {
     update() {
         // Play animations and sounds, and select the music to be played in the 
         // game during the menu and radio scenes.
-        if (Outrun.scene == MENU_SCENE | Outrun.scene == RADIO_SCENE) {
+        if (Game.scene == MENU_SCENE | Game.scene == RADIO_SCENE) {
             // Reduce delay in each update. When delay reaches zero, choose a
             // random animation to be played.
             this.delay = (this.delay + 1) % radioDelay;
@@ -48,7 +48,7 @@ class Radio {
             }
         // If this is the in-game scene, play the same music continuously.
         // TODO: Change the music once it finishes
-        } else if (Outrun.scene == IN_GAME_SCENE) {
+        } else if (Game.scene == IN_GAME_SCENE) {
             if (!this.musicStarted) {
                 AudioPlayer.play("music/music-" + this.music, true);
                 this.musicStarted = true;
@@ -71,7 +71,7 @@ class Radio {
             Canvas.drawStaticImage(AssetLoader.getSprite("radio", "radio-dot-" + (i < 4 ? "green" : "red")), 156 + i * 3, 190, 2, 2);
         }
         Canvas.drawStaticImage(AssetLoader.getSprite("radio", "radio-hand-" + this.music), 117, 165, 133, 59);
-        if (Outrun.scene == MENU_SCENE) {
+        if (Game.scene == MENU_SCENE) {
             Canvas.drawStaticImage(AssetLoader.getSprite("menu", "logo-bg-" + this.background), 72, 18, 176, 88);
             Canvas.drawStaticImage(AssetLoader.getSprite("menu", "logo-road"), 81, 80, 95, 25);
             Canvas.drawStaticImage(AssetLoader.getSprite("menu", "logo-car"), 127, 66, 64, 39);

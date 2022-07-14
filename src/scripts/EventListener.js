@@ -1,7 +1,7 @@
 import AssetLoader from "./engine/core/AssetLoader.js";
 import AudioPlayer from "./engine/core/AudioPlayer.js";
 import Radio from "./Radio.js";
-import { Outrun } from "./Game.js";
+import Game from "./Game.js";
 import { MENU_SCENE, RADIO_SCENE, IN_GAME_SCENE } from "./constants/Scenes.js";
 import Camera from "./engine/render/Camera.js";
 
@@ -34,12 +34,12 @@ class EventListener {
     keyDown(event) {
         const key = EventListener.normalize(event.which);
         if (AssetLoader.loadPercentage() == 1) {
-            if (Outrun.scene == MENU_SCENE) {
+            if (Game.scene == MENU_SCENE) {
                 if (key == KEY_ENTER) {
-                    Outrun.scene = RADIO_SCENE;
+                    Game.scene = RADIO_SCENE;
                     AudioPlayer.play("sample/coin");
                 }
-            } else if (Outrun.scene == RADIO_SCENE) {
+            } else if (Game.scene == RADIO_SCENE) {
                 if (key == KEY_LEFT) {
                     if (Radio.music != 0)
                         Radio.music--;
@@ -48,10 +48,10 @@ class EventListener {
                         Radio.music++;
                 } else if (key == KEY_ENTER) {
                     AudioPlayer.stop("sample/wave");
-                    Outrun.setup();
-                    Outrun.scene = IN_GAME_SCENE;
+                    Game.setup();
+                    Game.scene = IN_GAME_SCENE;
                 }
-            } else if (Outrun.scene == IN_GAME_SCENE) {
+            } else if (Game.scene == IN_GAME_SCENE) {
                 if (key == KEY_UP) {
                     Camera.position.z += 50;
                 } else if (key == KEY_DOWN) {
@@ -70,7 +70,7 @@ class EventListener {
      */
     keyUp(event) {
         const key = EventListener.normalize(event.which);
-        if (Outrun.scene == IN_GAME_SCENE) {
+        if (Game.scene == IN_GAME_SCENE) {
         }
     }
 

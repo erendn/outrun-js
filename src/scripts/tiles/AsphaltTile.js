@@ -1,6 +1,6 @@
 import AssetLoader from "../engine/core/AssetLoader.js";
 import Tile from "../engine/render/Tile.js";
-import { Outrun } from "../Game.js";
+import Game from "../Game.js";
 import { ASPHALT_SKEW, ASPHALT_WIDTH } from "../constants/TileConstants.js";
 
 /**
@@ -16,7 +16,7 @@ export default class AsphaltTile extends Tile {
      * Return the color of the tile.
      */
     getColor(isDark) {
-        const colors = AssetLoader.getColor("codes")[Outrun.route];
+        const colors = AssetLoader.getColor("codes")[Game.route];
         return isDark ? colors.darkAsphaltColor : colors.lightAsphaltColor;
     }
 

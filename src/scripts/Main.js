@@ -11,9 +11,9 @@ async function main() {
         return;
     }
     // Load the module dynamically
-    const { Outrun } = await import("./Game.js");
+    const Game = await import("./Game.js");
     // Start the game
-    Outrun.init();
+    Game.default.init();
 }
 
 window.addEventListener("load", main);
