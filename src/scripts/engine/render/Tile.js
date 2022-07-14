@@ -4,7 +4,7 @@ import { thales } from "../geometry/Utils.js";
 import Vector2 from "../geometry/Vector2.js";
 
 /**
- * This class represents a ground tile in the game.
+ * This class represents a tile in the game.
  */
 export default class Tile {
 
@@ -26,10 +26,16 @@ export default class Tile {
         this.upRight = new Vector2(0, 0);
     }
 
+    /**
+     * Abstract function to return the color of this tile.
+     */
     getColor() {
         throw new Error("Implement the getColor() method in the child class.");
     }
 
+    /**
+     * Return the corners of this tile, starting from up-left and moving clockwise.
+     */
     getCorners() {
         return [this.upLeft, this.upRight, this.downRight, this.downLeft];
     }
@@ -47,6 +53,9 @@ export default class Tile {
         this.upRight.y = this.highCenter.onScreen.y;
     }
 
+    /**
+     * Draw this tile on the canvas.
+     */
     draw(isDark) {
         Canvas.drawShape(this.getCorners(), this.getColor(isDark));
     }

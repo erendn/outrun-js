@@ -10,6 +10,9 @@ class ConfigManager {
         this.loadFromFile("./src/scripts/engine/config.json"); // Load the default configuration of the engine
     }
 
+    /**
+     * Return if the default config has been loaded.
+     */
     isReady() {
         return this._ready;
     }
