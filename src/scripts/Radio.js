@@ -14,11 +14,22 @@ class Radio {
         this.delay = 0; // Used for radio signal animation
         this.dots = 3; // Number of dots in the radio signal animation
         this.music = 1; // Number of music to be played
+        this.backgroundChange = 0; // Delay for the wave animation
         this.background = 0; // Number of wave sprite for the animation
         this.tree = 0; // Number of tree sprite for the animation
         this.flash = 0; // Number of flash sprite for the animation
         this.waveStarted = false;
         this.musicStarted = false;
+    }
+
+    /**
+     * Return a unique random number considering the current value.
+     */
+    static getRandom(current, range) {
+        do {
+            var random = Math.floor(Math.random() * range);
+        } while (current == random);
+        return random;
     }
 
     /**
@@ -35,11 +46,15 @@ class Radio {
             if (!this.delay) {
                 this.dots--;
                 if (this.dots < 0) {
-                    this.dots = 3 + Math.random() * 4;
+                    this.dots = 3 + Radio.getRandom(this.dots - 3, 4);
                 }
-                // TODO: Randomize the animations below
-                this.background = (this.background + 1) % 6;
-                this.tree = (this.tree + 1) % 3;
+                if (this.backgroundChange == 0) {
+                    this.background = Radio.getRandom(this.background, 6);
+                    this.backgroundChange = 1;
+                } else {
+                    this.backgroundChange--;
+                }
+                this.tree = Radio.getRandom(this.tree, 3);
                 this.flash = (this.flash + 1) % 10;
             }
             if (!this.waveStarted) {
