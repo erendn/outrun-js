@@ -38,7 +38,6 @@ class Game {
      */
     setup() {
         GameWorld.reset();
-        // FIXME: Don't use window size below, it's irrelevant to the canvas sizes
         Camera.setup(Canvas.width, Canvas.height, 1000, 120);
         let segment = null;
         let ground = null;

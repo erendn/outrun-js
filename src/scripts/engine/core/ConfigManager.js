@@ -5,7 +5,6 @@ class ConfigManager {
 
     constructor() {
         this._configs = {}; // Store configs here
-        // FIXME: This can be moved to another module
         this._ready = false; // Whether the engine config has been loaded
         this.loadFromFile("./src/scripts/engine/config.json"); // Load the default configuration of the engine
     }
