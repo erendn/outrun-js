@@ -1,6 +1,7 @@
 {
     "volume": 1,
     "clock_freq": 60,
+    "canvas_depth": 3,
     "canvas_width": 320,
     "canvas_height": 224,
     "render_dist": 300,

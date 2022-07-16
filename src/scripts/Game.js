@@ -11,6 +11,7 @@ import AsphaltTile from "./tiles/AsphaltTile.js";
 import SideTile from "./tiles/SideTile.js";
 import LineTile from "./tiles/LineTile.js";
 import { MENU_SCENE, RADIO_SCENE, IN_GAME_SCENE } from "./constants/Scenes.js";
+import { INTERFACE_CANVAS } from "./constants/Canvas.js";
 
 /**
  * This is the game class that executes the main function of the game.
@@ -37,6 +38,7 @@ class Game {
      * Create a new game.
      */
     setup() {
+        Canvas.clear(INTERFACE_CANVAS);
         GameWorld.reset();
         Camera.setup(Canvas.width, Canvas.height, 1000, 120);
         let segment = null;
@@ -94,16 +96,16 @@ class Game {
      * Draw the loading screen.
      */
     drawLoading() {
-        Canvas.fill("#008BFF");
-        Canvas.canvasContext.fillStyle = "#000000";
-        Canvas.canvasContext.fillRect(99, 126, 121, 12);
-        Canvas.canvasContext.fillStyle = "#F7F700";
-        Canvas.canvasContext.fillRect(99, 126, 121 * AssetLoader.loadPercentage(), 12);
+        Canvas.fill(INTERFACE_CANVAS, "#008BFF");
+        Canvas.context[INTERFACE_CANVAS].fillStyle = "#000000";
+        Canvas.context[INTERFACE_CANVAS].fillRect(99, 126, 121, 12);
+        Canvas.context[INTERFACE_CANVAS].fillStyle = "#F7F700";
+        Canvas.context[INTERFACE_CANVAS].fillRect(99, 126, 121 * AssetLoader.loadPercentage(), 12);
         let box = AssetLoader.getSprite("loading/loading-box");
         let text = AssetLoader.getSprite("loading/loading-text");
         if (box != undefined && text != undefined) {
-            Canvas.drawStaticImage(box, 98, 125, 124, 15);
-            Canvas.drawStaticImage(text, 106, 84, 109, 28);
+            Canvas.drawStaticImage(INTERFACE_CANVAS, box, 98, 125, 124, 15);
+            Canvas.drawStaticImage(INTERFACE_CANVAS, text, 106, 84, 109, 28);
         }
     }
 

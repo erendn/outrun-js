@@ -7,95 +7,114 @@ import ConfigManager from "../core/ConfigManager.js";
 class Canvas2D {
 
     constructor() {
-        this.canvas = document.getElementById("screen"); // HTML canvas
-        this.canvasContext = this.canvas.getContext("2d", CANVAS_CONFIG); // 2D context of the HTML canvas
+        this.canvas = [];
+        this.context = [];
+        this.gradient = [];
         this.setup();
     }
-
+    
     /**
      * Setup the canvas.
      */
     setup() {
+        const depth = ConfigManager.get("canvas_depth"); // Depth of the HTML canvas (aka number of canvases)
         const width = ConfigManager.get("canvas_width"); // Width of the HTML canvas
         const height = ConfigManager.get("canvas_height"); // Height of the HTML canvas
-        this.canvas.width = width;
-        this.canvas.height = height;
-        const canvasRatio = width / height; // Original ratio of the canvas
-        // Resize the canvas' style keeping the original ratio
-        if (window.innerWidth / window.innerHeight <= canvasRatio) {
-            this.canvas.style.width = window.innerWidth;
-            this.canvas.style.height = window.innerWidth / canvasRatio;
-        } else {
-            this.canvas.style.width = window.innerHeight * canvasRatio;
-            this.canvas.style.height = window.innerHeight;
+        for (let i = 0; i < depth; ++i) {
+            const canvas = document.createElement("canvas");
+            const context = canvas.getContext("2d", CANVAS_CONFIG);
+            canvas.width = width;
+            canvas.height = height;
+            const canvasRatio = width / height; // Original ratio of the canvas
+            // Resize the canvas' style keeping the original ratio
+            if (window.innerWidth / window.innerHeight <= canvasRatio) {
+                canvas.style.width = window.innerWidth;
+                canvas.style.height = window.innerWidth / canvasRatio;
+            } else {
+                canvas.style.width = window.innerHeight * canvasRatio;
+                canvas.style.height = window.innerHeight;
+            }
+            this.width = width; // Original width of the canvas
+            this.height = height; // Original height of the canvas
+            // Prepare a gradient for later use
+            const gradient = context.createLinearGradient(0, 0, 0, 200);
+            gradient.addColorStop(1, "white");
+            // Disable image smoothing for better graphics
+            context.mozImageSmoothingEnabled = false;
+            context.imageSmoothingEnabled = false;
+            // Add this canvas to the array
+            this.canvas.push(canvas);
+            this.context.push(context);
+            this.gradient.push(gradient);
+            // Append this canvas on the document
+            document.body.appendChild(canvas);
         }
-        this.width = width; // Original width of the canvas
-        this.height = height; // Original height of the canvas
-        // Prepare a gradient for later use
-        this.gradient = this.canvasContext.createLinearGradient(0, 0, 0, 200);
-        this.gradient.addColorStop(1, "white");
-        // Disable image smoothing for better graphics
-        this.canvasContext.mozImageSmoothingEnabled = false;
-        this.canvasContext.imageSmoothingEnabled = false;
+    }
+
+    /**
+     * Clear the canvas.
+     */
+    clear(depth) {
+        this.context[depth].clearRect(0, 0, this.width, this.height);
     }
 
     /**
      * Fill the canvas with a color.
      */
-    fill(color) {
-        this.canvasContext.fillStyle = color;
-        this.canvasContext.fillRect(0, 0, this.width, this.height);
+    fill(depth, color) {
+        this.context[depth].fillStyle = color;
+        this.context[depth].fillRect(0, 0, this.width, this.height);
     }
 
     /**
      * Fill the canvas with a color gradient.
      */
-    fillGradient(color) {
-        this.gradient.addColorStop(0, color);
-        this.canvasContext.fillStyle = this.gradient;
-        this.canvasContext.fillRect(0, 0, this.width, this.height);
+    fillGradient(depth, color) {
+        this.gradient[depth].addColorStop(0, color);
+        this.context[depth].fillStyle = this.gradient[depth];
+        this.context[depth].fillRect(0, 0, this.width, this.height);
     }
 
     /**
      * Draw an image on the canvas with its center point and dimension.
      */
-    drawImage(image, center, width, height) {
-        this.canvasContext.drawImage(image, center.x - width / 2, center.y - height, width, height);
+    drawImage(depth, image, center, width, height) {
+        this.context[depth].drawImage(image, center.x - width / 2, center.y - height, width, height);
     }
 
     /**
      * Draw a static image on the canvas with its top left corner and dimension.
      */
-    drawStaticImage(image, x, y, width, height) {
-        this.canvasContext.drawImage(image, x, y, width, height);
+    drawStaticImage(depth, image, x, y, width, height) {
+        this.context[depth].drawImage(image, x, y, width, height);
     }
 
     /**
      * Draw a tetragon with its points and color given.
      */
-    drawShape(points, color) {
+    drawShape(depth, points, color) {
         for (let i = 0; i < points.length; ++i) {
             points[i].x = Math.ceil(points[i].x) + (0 < i && i < 3 ? 0.5 : -0.5);
             points[i].y = Math.ceil(points[i].y) + 0.5;
         }
-        this.canvasContext.beginPath();
-        this.canvasContext.moveTo(points[0].x, points[0].y);
-        this.canvasContext.lineTo(points[1].x, points[1].y);
-        this.canvasContext.lineTo(points[2].x, points[2].y);
-        this.canvasContext.lineTo(points[3].x, points[3].y);
-        this.canvasContext.fillStyle = color;
-        this.canvasContext.fill();
-        this.canvasContext.strokeStyle = color;
-        this.canvasContext.stroke();
+        this.context[depth].beginPath();
+        this.context[depth].moveTo(points[0].x, points[0].y);
+        this.context[depth].lineTo(points[1].x, points[1].y);
+        this.context[depth].lineTo(points[2].x, points[2].y);
+        this.context[depth].lineTo(points[3].x, points[3].y);
+        this.context[depth].fillStyle = color;
+        this.context[depth].fill();
+        this.context[depth].strokeStyle = color;
+        this.context[depth].stroke();
     }
 
     /**
      * Draw a text on the screen.
      */
-    drawText(text) {
+    drawText(depth, text) {
         for (let i = 0; i < text.length; i++) {
             // FIXME: Don't use sprites here
-            this.drawStaticImage(AssetLoader.getSprite("hud/digits", text.charAt(text.length - i - 1)), 19 - i * 8, 209, 7, 12);
+            this.drawStaticImage(depth, AssetLoader.getSprite("hud/digits", text.charAt(text.length - i - 1)), 19 - i * 8, 209, 7, 12);
         }
 
     }
@@ -128,7 +147,6 @@ class Canvas2D {
 }
 
 const CANVAS_CONFIG = {
-    alpha: false,
     antialias: false,
     depth: false,
 }

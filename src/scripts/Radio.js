@@ -3,6 +3,7 @@ import AudioPlayer from "./engine/core/AudioPlayer.js";
 import Game from "./Game.js";
 import Canvas from "./engine/render/Canvas.js";
 import { MENU_SCENE, RADIO_SCENE, IN_GAME_SCENE } from "./constants/Scenes.js";
+import { INTERFACE_CANVAS } from "./constants/Canvas.js";
 
 /**
  * This class manages the audio in the game. It can currently play main menu
@@ -76,32 +77,32 @@ class Radio {
      * function in the Game class.
      */
     draw() {
-        Canvas.fill("#008BFF"); // Background color in the menu and radio scenes
+        Canvas.fill(INTERFACE_CANVAS, "#008BFF"); // Background color in the menu and radio scenes
         // Draw all sprites to the top of the background color
-        Canvas.drawStaticImage(AssetLoader.getSprite("radio/radio-car"), 0, 0, Canvas.width, Canvas.height);
-        Canvas.drawStaticImage(AssetLoader.getSprite("radio/radio"), 127, 166, 126, 30);
-        Canvas.drawStaticImage(AssetLoader.getSprite("radio", "radio-freq-" + this.music), 143, 173, 24, 7);
+        Canvas.drawStaticImage(INTERFACE_CANVAS, AssetLoader.getSprite("radio/radio-car"), 0, 0, Canvas.width, Canvas.height);
+        Canvas.drawStaticImage(INTERFACE_CANVAS, AssetLoader.getSprite("radio/radio"), 127, 166, 126, 30);
+        Canvas.drawStaticImage(INTERFACE_CANVAS, AssetLoader.getSprite("radio", "radio-freq-" + this.music), 143, 173, 24, 7);
         for (let i = 0; i < this.dots; i++) {
-            Canvas.drawStaticImage(AssetLoader.getSprite("radio", "radio-dot-" + (i < 4 ? "green" : "red")), 156 + i * 3, 187, 2, 2);
-            Canvas.drawStaticImage(AssetLoader.getSprite("radio", "radio-dot-" + (i < 4 ? "green" : "red")), 156 + i * 3, 190, 2, 2);
+            Canvas.drawStaticImage(INTERFACE_CANVAS, AssetLoader.getSprite("radio", "radio-dot-" + (i < 4 ? "green" : "red")), 156 + i * 3, 187, 2, 2);
+            Canvas.drawStaticImage(INTERFACE_CANVAS, AssetLoader.getSprite("radio", "radio-dot-" + (i < 4 ? "green" : "red")), 156 + i * 3, 190, 2, 2);
         }
-        Canvas.drawStaticImage(AssetLoader.getSprite("radio", "radio-hand-" + this.music), 117, 165, 133, 59);
+        Canvas.drawStaticImage(INTERFACE_CANVAS, AssetLoader.getSprite("radio", "radio-hand-" + this.music), 117, 165, 133, 59);
         if (Game.scene == MENU_SCENE) {
-            Canvas.drawStaticImage(AssetLoader.getSprite("menu", "logo-bg-" + this.background), 72, 18, 176, 88);
-            Canvas.drawStaticImage(AssetLoader.getSprite("menu", "logo-road"), 81, 80, 95, 25);
-            Canvas.drawStaticImage(AssetLoader.getSprite("menu", "logo-car"), 127, 66, 64, 39);
-            Canvas.drawStaticImage(AssetLoader.getSprite("menu", "logo-tree-" + this.tree), 75, 30, 46, 57);
-            Canvas.drawStaticImage(AssetLoader.getSprite("menu", "logo-text"), 109, 33, 135, 36);
+            Canvas.drawStaticImage(INTERFACE_CANVAS, AssetLoader.getSprite("menu", "logo-bg-" + this.background), 72, 18, 176, 88);
+            Canvas.drawStaticImage(INTERFACE_CANVAS, AssetLoader.getSprite("menu", "logo-road"), 81, 80, 95, 25);
+            Canvas.drawStaticImage(INTERFACE_CANVAS, AssetLoader.getSprite("menu", "logo-car"), 127, 66, 64, 39);
+            Canvas.drawStaticImage(INTERFACE_CANVAS, AssetLoader.getSprite("menu", "logo-tree-" + this.tree), 75, 30, 46, 57);
+            Canvas.drawStaticImage(INTERFACE_CANVAS, AssetLoader.getSprite("menu", "logo-text"), 109, 33, 135, 36);
             if (this.flash < 5)
-                Canvas.drawStaticImage(AssetLoader.getSprite("text", "press-enter"), 111, 123, 97, 8);
+                Canvas.drawStaticImage(INTERFACE_CANVAS, AssetLoader.getSprite("text", "press-enter"), 111, 123, 97, 8);
         } else {
-            Canvas.drawStaticImage(AssetLoader.getSprite("text", "select-music"), 65, 67, 191, 14);
+            Canvas.drawStaticImage(INTERFACE_CANVAS, AssetLoader.getSprite("text", "select-music"), 65, 67, 191, 14);
             if (this.music == 0) {
-                Canvas.drawStaticImage(AssetLoader.getSprite("text", "music-0"), 72, 88, 175, 16);
+                Canvas.drawStaticImage(INTERFACE_CANVAS, AssetLoader.getSprite("text", "music-0"), 72, 88, 175, 16);
             } else if (this.music == 1) {
-                Canvas.drawStaticImage(AssetLoader.getSprite("text", "music-1"), 96, 88, 127, 16);
+                Canvas.drawStaticImage(INTERFACE_CANVAS, AssetLoader.getSprite("text", "music-1"), 96, 88, 127, 16);
             } else {
-                Canvas.drawStaticImage(AssetLoader.getSprite("text", "music-2"), 108, 88, 103, 16);
+                Canvas.drawStaticImage(INTERFACE_CANVAS, AssetLoader.getSprite("text", "music-2"), 108, 88, 103, 16);
             }
         }
     }

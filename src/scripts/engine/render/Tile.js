@@ -2,6 +2,7 @@ import Camera from "./Camera.js";
 import Canvas from "../render/Canvas.js";
 import { thales } from "../geometry/Utils.js";
 import Vector2 from "../geometry/Vector2.js";
+import { IN_GAME_CANVAS } from "../../constants/Canvas.js";
 
 /**
  * This class represents a tile in the game.
@@ -57,7 +58,7 @@ export default class Tile {
      * Draw this tile on the canvas.
      */
     draw(isDark) {
-        Canvas.drawShape(this.getCorners(), this.getColor(isDark));
+        Canvas.drawShape(IN_GAME_CANVAS, this.getCorners(), this.getColor(isDark));
     }
 
 }
