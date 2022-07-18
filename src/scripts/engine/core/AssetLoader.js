@@ -7,7 +7,7 @@ class AssetLoader {
         this._sprites = new Map();
         this._sounds = new Map();
         this._colors = new Map();
-        this._totalAssetCount = 0;
+        this._totalAssetCount = 1;
         this.loadAssets();
     }
 
@@ -42,6 +42,9 @@ class AssetLoader {
         const text = await data.text();
         // Load all files
         const lines = text.split("\n");
+        // Set total asset count here
+        this._totalAssetCount = lines.length - 1;
+        // Load all assets
         for (let i = 0; i < lines.length - 1; ++i) {
             const lineParts = lines[i].split("/");
             const path = AssetLoader._makeKey(lineParts.slice(1));
@@ -66,7 +69,6 @@ class AssetLoader {
             that._sprites.set(path.split(".")[0], image);
         }
         image.src = "./src/assets/sprites/" + path;
-        this._totalAssetCount++;
     }
 
     /**
@@ -84,7 +86,6 @@ class AssetLoader {
             that._sounds.set(path.split(".")[0], audio);
         }
         audio.src = "./src/assets/sounds/" + path;
-        this._totalAssetCount++;
     }
 
     /**
@@ -97,7 +98,6 @@ class AssetLoader {
         .then(data => {
             that._colors.set(path.split(".")[0], data);
         });
-        this._totalAssetCount++;
     }
 
     /**
