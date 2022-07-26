@@ -1,7 +1,7 @@
 import AssetLoader from "../engine/core/AssetLoader.js";
 import Tile from "../engine/render/Tile.js";
 import Game from "../Game.js";
-import { GROUND_SKEW, GROUND_WIDTH } from "../constants/TileConstants.js";
+import { GROUND_SKEW, GROUND_WIDTH } from "../constants/Tiles.js";
 
 /**
  * This class represents a ground tile in the game.

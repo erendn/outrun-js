@@ -1,7 +1,7 @@
 import AssetLoader from "../engine/core/AssetLoader.js";
 import Tile from "../engine/render/Tile.js";
 import Game from "../Game.js";
-import { SIDE_SKEW, SIDE_WIDTH } from "../constants/TileConstants.js";
+import { SIDE_SKEW, SIDE_WIDTH } from "../constants/Tiles.js";
 
 /**
  * This class represents a side tile in the game.

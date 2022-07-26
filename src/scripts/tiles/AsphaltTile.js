@@ -1,7 +1,7 @@
 import AssetLoader from "../engine/core/AssetLoader.js";
 import Tile from "../engine/render/Tile.js";
 import Game from "../Game.js";
-import { ASPHALT_SKEW, ASPHALT_WIDTH } from "../constants/TileConstants.js";
+import { ASPHALT_SKEW, ASPHALT_WIDTH } from "../constants/Tiles.js";
 
 /**
  * This class represents an asphalt tile in the game.

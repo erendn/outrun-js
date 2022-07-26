@@ -1,7 +1,7 @@
 import AssetLoader from "../engine/core/AssetLoader.js";
 import Tile from "../engine/render/Tile.js";
 import Game from "../Game.js";
-import { LINE_SKEW, LINE_WIDTH } from "../constants/TileConstants.js";
+import { LINE_SKEW, LINE_WIDTH } from "../constants/Tiles.js";
 
 /**
  * This class represents a line tile in the game.
