@@ -111,12 +111,15 @@ class Canvas2D {
     /**
      * Draw a text on the screen.
      */
-    drawText(depth, text) {
+    drawText(depth, font, text, tileX, tileY) {
+        const tilemapWidth = ConfigManager.get("tilemap_width");
+        const tilemapHeight = ConfigManager.get("tilemap_height");
         for (let i = 0; i < text.length; i++) {
-            // FIXME: Don't use sprites here
-            this.drawStaticImage(depth, AssetLoader.getSprite("hud/digits", text.charAt(text.length - i - 1)), 19 - i * 8, 209, 7, 12);
+            const fontPos = font.getPosition(text.charAt(i));
+            this.context[depth].drawImage(font.image,
+                                          fontPos.x, fontPos.y, font.width, font.height,
+                                          (tileX + i) * tilemapWidth, tileY * tilemapHeight, font.width, font.height);
         }
-
     }
 
     /**

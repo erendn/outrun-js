@@ -7,6 +7,7 @@ class AssetLoader {
         this._sprites = new Map();
         this._sounds = new Map();
         this._colors = new Map();
+        this._fonts = new Map();
         this._totalAssetCount = 1;
         this.loadAssets();
     }
@@ -29,7 +30,7 @@ class AssetLoader {
      * Return the percentage of the loaded assets.
      */
     loadPercentage() {
-        return (this._sprites.size + this._sounds.size + this._colors.size) / this._totalAssetCount;
+        return (this._sprites.size + this._sounds.size + this._colors.size + this._fonts.size) / this._totalAssetCount;
     }
 
     /**
@@ -54,6 +55,8 @@ class AssetLoader {
                 this._loadSound(path);
             } else if (lineParts[0] == "colors") {
                 this._loadColor(path);
+            } else if (lineParts[0] == "fonts") {
+                this._loadFont(path);
             }
         }
     }
@@ -101,6 +104,19 @@ class AssetLoader {
     }
 
     /**
+     * Load the font from the given path.
+     */
+    _loadFont(path) {
+        const that = this;
+        let image = new Image();
+        image.onload = function() {
+            // FIXME: File name should not have "."
+            that._fonts.set(path.split(".")[0], image);
+        }
+        image.src = "./src/assets/fonts/" + path;
+    }
+
+    /**
      * Return the sprite object with the given key.
      */
     getSprite() {
@@ -119,6 +135,13 @@ class AssetLoader {
      */
     getColor() {
         return this._colors.get(AssetLoader._makeKey(arguments));
+    }
+
+    /**
+     * Return the font object with the given key.
+     */
+    getFont() {
+        return this._fonts.get(AssetLoader._makeKey(arguments));
     }
 
 }

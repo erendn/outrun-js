@@ -1,0 +1,12 @@
+export const _0 = 48;
+export const _9 = 57;
+export const _A = 65;
+export const _Z = 90;
+export const _a = 97;
+export const _z = 122;
+export const _DOT = 46;
+export const _APOSTROPHE = 39;
+export const _QUOTE = 34;
+export const _EXCLAMATION = 33;
+export const _QUESTION = 63;
+export const _UNDERSCORE = 95;

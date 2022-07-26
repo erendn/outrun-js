@@ -4,6 +4,8 @@
     "canvas_depth": 3,
     "canvas_width": 320,
     "canvas_height": 224,
+    "tilemap_width": 8,
+    "tilemap_height": 8,
     "render_dist": 300,
     "segment_depth": 100
 }
