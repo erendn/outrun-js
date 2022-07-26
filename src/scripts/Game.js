@@ -12,6 +12,7 @@ import SideTile from "./tiles/SideTile.js";
 import LineTile from "./tiles/LineTile.js";
 import { MENU_SCENE, RADIO_SCENE, IN_GAME_SCENE } from "./constants/Scenes.js";
 import { INTERFACE_CANVAS } from "./constants/Canvas.js";
+import * as FONTS from "./constants/Fonts.js";
 
 /**
  * This is the game class that executes the main function of the game.
@@ -96,17 +97,20 @@ class Game {
      * Draw the loading screen.
      */
     drawLoading() {
+        const x = 85;
+        const y = 127;
+        const width = 150;
+        const height = 10;
         Canvas.fill(INTERFACE_CANVAS, "#008BFF");
+        Canvas.context[INTERFACE_CANVAS].strokeStyle = "#000000";
+        Canvas.context[INTERFACE_CANVAS].strokeRect(x + 0.5, y + 0.5, width + 1, height + 1);
+        Canvas.context[INTERFACE_CANVAS].strokeStyle = "#FFFFFF";
+        Canvas.context[INTERFACE_CANVAS].strokeRect(x - 0.5, y - 0.5, width + 1, height + 1);
         Canvas.context[INTERFACE_CANVAS].fillStyle = "#000000";
-        Canvas.context[INTERFACE_CANVAS].fillRect(99, 126, 121, 12);
+        Canvas.context[INTERFACE_CANVAS].fillRect(x, y, width, height);
         Canvas.context[INTERFACE_CANVAS].fillStyle = "#F7F700";
-        Canvas.context[INTERFACE_CANVAS].fillRect(99, 126, 121 * AssetLoader.loadPercentage(), 12);
-        let box = AssetLoader.getSprite("loading/loading-box");
-        let text = AssetLoader.getSprite("loading/loading-text");
-        if (box != undefined && text != undefined) {
-            Canvas.drawStaticImage(INTERFACE_CANVAS, box, 98, 125, 124, 15);
-            Canvas.drawStaticImage(INTERFACE_CANVAS, text, 106, 84, 109, 28);
-        }
+        Canvas.context[INTERFACE_CANVAS].fillRect(x, y, width * AssetLoader.loadPercentage(), height);
+        Canvas.drawText(INTERFACE_CANVAS, FONTS.YELLOW_LARGE_FONT, "loading", 16.5, 13);
     }
 
 }

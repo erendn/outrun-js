@@ -4,6 +4,7 @@ import Game from "./Game.js";
 import Canvas from "./engine/render/Canvas.js";
 import { MENU_SCENE, RADIO_SCENE, IN_GAME_SCENE } from "./constants/Scenes.js";
 import { INTERFACE_CANVAS } from "./constants/Canvas.js";
+import * as FONTS from "./constants/Fonts.js";
 
 /**
  * This class manages the audio in the game. It can currently play main menu
@@ -93,16 +94,20 @@ class Radio {
             Canvas.drawStaticImage(INTERFACE_CANVAS, AssetLoader.getSprite("menu", "logo-car"), 127, 66, 64, 39);
             Canvas.drawStaticImage(INTERFACE_CANVAS, AssetLoader.getSprite("menu", "logo-tree-" + this.tree), 75, 30, 46, 57);
             Canvas.drawStaticImage(INTERFACE_CANVAS, AssetLoader.getSprite("menu", "logo-text"), 109, 33, 135, 36);
-            if (this.flash < 5)
-                Canvas.drawStaticImage(INTERFACE_CANVAS, AssetLoader.getSprite("text", "press-enter"), 111, 123, 97, 8);
+            if (this.flash < 5) {
+                Canvas.drawText(INTERFACE_CANVAS, FONTS.PINK_MEDIUM_FONT, "press enter", 14.5, 15.5);
+            }
         } else {
-            Canvas.drawStaticImage(INTERFACE_CANVAS, AssetLoader.getSprite("text", "select-music"), 65, 67, 191, 14);
+            Canvas.drawText(INTERFACE_CANVAS, FONTS.YELLOW_LARGE_FONT, "select music by steering", 8, 8);
             if (this.music == 0) {
-                Canvas.drawStaticImage(INTERFACE_CANVAS, AssetLoader.getSprite("text", "music-0"), 72, 88, 175, 16);
+                Canvas.drawText(INTERFACE_CANVAS, FONTS.ORANGE_LARGE_FONT, "magical sound shower", 11, 11);
+                Canvas.drawText(INTERFACE_CANVAS, FONTS.PINK_LARGE_FONT, "'\"", 9, 11);
             } else if (this.music == 1) {
-                Canvas.drawStaticImage(INTERFACE_CANVAS, AssetLoader.getSprite("text", "music-1"), 96, 88, 127, 16);
+                Canvas.drawText(INTERFACE_CANVAS, FONTS.ORANGE_LARGE_FONT, "passing breeze", 14, 11);
+                Canvas.drawText(INTERFACE_CANVAS, FONTS.PINK_LARGE_FONT, "'\"", 12, 11);
             } else {
-                Canvas.drawStaticImage(INTERFACE_CANVAS, AssetLoader.getSprite("text", "music-2"), 108, 88, 103, 16);
+                Canvas.drawText(INTERFACE_CANVAS, FONTS.ORANGE_LARGE_FONT, "splash wave", 15.5, 11);
+                Canvas.drawText(INTERFACE_CANVAS, FONTS.PINK_LARGE_FONT, "'\"", 13.5, 11);
             }
         }
     }

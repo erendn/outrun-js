@@ -181,8 +181,6 @@ sprites/hud/map/seaside-town.png
 sprites/hud/map/vineyard.png
 sprites/hud/map/wheat-field.png
 sprites/hud/map/wilderness.png
-sprites/loading/loading-box.png
-sprites/loading/loading-text.png
 sprites/menu/logo-bg-0.png
 sprites/menu/logo-bg-1.png
 sprites/menu/logo-bg-2.png
@@ -205,11 +203,6 @@ sprites/radio/radio-hand-0.png
 sprites/radio/radio-hand-1.png
 sprites/radio/radio-hand-2.png
 sprites/radio/radio.png
-sprites/text/music-0.png
-sprites/text/music-1.png
-sprites/text/music-2.png
-sprites/text/press-enter.png
-sprites/text/select-music.png
 sprites/vehicles/vehicle-0/left-0.png
 sprites/vehicles/vehicle-0/left-1.png
 sprites/vehicles/vehicle-0/right-0.png

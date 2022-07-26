@@ -112,6 +112,9 @@ class Canvas2D {
      * Draw a text on the screen.
      */
     drawText(depth, font, text, tileX, tileY) {
+        if (font.image === undefined) {
+            return;
+        }
         const tilemapWidth = ConfigManager.get("tilemap_width");
         const tilemapHeight = ConfigManager.get("tilemap_height");
         for (let i = 0; i < text.length; i++) {
