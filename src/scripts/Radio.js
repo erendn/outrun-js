@@ -1,5 +1,6 @@
 import AssetLoader from "./engine/core/AssetLoader.js";
 import AudioPlayer from "./engine/core/AudioPlayer.js";
+import SceneManager from "./engine/core/SceneManager.js";
 import Game from "./Game.js";
 import Canvas from "./engine/render/Canvas.js";
 import { MENU_SCENE, RADIO_SCENE, IN_GAME_SCENE } from "./constants/Scenes.js";
@@ -39,9 +40,10 @@ class Radio {
      * function in the Game class.
      */
     update() {
+        const scene = SceneManager.get();
         // Play animations and sounds, and select the music to be played in the 
         // game during the menu and radio scenes.
-        if (Game.scene == MENU_SCENE | Game.scene == RADIO_SCENE) {
+        if (scene == MENU_SCENE | scene == RADIO_SCENE) {
             // Reduce delay in each update. When delay reaches zero, choose a
             // random animation to be played.
             this.delay = (this.delay + 1) % radioDelay;
@@ -65,7 +67,7 @@ class Radio {
             }
         // If this is the in-game scene, play the same music continuously.
         // TODO: Change the music once it finishes
-        } else if (Game.scene == IN_GAME_SCENE) {
+        } else if (scene == IN_GAME_SCENE) {
             if (!this.musicStarted) {
                 AudioPlayer.play("music/music-" + this.music, true);
                 this.musicStarted = true;
@@ -78,6 +80,7 @@ class Radio {
      * function in the Game class.
      */
     draw() {
+        const scene = SceneManager.get();
         Canvas.fill(INTERFACE_CANVAS, "#008BFF"); // Background color in the menu and radio scenes
         // Draw all sprites to the top of the background color
         Canvas.drawStaticImage(INTERFACE_CANVAS, AssetLoader.getSprite("radio/radio-car"), 0, 0, Canvas.width, Canvas.height);
@@ -88,7 +91,7 @@ class Radio {
             Canvas.drawStaticImage(INTERFACE_CANVAS, AssetLoader.getSprite("radio", "radio-dot-" + (i < 4 ? "green" : "red")), 156 + i * 3, 190, 2, 2);
         }
         Canvas.drawStaticImage(INTERFACE_CANVAS, AssetLoader.getSprite("radio", "radio-hand-" + this.music), 117, 165, 133, 59);
-        if (Game.scene == MENU_SCENE) {
+        if (scene == MENU_SCENE) {
             Canvas.drawStaticImage(INTERFACE_CANVAS, AssetLoader.getSprite("menu", "logo-bg-" + this.background), 72, 18, 176, 88);
             Canvas.drawStaticImage(INTERFACE_CANVAS, AssetLoader.getSprite("menu", "logo-road"), 81, 80, 95, 25);
             Canvas.drawStaticImage(INTERFACE_CANVAS, AssetLoader.getSprite("menu", "logo-car"), 127, 66, 64, 39);

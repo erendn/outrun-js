@@ -1,5 +1,6 @@
 import AssetLoader from "./engine/core/AssetLoader.js";
 import Clock from "./engine/core/Clock.js";
+import SceneManager from "./engine/core/SceneManager.js";
 import Radio from "./Radio.js";
 import Canvas from "./engine/render/Canvas.js";
 import EventListener from "./EventListener.js";
@@ -20,11 +21,11 @@ import * as FONTS from "./constants/Fonts.js";
 class Game {
 
     constructor() {
-        this.scene = MENU_SCENE; // Current scene of the game
         // FIXME: The game shouldn't start immediately
         this.playable = true; // If the game is playable
         this.startDelay = 0; // Delay when starting the game
         this.route = "coconut-beach"; // FIXME: Move somewhere else
+        SceneManager.set(MENU_SCENE);
     }
 
     /**
@@ -77,6 +78,7 @@ class Game {
      * This is the main loop function of the game. Once executed, it calls itself continuously.
      */
     mainLoop() {
+        const scene = SceneManager.get();
         // If all assets are not yet loaded, draw the loading screen
         if (AssetLoader.loadPercentage() < 1) {
             _Game.drawLoading();
@@ -84,9 +86,9 @@ class Game {
             // Update the radio
             Radio.update();
             // Draw the current scene
-            if (_Game.scene == MENU_SCENE | _Game.scene == RADIO_SCENE) {
+            if (scene == MENU_SCENE || scene == RADIO_SCENE) {
                 Radio.draw();
-            } else if (_Game.scene == IN_GAME_SCENE) {
+            } else if (scene == IN_GAME_SCENE) {
                 GameWorld.project();
                 GameWorld.draw();
             }

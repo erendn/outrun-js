@@ -1,5 +1,6 @@
 import AssetLoader from "./engine/core/AssetLoader.js";
 import AudioPlayer from "./engine/core/AudioPlayer.js";
+import SceneManager from "./engine/core/SceneManager.js";
 import Radio from "./Radio.js";
 import Game from "./Game.js";
 import { MENU_SCENE, RADIO_SCENE, IN_GAME_SCENE } from "./constants/Scenes.js";
@@ -33,25 +34,26 @@ class EventListener {
      */
     keyDown(event) {
         const key = EventListener.normalize(event.which);
+        const scene = SceneManager.get();
         if (AssetLoader.loadPercentage() == 1) {
-            if (Game.scene == MENU_SCENE) {
+            if (scene == MENU_SCENE) {
                 if (key == KEY_ENTER) {
-                    Game.scene = RADIO_SCENE;
+                    SceneManager.set(RADIO_SCENE);
                     AudioPlayer.play("sample/coin");
                 }
-            } else if (Game.scene == RADIO_SCENE) {
+            } else if (scene == RADIO_SCENE) {
                 if (key == KEY_LEFT) {
                     if (Radio.music != 0)
-                        Radio.music--;
+                    Radio.music--;
                 } else if (key == KEY_RIGHT) {
                     if (Radio.music != 2)
-                        Radio.music++;
+                    Radio.music++;
                 } else if (key == KEY_ENTER) {
                     AudioPlayer.stop("sample/wave");
                     Game.setup();
-                    Game.scene = IN_GAME_SCENE;
+                    SceneManager.set(IN_GAME_SCENE);
                 }
-            } else if (Game.scene == IN_GAME_SCENE) {
+            } else if (scene == IN_GAME_SCENE) {
                 if (key == KEY_UP) {
                     Camera.position.z += 50;
                 } else if (key == KEY_DOWN) {
@@ -70,7 +72,8 @@ class EventListener {
      */
     keyUp(event) {
         const key = EventListener.normalize(event.which);
-        if (Game.scene == IN_GAME_SCENE) {
+        const scene = SceneManager.get();
+        if (scene == IN_GAME_SCENE) {
         }
     }
 
