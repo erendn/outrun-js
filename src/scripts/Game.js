@@ -3,7 +3,6 @@ import Clock from "./engine/core/Clock.js";
 import SceneManager from "./engine/core/SceneManager.js";
 import Radio from "./Radio.js";
 import Canvas from "./engine/render/Canvas.js";
-import EventListener from "./EventListener.js";
 import Camera from "./engine/render/Camera.js";
 import GameWorld from "./engine/render/GameWorld.js";
 import Segment from "./engine/render/Segment.js";
@@ -11,7 +10,8 @@ import GroundTile from "./tiles/GroundTile.js";
 import AsphaltTile from "./tiles/AsphaltTile.js";
 import SideTile from "./tiles/SideTile.js";
 import LineTile from "./tiles/LineTile.js";
-import { MENU_SCENE, RADIO_SCENE, IN_GAME_SCENE } from "./constants/Scenes.js";
+import { setup } from "./listeners/Utils.js";
+import * as SCENES from "./constants/Scenes.js";
 import { INTERFACE_CANVAS } from "./constants/Canvas.js";
 import * as FONTS from "./constants/Fonts.js";
 
@@ -25,13 +25,14 @@ class Game {
         this.playable = true; // If the game is playable
         this.startDelay = 0; // Delay when starting the game
         this.route = "coconut-beach"; // FIXME: Move somewhere else
-        SceneManager.set(MENU_SCENE);
+        SceneManager.set(SCENES.LOADING_SCENE);
     }
 
     /**
      * Initialize the game by taking the current time, loading all assets, and creating the event listener.
      */
     init() {
+        setup();
         Clock.subscribe(this.mainLoop);
         Clock.startClock();
     }
@@ -80,15 +81,18 @@ class Game {
     mainLoop() {
         const scene = SceneManager.get();
         // If all assets are not yet loaded, draw the loading screen
-        if (AssetLoader.loadPercentage() < 1) {
+        if (scene == SCENES.LOADING_SCENE) {
             _Game.drawLoading();
+            if (AssetLoader.loadPercentage() == 1) {
+                SceneManager.set(SCENES.MENU_SCENE);
+            }
         } else {
             // Update the radio
             Radio.update();
             // Draw the current scene
-            if (scene == MENU_SCENE || scene == RADIO_SCENE) {
+            if (scene == SCENES.MENU_SCENE || scene == SCENES.RADIO_SCENE) {
                 Radio.draw();
-            } else if (scene == IN_GAME_SCENE) {
+            } else if (scene == SCENES.IN_GAME_SCENE) {
                 GameWorld.project();
                 GameWorld.draw();
             }
