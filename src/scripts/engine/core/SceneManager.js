@@ -4,21 +4,21 @@
 class SceneManager {
 
     constructor() {
-        this.currentScene = null;
+        this._currentScene = null;
     }
 
     /**
      * Set the current scene of the game.
      */
     set(nextScene) {
-        this.currentScene = nextScene;
+        this._currentScene = nextScene;
     }
 
     /**
      * Return the current scene of the game.
      */
     get() {
-        return this.currentScene;
+        return this._currentScene;
     }
 
 }
